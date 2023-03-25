@@ -1,12 +1,24 @@
 import React from 'react';
+import { useForm } from "react-hook-form";
+
+import { 
+  agentChoicesList,
+  propertyTypeList
+} from '../data';
 
 import ChoicesInput from './ChoicesInput';
 import Input from './Input';
+import InputContainer from './InputContainer';
 
 const SearchForm = () => {
-  const squared = `${String.fromCharCode(178)}`;
+  const squaredSymbol = `${String.fromCharCode(178)}`;
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  
+  const onSubmit = submitData => {
+    console.log(submitData);
+  }
 
-  const createChoicesObject = (choicesList) => {
+  const createChoicesObject = choicesList => {
     return choicesList.map(choice => ({
       value: choice,
       label: choice,
@@ -14,46 +26,60 @@ const SearchForm = () => {
     })
   )}
 
-  const propertyTypeList = ["Maison", "Terrain", "Immeuble", "Appartement"];
   const propertyTypeChoices = createChoicesObject(propertyTypeList);
-  const agentChoicesList = ["Cabinet Jammes", "Time and Stone Immobilier", "Aude Immobilier", "Richardson Immobilier", "Cimm Immobilier", "Arthur Immo", "M&M Immobilier", "Nestenn", "A.P.I.", "Ami Immobilier"];
   const agentChoices = createChoicesObject(agentChoicesList);
 
-
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    console.log(e);
-  }
-
   return (
-    <form className="search-criteria-container">
+    <form className="search-criteria-container" onSubmit={handleSubmit(onSubmit)}>
       <div className="row-container">
-        <Input double title="Price range (€)" placeholders={["Min", "Max"]}/>
-        <Input double title="Property size" placeholders={[`Min m${squared}`, `Max m${squared}`]} />
-        <Input double title="Plot size" placeholders={[`Min m${squared}`, `Max m${squared}`]} />
+        <InputContainer double title="Price range (€)">
+          <Input name="minPrice" number placeholder="Min" register={register} />
+          <Input name="maxPrice" number placeholder="Max" register={register} />
+        </InputContainer>
+
+        <InputContainer double title="Property size">
+          <Input name="minSize" number placeholder={`Min m${squaredSymbol}`} register={register} />
+          <Input name="maxSize" number placeholder={`Max m${squaredSymbol}`} register={register} />
+        </InputContainer>
+
+        <InputContainer double title="Plot size">
+          <Input name="minPlot" number placeholder={`Min m${squaredSymbol}`} register={register} />
+          <Input name="maxPlot" number placeholder={`Max m${squaredSymbol}`} register={register} />
+        </InputContainer>
       </div>
       
       <div className="row-container row-container-choices">
-        <ChoicesInput choices={propertyTypeChoices} title="Property type" />
-        <Input className="bedrooms" double title="No. of bedrooms" placeholders={["Min", "Max"]} />
+        <ChoicesInput
+          choices={propertyTypeChoices}
+          title="Property Type"
+          register={register}
+          setValue={setValue}
+        />
+        <InputContainer className="bedrooms" double title="No. of bedrooms">
+          <Input name="minBedrooms" number placeholder="Min" register={register} />
+          <Input name="maxBedrooms" number placeholder="Max" register={register} />
+        </InputContainer>
       </div>
 
       <div className="row-container">
-        <Input title="Keyword(s)" placeholders={["Enter search keywords"]} />
-
-        <div className="search-field-container">
-          <label className="search-label">Search area</label>
-          <div className="input-container">
-            <input className="search-input" placeholder="Enter postcode" />
-          </div>
-        </div>
+        <InputContainer title="Keyword(s)">
+          <Input name="keywords" placeholder="Enter search keywords" register={register} />
+        </InputContainer>
+        <InputContainer title="Search area">
+          <Input name="postcode" number placeholder="Enter postcode" register={register} />
+        </InputContainer>
       </div>
 
       <div className="row-container row-container-choices">
-        <ChoicesInput choices={agentChoices} title="Agent" />
+        <ChoicesInput
+          choices={agentChoices}
+          title="Agent"
+          register={register}
+          setValue={setValue}
+        />
       </div>
 
-      <button className="btn-search" type="submit" onClick={handleFormSubmit}>Find properties</button>
+      <button className="btn-search" type="submit">Find properties</button>
     </form>
   )
 }

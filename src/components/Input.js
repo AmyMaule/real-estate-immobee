@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Input = ({ className, double, title, placeholders}) => { 
+const Input = ({ name, number, placeholder, register }) => {
+  const [inputValue, setInputValue] = useState("");
+
+  // ensure only numbers can be typed in number inputs
+  const handleNumberInput = e => {
+    let value = e.target.value;
+    if (number) {
+      [...value].forEach((char, i) => {
+        if (char.charCodeAt(0) < 48 || char.charCodeAt(0) > 57) {
+          value = value.replace(char, "");
+        }
+      });
+    }
+    setInputValue(value);
+  }
+
   return (
-    <div className={`search-field-container ${className || double ? "search-field-container-" + (className || "double") : ""}`}>
-      <label className="search-label">{title}</label>
-      <div className={`input-container ${className || double ? "input-container-" + (className || "double") : ""}`}>
-        <input className="search-input" placeholder={placeholders[0]} />
-        {double && <input className="search-input" placeholder={placeholders[1]} />}
-      </div>
-    </div>
+    <input
+      className="search-input"
+      placeholder={placeholder}
+      {...register(name)}
+      onInput={handleNumberInput}
+      value={inputValue}
+    />
   )
 }
 
