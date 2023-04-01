@@ -32,6 +32,14 @@ const SearchForm = ({ setSearch, setSearchQuery, setShowSearchResults }) => {
       }
     }
 
+    // incNoneValues are the checkboxes to determine whether the search results include listings with incomplete data
+    const incNoneValues = ["inc_none_beds", "inc_none_rooms", "inc_none_size", "inc_none_plot"];
+    incNoneValues.forEach(value => {
+      if (submitData[value] === false) {
+        searchQuery[value] = submitData[value];
+      }
+    })
+
     setSearchQuery(searchQuery);
     setShowSearchResults(true);
   }

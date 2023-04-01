@@ -31,11 +31,21 @@ export const getSearchURL = searchQuery => {
     }
   });
   
+  // exclude listings with incomplete data if the user has unchecked the box
+  if (searchQuery.inc_none_beds === false) {
+    query += "&inc_none_beds=false";
+  }
+  if (searchQuery.inc_none_rooms === false) {
+    query += "&inc_none_rooms=false";
+  }
+  if (searchQuery.inc_none_size === false) {
+    query += "&inc_none_size=false";
+  }
+  if (searchQuery.inc_none_plot === false) {
+    query += "&inc_none_plot=false";
+  }
+  
   // &search_radius=0
-  // &inc_none_beds=true
-  // &inc_none_size=true
-  // &inc_none_plot=true
-  // inc_none_rooms
   
   if (query) query = "?" + query.slice(1);
   
