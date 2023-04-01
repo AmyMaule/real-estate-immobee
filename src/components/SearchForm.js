@@ -10,16 +10,17 @@ import ChoicesInput from './ChoicesInput';
 import Input from './Input';
 import InputContainer from './InputContainer';
 
-const SearchForm = ({ setSearchQuery, setShowSearchResults }) => {
+const SearchForm = ({ setSearch, setSearchQuery, setShowSearchResults }) => {
   const squaredSymbol = `${String.fromCharCode(178)}`;
   const [locationChoices, setLocationChoices] = useState([]);
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   
   const onSubmit = submitData => {
+    setSearch(true);
     const searchQuery = {};
 
     // only populate searchQuery with values the user has provided, ensure number values are converted to numbers
-    const numberValues = ["minBedrooms", "maxBedrooms", "minPlot", "maxPlot", "minPrice", "maxPrice", "minSize", "maxSize"];
+    const numberValues = ["minBeds", "maxBeds", "minPlot", "maxPlot", "minPrice", "maxPrice", "minSize", "maxSize"];
     for (let [key, value] of Object.entries(submitData)) {
       if (typeof value === "string" && value.trim()) {
         if (numberValues.indexOf(key) !== -1) {
@@ -89,8 +90,8 @@ const SearchForm = ({ setSearchQuery, setShowSearchResults }) => {
           setValue={setValue}
         />
         <InputContainer className="bedrooms" double title="No. of bedrooms">
-          <Input name="minBedrooms" number placeholder="Min" register={register} />
-          <Input name="maxBedrooms" number placeholder="Max" register={register} />
+          <Input name="minBeds" number placeholder="Min" register={register} />
+          <Input name="maxBeds" number placeholder="Max" register={register} />
         </InputContainer>
       </div>
 
@@ -106,7 +107,7 @@ const SearchForm = ({ setSearchQuery, setShowSearchResults }) => {
       <div className="row-container row-container-choices">
         <ChoicesInput
           choices={agentChoices}
-          title="Agent"
+          title="Agents"
           register={register}
           setValue={setValue}
         />
