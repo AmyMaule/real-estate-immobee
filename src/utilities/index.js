@@ -35,6 +35,7 @@ export const getSearchURL = searchQuery => {
   // &inc_none_beds=true
   // &inc_none_size=true
   // &inc_none_plot=true
+  // inc_none_rooms
   
   if (query) query = "?" + query.slice(1);
   

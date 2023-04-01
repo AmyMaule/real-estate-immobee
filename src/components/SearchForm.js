@@ -119,6 +119,28 @@ const SearchForm = ({ setSearch, setSearchQuery, setShowSearchResults }) => {
         </InputContainer>
       </div>
 
+      <h4 className="unknown-listings-title">A few listings are missing data, such as number of bedrooms or property size.</h4>
+      <h4 className="unknown-listings-title">Do you want to include these listings in your search?</h4>
+      <h6 className="unknown-listings-subtitle">Include unknown...</h6>
+      <div className="row-container row-container-checkbox">
+        <label className="checkbox-label">
+          Number of rooms
+          <input type="checkbox" defaultChecked {...register("inc_none_rooms")} />
+        </label>
+        <label className="checkbox-label">
+          Number of bedrooms
+          <input type="checkbox" defaultChecked {...register("inc_none_beds")} />
+        </label>
+        <label className="checkbox-label">
+          Property size
+          <input type="checkbox" defaultChecked {...register("inc_none_size")} />
+        </label>
+        <label className="checkbox-label">
+          Land size
+          <input type="checkbox" defaultChecked {...register("inc_none_plot")} />
+        </label>
+      </div>
+
       <button className="btn-search" type="submit">Find properties</button>
     </form>
   )
