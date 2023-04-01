@@ -82,6 +82,10 @@ body {
   .choices__inner {
     background-color: white;
   }
+
+  .choices__item {
+    text-transform: capitalize;
+  }
   
   .choices__input {
     font-size: 1.15rem;

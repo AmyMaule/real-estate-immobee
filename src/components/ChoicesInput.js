@@ -32,7 +32,7 @@ const ChoicesInput = ({ choices, register, setValue, title }) => {
         placeholderValue: "Type to search"
       });
     }
-  });
+  }, []);
 
   return (
     <div className="search-field-container">
