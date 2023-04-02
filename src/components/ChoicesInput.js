@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Choices from 'choices.js';
 
 const ChoicesInput = ({ choices, register, setValue, title }) => {
+  const [loading, setLoading] = useState(true);
   // camelCase the title
   const inputName = title[0].toLowerCase() + title.slice(1).replace(" ", "");
   const choicesRef = useRef();
@@ -21,6 +22,7 @@ const ChoicesInput = ({ choices, register, setValue, title }) => {
 
   useEffect(() => {
     if (choicesRef.current) {
+      setLoading(false);
       new Choices(choicesRef.current, {
         removeItemButton: true,
         duplicateItemsAllowed: false,
@@ -38,9 +40,10 @@ const ChoicesInput = ({ choices, register, setValue, title }) => {
     <div className="search-field-container">
       <div className="choices-container">
         <label className="search-label-choices">{title}</label>
-          <div className="input-container" {...register(inputName)}>
+          <div className="input-container" {...register(inputName)} style={{display: loading ? "none" : "flex"}}>
             <select ref={choicesRef} multiple onChange={setChoices}></select>
           </div>
+          {loading && <input className="search-input input-choices-loading" placeholder="Type to search" />}
       </div>
     </div>
   )

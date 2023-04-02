@@ -45,7 +45,8 @@ export const getSearchURL = searchQuery => {
     query += "&inc_none_plot=false";
   }
   
-  // &search_radius=0
+  // search_radius always has a value
+  query += `&search_radius=${searchQuery.search_radius}`;
   
   if (query) query = "?" + query.slice(1);
   

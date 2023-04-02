@@ -55,6 +55,23 @@ const SearchForm = ({ setSearch, setSearchQuery, setShowSearchResults }) => {
   const propertyTypeChoices = createChoicesObject(propertyTypeList);
   const agentChoices = createChoicesObject(Object.keys(agentChoicesMapping));
 
+  const renderSliderOption = (id, value, radius, defaultChecked) => {
+    return (
+      <>
+        <input
+          className="input-slider"
+          defaultChecked={defaultChecked}
+          id={id}
+          name="search-radius"
+          type="radio"
+          value={value}
+          {...register("search_radius")}
+        />
+        <label className="label-slider" htmlFor={id} search-radius={`${radius} km`} />
+      </>
+    )
+  }
+
   useEffect(() => {
     fetch("https://suspiciousleaf.pythonanywhere.com/postcode_dict/")
     .then(res => res.json())
@@ -110,6 +127,18 @@ const SearchForm = ({ setSearch, setSearchQuery, setShowSearchResults }) => {
           register={register}
           setValue={setValue}
         />
+      </div>
+
+      <div className="row-container row-container-slider">
+        <label className="search-label">Search radius</label>
+        <div className="search-radius-slider">
+          {renderSliderOption("1", "1", "0", true)}
+          {renderSliderOption("2", "5", "5")}
+          {renderSliderOption("3", "10", "10")}
+          {renderSliderOption("4", "25", "25")}
+          {renderSliderOption("5", "50", "50")}
+          <div className="slider-cirle" />
+        </div>
       </div>
 
       <div className="row-container row-container-choices">
