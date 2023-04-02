@@ -1,0 +1,152 @@
+@media screen and (max-width: 990px) {
+  .page-container {
+    padding: 2rem 0;
+  }
+
+  .search-criteria-container {
+    padding: 0 5rem;
+  }
+  
+  .row-container {
+    gap: 1.5rem;
+  }
+
+  .row-container-slider {
+    gap: 0;
+  }
+
+  .search-field-container-double,
+  .search-field-container-bedrooms {
+    max-width: calc((100% - 3rem) / 3);
+  }
+
+  .listings-container {
+    padding: 0 2.5rem;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .row-container-checkbox {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem;
+    max-width: 28rem;
+    margin: 2rem auto 2rem auto;
+  }
+
+  .checkbox-label {
+    justify-content: right;
+    min-width: 10.25rem;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .search-criteria-container {
+    padding: 0 3.5rem;
+  }
+
+  .row-container-choices {
+    flex-direction: column;
+
+    .search-field-container {
+      min-width: 100%;
+    }
+  }
+  
+  .search-field-container-double {
+    max-width: calc((100% - 2rem) / 3);
+  }
+
+  .search-field-container-bedrooms {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .input-container-double {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .input-container-bedrooms {
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .search-criteria-container {
+    padding: 0 2rem;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .row-container {
+    flex-direction: column;
+  }
+
+  .row-container-checkbox {
+    flex-direction: row;
+  }
+
+  .search-field-container {
+    width: 100%;
+  }
+
+  .search-field-container-double {
+    max-width: unset;
+  }
+
+  .input-container-double {
+    flex-direction: row;
+  }
+
+  .row-container-slider {
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .search-radius-slider {
+    width: 22rem;
+  }
+
+  .btn-search {
+    padding: 0.75rem 0;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 478px) {
+  .search-radius-slider {
+    width: 18.5rem;
+  }
+
+  .unknown-listings-title {
+    font-size: 1.1rem;
+  }
+
+  .unknown-listings-subtitle {
+    margin: 1.25rem 0 -1.25rem 0;
+  }
+
+  .row-container-checkbox {
+    flex-direction: column;
+    justify-content: left;
+    gap: 0.75rem;
+  }
+
+  .checkbox-label {
+    min-width: unset;
+    width: 100%;
+    max-width: 12rem;
+    justify-content: space-between;
+  }
+
+  .search-label,
+  .search-label-choices {
+    margin: 0;
+  }
+
+  .search-input {
+    height: 2.5rem;
+  }
+}
