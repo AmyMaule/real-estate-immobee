@@ -34,6 +34,7 @@ function App() {
     if (search) {
       const searchURL = getSearchURL(searchQuery);
       setQueryURL(searchURL);
+      setSearch(false);
     }
   }, [search]);
 
@@ -41,6 +42,7 @@ function App() {
     <div className="page-container">
       <h1 className="page-title">Property for sale</h1>
       <SearchForm
+        search={search}
         setSearch={setSearch}
         setSearchQuery={setSearchQuery}
         setShowSearchResults={setShowSearchResults}

@@ -284,16 +284,25 @@ body {
   flex-direction: column;
   width: 350px;
   height: 600px;
+  background-color: rgb(250, 246, 235);
   border-radius: 10px;
   box-shadow: 0 4px 18px rgba(135, 135, 135, 0.3);
   overflow: hidden;
 }
 
 .listing-image-container {
+  // ensure the alt is displayed in the center of the img
+  display: flex;
+  align-items: center;
+  text-align: center;
   position: relative;
   width: 100%;
-  max-height: 300px;
+  min-height: 10rem;
+  max-height: 19rem;
+  background-color: rgb(255, 251, 240);
+  box-shadow: 0 2px 12px rgba(135, 135, 135, 0.1);
   overflow: hidden;
+
 }
 
 .listing-image {
@@ -371,8 +380,8 @@ body {
 }
 
 .listing-icon {
-  width: 20px;
-  height: 20px;
+  width: 1.2rem;
+  height: 1.2rem;
   object-fit: contain; 
 }
 
@@ -381,20 +390,20 @@ body {
   height: 100%;
 }
 
-.btn-listing-description-see-more {
-  font-weight: bold;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  transition: all 200ms;
-  -webkit-transition: all 200ms;
+// .btn-listing-description-see-more {
+//   font-weight: bold;
+//   background-color: transparent;
+//   outline: none;
+//   border: none;
+//   transition: all 200ms;
+//   -webkit-transition: all 200ms;
 
-  &:hover {
-    color: rgb(79, 54, 109);
-    transition: all 200ms;
-    -webkit-transition: all 200ms;
-  }
-}
+//   &:hover {
+//     color: rgb(79, 54, 109);
+//     transition: all 200ms;
+//     -webkit-transition: all 200ms;
+//   }
+// }
 
 .listing-link {
   color: black;

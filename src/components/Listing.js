@@ -5,9 +5,9 @@ const Listing = ({ listing }) => {
 
   const getListingDescription = description => {
     if (typeof description === "string") {
-      return description.length > 220 ? description.slice(0, 220) : description;
+      return description.length > 222 ? description.slice(0, 222) + "..." : description;
     }
-    return description[0].length > 220 ? description[0].slice(0, 220) : description[0];
+    return description[0].length > 222 ? description[0].slice(0, 222) : description[0];
   }
 
   const handleChangePhoto = direction => {
@@ -25,7 +25,7 @@ const Listing = ({ listing }) => {
   const checkUnlisted = (field) => {
     return field === null
       ? "Unlisted"
-      : field;
+      : field.toLocaleString();
   }
 
   return (
@@ -34,21 +34,26 @@ const Listing = ({ listing }) => {
         <div className="img-arrow img-arrow-left" onClick={() => handleChangePhoto("L")}>
           <span>&#x27a4;</span>
         </div>
-        <img src={listing.photos[currentPhoto]} alt="listing-image" className="listing-image" id={listing.ref} />
+        <img src={listing.photos[currentPhoto]} alt="See original listing for more pictures" className="listing-image" />
         <div className="img-arrow img-arrow-right" onClick={() => handleChangePhoto("R")}>
           <span>&#x27A4;</span>
         </div>
       </div>
       <div className="listing-details-container">
         <div className="listing-row">
-          <h5 className="listing-bedrooms">
-            {checkUnlisted(listing.bedrooms)} bedrooms
-            <span className="divider">|</span>
-          </h5>
-          <h5 className="listing-rooms">
-          {checkUnlisted(listing.rooms)} rooms
-            <span className="divider">|</span>
-          </h5>
+          {listing.types === "Terrain" 
+          ? <h5>Terrain</h5>
+          : <>
+              <h5 className="listing-bedrooms">
+                {checkUnlisted(listing.bedrooms)} bedrooms
+                <span className="divider">|</span>
+              </h5>
+              <h5 className="listing-rooms">
+              {checkUnlisted(listing.rooms)} rooms
+                <span className="divider">|</span>
+              </h5>
+            </>
+          }
           <h5 className="listing-price">€{listing.price.toLocaleString()}</h5>
         </div>
         <div className="listing-row listing-icons-container">
