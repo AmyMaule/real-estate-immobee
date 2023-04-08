@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 
 const Listing = ({ listing }) => {
-  const [currentPhoto, setCurrentPhoto] = useState(0)
+  const [currentPhoto, setCurrentPhoto] = useState(0);
+
+  // replace listing photos for Ami Immobilier with those from a separate folder to prevent 403 errors
+  if (listing.agent === "Ami Immobilier") {
+    for (let i = 0; i < listing.photos.length; i++) {
+      listing.photos[i] = `https://suspiciousleaf.pythonanywhere.com/images/${listing.ref}/${i}.jpg`
+    }
+  }
 
   const getListingDescription = description => {
     if (typeof description === "string") {

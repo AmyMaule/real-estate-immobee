@@ -8,7 +8,7 @@ export const getSearchURL = searchQuery => {
     const agentQuery = searchQuery.agents.map(agent => {
       return agentChoicesMapping[agent];
     }).join(",");
-    query += `&agent_list=${agentQuery}`;
+    query += `&agents=${agentQuery}`;
   }
   
   if (queryParams.indexOf("area") !== -1) {
@@ -20,7 +20,7 @@ export const getSearchURL = searchQuery => {
 
   if (queryParams.indexOf("propertyType") !== -1) {
     const propertyTypeQuery = searchQuery.propertyType.join(",");
-    query += `&type_list=${propertyTypeQuery}`;
+    query += `&types=${propertyTypeQuery}`;
   }
 
   const numberInputs = ["minBeds", "maxBeds", "minPrice", "maxPrice", "minPlot", "maxPlot", "minSize", "maxSize"];
@@ -44,7 +44,12 @@ export const getSearchURL = searchQuery => {
   if (searchQuery.inc_none_plot === false) {
     query += "&inc_none_plot=false";
   }
-  
+
+  if (queryParams.indexOf("keywords") !== -1) {
+    const commaSepKeywords = searchQuery.keywords;
+    console.log(commaSepKeywords)
+  }
+
   // search_radius always has a value
   query += `&search_radius=${searchQuery.search_radius}`;
   
