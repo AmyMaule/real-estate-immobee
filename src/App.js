@@ -10,6 +10,7 @@ import SearchForm from "./components/SearchForm";
 // TODO: Sort listings by price/size/location, etc
 
 function App() {
+  const [loadingListings, setLoadingListings] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState([]);
@@ -25,7 +26,9 @@ function App() {
         .then(data => {
           setNoListingsFound(!data.length);
           setListings(data);
+          setShowSearchResults(true);
           setSearch(false);
+          setLoadingListings(true);
         });
     }
   }, [queryURL]);
@@ -39,22 +42,26 @@ function App() {
   }, [search]);
 
   return (
-    <div className="page-container">
-      <h1 className="page-title">Property for sale</h1>
-      <SearchForm
-        search={search}
-        setSearch={setSearch}
-        setSearchQuery={setSearchQuery}
-        setShowSearchResults={setShowSearchResults}
-      />
-
-      {showSearchResults &&
-        <ListingsContainer
-          listings={listings}
-          noListingsFound={noListingsFound}
+      <>
+      <div className="page-container">
+        <h1 className="page-title">Property for sale</h1>
+        <SearchForm
+          search={search}
+          setNoListingsFound={setNoListingsFound}
+          setSearch={setSearch}
+          setSearchQuery={setSearchQuery}
         />
-      }
-    </div>
+
+        {showSearchResults &&
+          <ListingsContainer
+            listings={listings}
+            noListingsFound={noListingsFound}
+            loadingListings={loadingListings}
+            setLoadingListings={setLoadingListings}
+          />
+        }
+      </div>
+    </>
   );
 }
 

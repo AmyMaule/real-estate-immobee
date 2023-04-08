@@ -10,13 +10,14 @@ import ChoicesInput from './ChoicesInput';
 import Input from './Input';
 import InputContainer from './InputContainer';
 
-const SearchForm = ({ search, setSearch, setSearchQuery, setShowSearchResults }) => {
+const SearchForm = ({ search, setNoListingsFound, setSearch, setSearchQuery }) => {
   const [locationChoices, setLocationChoices] = useState([]);
   const squaredSymbol = `${String.fromCharCode(178)}`;
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   
   const onSubmit = submitData => {
     if (search) return;
+    setNoListingsFound(false);
     setSearch(true);
     const searchQuery = {};
 
@@ -42,7 +43,6 @@ const SearchForm = ({ search, setSearch, setSearchQuery, setShowSearchResults })
     })
 
     setSearchQuery(searchQuery);
-    setShowSearchResults(true);
   }
 
   const createChoicesObject = choicesList => {
