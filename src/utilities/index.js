@@ -46,8 +46,9 @@ export const getSearchURL = searchQuery => {
   }
 
   if (queryParams.indexOf("keywords") !== -1) {
-    const commaSepKeywords = searchQuery.keywords;
-    console.log(commaSepKeywords)
+    // split on space or comma
+    const keywordList = searchQuery.keywords.split(/[ ,]+/).join(",");
+    query += `&keywords=${keywordList}`
   }
 
   // search_radius always has a value
