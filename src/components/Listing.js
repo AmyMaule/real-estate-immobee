@@ -3,13 +3,6 @@ import React, { useState } from 'react';
 const Listing = ({ listing }) => {
   const [currentPhoto, setCurrentPhoto] = useState(0);
 
-  // replace listing photos for Ami Immobilier with those from a separate folder to prevent 403 errors
-  if (listing.agent === "Ami Immobilier") {
-    for (let i = 0; i < listing.photos.length; i++) {
-      listing.photos[i] = `https://suspiciousleaf.pythonanywhere.com/images/${listing.ref}/${i}.jpg`
-    }
-  }
-
   const getListingDescription = description => {
     if (typeof description === "string") {
       return description.length > 222 ? description.slice(0, 222) + "..." : description;
@@ -19,12 +12,12 @@ const Listing = ({ listing }) => {
 
   const handleChangePhoto = direction => {
     if (direction === "R") {
-      if (currentPhoto === listing.photos.length - 1) {
+      if (currentPhoto === listing.photos_hosted.length - 1) {
         setCurrentPhoto(0);
       } else setCurrentPhoto(prev => prev + 1);
     } else if (direction === "L") {
       if (currentPhoto === 0) {
-        setCurrentPhoto(listing.photos.length - 1);
+        setCurrentPhoto(listing.photos_hosted.length - 1);
       } else setCurrentPhoto(prev => prev - 1);
     }
   }
@@ -41,7 +34,11 @@ const Listing = ({ listing }) => {
         <div className="img-arrow img-arrow-left" onClick={() => handleChangePhoto("L")}>
           <span>&#x27a4;</span>
         </div>
-        <img src={listing.photos[currentPhoto]} alt="See original listing for more pictures" className="listing-image" />
+        <img
+          alt="See original listing for more pictures"
+          className="listing-image"
+          src={listing.photos_hosted[currentPhoto]}
+        />
         <div className="img-arrow img-arrow-right" onClick={() => handleChangePhoto("R")}>
           <span>&#x27A4;</span>
         </div>
