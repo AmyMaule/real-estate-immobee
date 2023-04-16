@@ -4,8 +4,10 @@
 @import "./search-form";
 @import "./listings";
 // @import "./loading";
-@import "./media";
 @import "./sorting-dropdown";
+
+// media queries
+@import "./media";
 
 .hide {
   display: none;
