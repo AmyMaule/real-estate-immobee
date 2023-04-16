@@ -57,6 +57,7 @@ function App() {
             listings={listings}
             noListingsFound={noListingsFound}
             loadingListings={loadingListings}
+            setListings={setListings}
             setLoadingListings={setLoadingListings}
           />
         }
