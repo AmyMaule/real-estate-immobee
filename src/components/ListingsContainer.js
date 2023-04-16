@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactPaginate from 'react-paginate';
 
 import Listing from './Listing';
+import SortingDropdown from './SortingDropdown';
 
 const ListingsContainer = ({ listings, loadingListings, noListingsFound, setLoadingListings }) => {
   const [currentOffset, setCurrentOffset] = useState(0);
+  const searchResultsContainerRef = useRef();
   const listingsPerPage = 10;
 
   const currentPageData = listings
@@ -15,6 +17,12 @@ const ListingsContainer = ({ listings, loadingListings, noListingsFound, setLoad
   const handlePageChange = e => {
     const newOffset = (e.selected * listingsPerPage) % listings.length;
     setCurrentOffset(newOffset);
+
+    // the last page of results doesn't smooth scroll if it is not full height
+    window.scrollTo({
+      top: searchResultsContainerRef.current.offsetTop - 24,
+      behavior: listings.length - newOffset < 9 ? "auto" : "smooth",
+    });
   };
 
   useEffect(() => {
@@ -36,7 +44,14 @@ const ListingsContainer = ({ listings, loadingListings, noListingsFound, setLoad
   if (!listings.length) return null;
 
   return (   
-    <>
+    <div className="search-results-container" ref={searchResultsContainerRef}>
+      <div className="listings-title-container">
+      <h3 className="listings-title">
+        Showing results {currentOffset + 1} - {currentOffset + currentPageData.length} of {listings.length}
+      </h3>
+      <SortingDropdown />
+      </div>
+
       <div className="listings-container">
         {currentPageData}
       </div>
@@ -61,7 +76,7 @@ const ListingsContainer = ({ listings, loadingListings, noListingsFound, setLoad
           />
         }
       </div>
-    </>
+    </div>
   )
 }
 

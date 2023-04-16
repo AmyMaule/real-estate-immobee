@@ -1,7 +1,27 @@
+.search-results-container {
+  background-color: rgb(250, 245, 225);
+  border-radius: 0.6rem;
+  padding: 2rem;
+  margin: 0 1.5rem 8rem 1.5rem;
+  scroll-margin-top: 1.5rem;
+  box-shadow: 0 0.25rem 1.2rem 0.15rem #8787874d;
+  margin-top: 3rem;
+}
+
+.listings-title-container {
+  display: flex;
+  align-items: center;
+}
+
+.listings-title {
+  font-size: 1rem;
+}
+
 .no-listings-found {
   font-size: 1.4rem;
   text-align: center;
   padding: 1rem;
+  margin: 5rem 0 8rem 0;
 }
 
 .listings-container {
@@ -9,8 +29,7 @@
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 3rem;
-  padding-bottom: 2rem;
-  margin: 3rem 0 8rem 0;
+  margin-top: 2rem;
 }
 
 .listing-container {
@@ -19,8 +38,8 @@
   width: 350px;
   height: 600px;
   background-color: rgb(250, 246, 235);
-  border-radius: 10px;
-  box-shadow: 0 4px 18px rgba(135, 135, 135, 0.3);
+  border-radius: 0.6rem;
+  box-shadow: 0 0.25rem 1.2rem #8787874d;
   overflow: hidden;
 }
 
@@ -169,11 +188,9 @@
   display: flex;
   justify-content: center;
   width: 100%;
-}
+  margin-top: 3rem;
 
-.pagination-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%;
+  .pagination {
+    margin: 0;
+  }
 }

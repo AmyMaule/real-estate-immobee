@@ -19,10 +19,6 @@
   .search-field-container-bedrooms {
     max-width: calc((100% - 3rem) / 3);
   }
-
-  .listings-container {
-    padding: 0 2.5rem;
-  }
 }
 
 @media screen and (max-width: 850px) {
@@ -76,6 +72,19 @@
 @media screen and (max-width: 650px) {
   .search-criteria-container {
     padding: 0 2rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .listings-title-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .sorting-dropdown-container {
+    margin: 0;
   }
 }
 
@@ -148,5 +157,11 @@
 
   .search-input {
     height: 2.5rem;
+  }
+
+  .img-arrow {    
+    &:hover {
+      width: 1.5rem;
+    }
   }
 }
