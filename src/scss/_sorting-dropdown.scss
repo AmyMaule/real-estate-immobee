@@ -148,7 +148,8 @@
       0.4s padding-top linear,
       0.4s padding-bottom linear;
       
-    &:hover {
+    &:hover,
+    &:active {
       background-color: #f4a597;
     }
   }

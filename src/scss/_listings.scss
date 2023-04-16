@@ -44,23 +44,23 @@
 }
 
 .listing-image-container {
+  position: relative;
   // ensure the alt is displayed in the center of the img
   display: flex;
   align-items: center;
   text-align: center;
-  position: relative;
   width: 100%;
   min-height: 10rem;
   max-height: 19rem;
-  background-color: rgb(255, 251, 240);
+  background-color: rgba(222, 224, 241, 0.5);
   box-shadow: 0 2px 12px rgba(135, 135, 135, 0.1);
   overflow: hidden;
-
 }
 
 .listing-image {
-  width: 100%;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
+  margin: 0 auto;
 }
 
 .img-arrow {
@@ -70,8 +70,8 @@
   position: absolute;
   font-size: 1.4rem;
   height: 100%;
-  width: 25px;
-  background-color: rgba(222, 224, 241, 0.7);
+  width: 1.5rem;
+  background-color: rgba(222, 224, 241, 0.6);
   top: 0;
   cursor: pointer;
   user-select: none;

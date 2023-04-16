@@ -4,10 +4,10 @@ import ReactPaginate from 'react-paginate';
 import Listing from './Listing';
 import SortingDropdown from './SortingDropdown';
 
-const ListingsContainer = ({ listings, loadingListings, noListingsFound, setLoadingListings }) => {
+const ListingsContainer = ({ listings, loadingListings, noListingsFound, setListings, setLoadingListings }) => {
   const [currentOffset, setCurrentOffset] = useState(0);
   const searchResultsContainerRef = useRef();
-  const listingsPerPage = 10;
+  const listingsPerPage = window.innerWidth > 1274 ? 12 : 10;
 
   const currentPageData = listings
     .slice(currentOffset, currentOffset + listingsPerPage)
@@ -26,6 +26,9 @@ const ListingsContainer = ({ listings, loadingListings, noListingsFound, setLoad
   };
 
   useEffect(() => {
+    // reset page to zero when listings change
+    setCurrentOffset(0);
+
     if (listings.length && loadingListings) {
       setLoadingListings(false);
     }
@@ -41,6 +44,8 @@ const ListingsContainer = ({ listings, loadingListings, noListingsFound, setLoad
     )
   }
 
+  console.log(listings[0])
+
   if (!listings.length) return null;
 
   return (   
@@ -49,7 +54,7 @@ const ListingsContainer = ({ listings, loadingListings, noListingsFound, setLoad
       <h3 className="listings-title">
         Showing results {currentOffset + 1} - {currentOffset + currentPageData.length} of {listings.length}
       </h3>
-      <SortingDropdown />
+      <SortingDropdown listings={listings} setListings={setListings} />
       </div>
 
       <div className="listings-container">

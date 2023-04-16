@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 
-const SortingDropdown = () => {
+const SortingDropdown = ({ listings, setListings }) => {
   const dropdownRef = useRef();
-  const dropdownItems = ["Price up", "Price down", "Town A - Z", "Town Z - A", "House size up", "House size down", "Garden size up", "Garden size down", "No. bedrooms up", "No. bedrooms down"];
+  const dropdownItems = ["Price up", "Price down", "Agent A-Z", "Agent Z-A", "House size up", "House size down", "Garden size up", "Garden size down", "No. bedrooms up", "No. bedrooms down"];
 
   const renderArrow = direction => {
     return <span className={`dropdown-arrow dropdown-${direction}-arrow`}>{"\u279C"}</span>
@@ -14,7 +14,7 @@ const SortingDropdown = () => {
     }
   }
 
-  const handleSort = e => {
+  const determineSelectedSort = e => {
     let target = e.target.classList.contains("dropdown-arrow")
       ? e.target.parentElement : e.target;
     let selectedItem = target.innerText;
@@ -30,8 +30,31 @@ const SortingDropdown = () => {
         }
       })
     }
+    handleSort(selectedItem);
+  }
 
-    // selectedItem is now the item that has been clicked
+  const sortMapping = {
+    "Price": "price",
+    "Agent": "agent",
+    "House size": "size",
+    "Garden size": "plot",
+    "No. bedrooms": "bedrooms"
+  }
+
+  const handleSort = sort => {
+    sort = sort.split(" ");
+    const direction = sort.pop();
+    sort = sort.join(" ");
+    
+    if (direction === "A-Z") {
+      setListings([...listings].sort((a, b) => a[sortMapping[sort]].toUpperCase() > b[sortMapping[sort]].toUpperCase() ? 1 : -1));
+    } else if (direction === "Z-A") {
+      setListings([...listings].sort((a, b) => a[sortMapping[sort]].toUpperCase() < b[sortMapping[sort]].toUpperCase() ? 1 : -1));
+    } else if (direction === "up") {
+      setListings([...listings].sort((a, b) => a[sortMapping[sort]] > b[sortMapping[sort]] ? 1 : -1));
+    } else {
+      setListings([...listings].sort((a, b) => a[sortMapping[sort]] < b[sortMapping[sort]] ? 1 : -1));
+    }
   }
 
   const handleCloseDropdown = e => {
@@ -62,7 +85,7 @@ const SortingDropdown = () => {
             const lastItem = itemArr[itemArr.length - 1];
             let arrow = lastItem === "up" || lastItem === "down" ? itemArr.pop() : "";
             return (
-              <li className="sorting-dropdown-item" key={item} onClick={handleSort}>
+              <li className="sorting-dropdown-item" key={item} onClick={determineSelectedSort}>
                 {itemArr.join(" ")}
                 {arrow && renderArrow(arrow)}
               </li>)
