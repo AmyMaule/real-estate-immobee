@@ -1,6 +1,9 @@
- .sorting-dropdown-container {
+$dropdown-width: 14rem;
+$angle-width: 7rem;
+
+.sorting-dropdown-container {
   position: relative;
-  width: 12.5rem;
+  width: $dropdown-width;
   margin-left: auto;
   padding: 0;
 }
@@ -15,22 +18,34 @@
   display: block;
   font-weight: bold;
   font-size: 1.5rem;
-  background: #f4a597;
-  width: 12.5rem;
+  background-color: #f4a597;
+  color: #ffffdd;
+  width: $dropdown-width;
   height: 2.5rem;
   line-height: 2.5rem;
   text-align: center;
-  color: #ffffdd;
   text-transform: uppercase;
   margin: 0;
   z-index: 105;
+  transition: 0.3s all;
+
+  &:hover {
+    background-color: #ea9995;
+    color: white;
+    transition: 0.3s all;
+
+    &::before {
+      border-top-color: #e19689;
+      transition: 0.3s all;
+    }
+  }
 
   &::before {
     content: "";
     display: block;
     border-top: 0.5rem solid #ec9e91;
-    border-left: 6.25rem solid transparent;
-    border-right: 6.25rem solid transparent;
+    border-left: $angle-width solid transparent;
+    border-right: $angle-width solid transparent;
     position: absolute;
     top: 100%;
     left: 0;
@@ -43,8 +58,8 @@
     position: absolute;
     display: block;
     height: 0;
-    border-left: 6.25rem solid transparent;
-    border-right: 6.25rem solid transparent;
+    border-left: $angle-width solid transparent;
+    border-right: $angle-width solid transparent;
     border-bottom: 0 solid rgb(255, 245, 224);
     bottom: 0;
     left: 0;
@@ -70,7 +85,7 @@
 .sorting-dropdown-open {
   .sorting-dropdown-items {
     position: absolute;
-    width: 12.5rem;
+    width: $dropdown-width;
     padding: 1rem 0;
     background-color: rgb(255, 245, 224);
     z-index: 99;
@@ -83,8 +98,8 @@
       position: absolute;
       height: 0;
       border-top: 0 solid rgb(255, 245, 224);
-      border-left: 6.25rem solid transparent;
-      border-right: 6.25rem solid transparent;
+      border-left: $angle-width solid transparent;
+      border-right: $angle-width solid transparent;
       border-bottom: none;
       top: 100%;
       left: 0;
@@ -96,7 +111,7 @@
 
 .sorting-dropdown-items {  // NOT OPEN
   position: absolute;
-  width: 12.5rem;
+  width: $dropdown-width;
   padding: 1rem 0;
   background-color: rgb(255, 245, 224);
   z-index: 99;
@@ -111,8 +126,8 @@
     position: absolute;
     height: 0;
     border-top: 0.5rem solid rgb(255, 245, 224);
-    border-left: 6.25rem solid transparent;
-    border-right: 6.25rem solid transparent;
+    border-left: $angle-width solid transparent;
+    border-right: $angle-width solid transparent;
     top: 100%;
     left: 0;
     z-index: 101;
@@ -123,6 +138,9 @@
 .sorting-dropdown-item {
   visibility: hidden;
   height: 0;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
   padding-top: 0;
   padding-bottom: 0;
 

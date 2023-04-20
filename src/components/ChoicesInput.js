@@ -31,7 +31,8 @@ const ChoicesInput = ({ choices, register, setValue, title }) => {
         resetScrollPosition: false,
         allowHTML: true,
         choices: choices,
-        placeholderValue: "Type to search"
+        placeholderValue: "Type to search",
+        searchResultLimit: 10
       });
     }
   }, []);

@@ -15,7 +15,7 @@ export const getSearchURL = searchQuery => {
     const areaQuery = searchQuery.area.map(area => {
       return area.split(",")[0].replaceAll(" ", "%20")
     }).join(",");
-    query += `&town=${areaQuery}`;
+    query += `&town=${areaQuery}&inc_none_location=false`;
   }
 
   if (queryParams.indexOf("propertyType") !== -1) {
