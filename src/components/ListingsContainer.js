@@ -22,7 +22,7 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
     // the last page of results doesn't smooth scroll if it is not full height
     window.scrollTo({
       top: searchResultsContainerRef.current.offsetTop - 24,
-      behavior: listings.length - newOffset < 9 ? "auto" : "smooth",
+      behavior: (listings.length - newOffset < 9 || window.innerWidth < 860) ? "auto" : "smooth",
     });
   };
 
@@ -39,7 +39,7 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
 
     // ensure animation plays fully before showing listings
     if ((listings.length || noListingsFound) && loadingListings) {
-      let timeElapsed = Date.now()// - loadingTimer;
+      let timeElapsed = Date.now() - loadingTimer;
 
       setTimeout(() => {
         setLoadingListings(false);
@@ -48,7 +48,7 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
         } else if (noListingsRef.current) {
           handleScroll(noListingsRef);
         }
-      }, 3550 - timeElapsed);
+      }, 1550 - timeElapsed);
     }
   }, [listings]);
 
