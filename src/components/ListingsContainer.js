@@ -4,9 +4,10 @@ import ReactPaginate from 'react-paginate';
 import Listing from './Listing';
 import SortingDropdown from './SortingDropdown';
 
-const ListingsContainer = ({ listings, loadingListings, noListingsFound, setListings, setLoadingListings }) => {
+const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListingsFound, setListings, setLoadingListings }) => {
   const [currentOffset, setCurrentOffset] = useState(0);
   const searchResultsContainerRef = useRef();
+  const noListingsRef = useRef();
   const listingsPerPage = window.innerWidth > 1274 ? 12 : 10;
 
   const currentPageData = listings
@@ -25,26 +26,41 @@ const ListingsContainer = ({ listings, loadingListings, noListingsFound, setList
     });
   };
 
+  const handleScroll = ref => {
+    window.scrollTo({
+      top: ref.current.offsetTop - 24,
+      behavior: "smooth",
+    });
+  }
+
   useEffect(() => {
     // reset page to zero when listings change
     setCurrentOffset(0);
 
-    if (listings.length && loadingListings) {
-      setLoadingListings(false);
+    // ensure animation plays fully before showing listings
+    if ((listings.length || noListingsFound) && loadingListings) {
+      let timeElapsed = Date.now()// - loadingTimer;
+
+      setTimeout(() => {
+        setLoadingListings(false);
+        if (searchResultsContainerRef.current) {
+          handleScroll(searchResultsContainerRef);
+        } else if (noListingsRef.current) {
+          handleScroll(noListingsRef);
+        }
+      }, 3550 - timeElapsed);
     }
   }, [listings]);
 
   if (noListingsFound) {
     return (
-      <div className="listings-container">
+      <div className="listings-container" ref={noListingsRef}>
         <div className="no-listings-found">
           No properties found matching your search criteria.
         </div>
       </div>
     )
   }
-
-  console.log(listings[0])
 
   if (!listings.length) return null;
 
@@ -65,17 +81,17 @@ const ListingsContainer = ({ listings, loadingListings, noListingsFound, setList
           <ReactPaginate
             pageCount={pageCount}
             onPageChange={handlePageChange}
-            previousLabel="Previous"
+            previousLabel={window.innerWidth < 800 ? "Prev" : "Previous"}
             nextLabel="Next"
             pageClassName="page-item"
             pageLinkClassName="page-link"
-            previousLinkClassName="page-link"
-            nextLinkClassName="page-link"
+            previousLinkClassName={window.innerWidth < 700 ? "hide" : "page-link"}
+            nextLinkClassName={window.innerWidth < 700 ? "hide" : "page-link"}
             nextClassName={currentOffset + listingsPerPage >= listings.length ? "hide" : ""}
             previousClassName={currentOffset === 0 ? "hide" : ""}
             breakClassName="page-item"
             breakLinkClassName="page-link"
-            pageRangeDisplayed={5}
+            marginPagesDisplayed={window.innerWidth < 700 ? 2 : 3}
             containerClassName="pagination"
             activeClassName="active"
           />

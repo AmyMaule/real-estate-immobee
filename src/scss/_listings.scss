@@ -3,7 +3,6 @@
   border-radius: 0.6rem;
   padding: 2rem;
   margin: 0 1.5rem 8rem 1.5rem;
-  scroll-margin-top: 1.5rem;
   box-shadow: 0 0.25rem 1.2rem 0.15rem #8787874d;
   margin-top: 3rem;
 }
@@ -35,8 +34,8 @@
 .listing-container {
   display: flex;
   flex-direction: column;
-  width: 350px;
-  height: 600px;
+  width: 22rem;
+  height: 40rem;
   background-color: rgb(250, 246, 235);
   border-radius: 0.6rem;
   box-shadow: 0 0.25rem 1.2rem #8787874d;
@@ -141,6 +140,10 @@
 .listing-description-row {
   align-items: flex-start;
   height: 100%;
+}
+
+.listing-location {
+  text-transform: capitalize;
 }
 
 // .btn-listing-description-see-more {

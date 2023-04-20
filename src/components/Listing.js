@@ -73,8 +73,8 @@ const Listing = ({ listing }) => {
         <div className="listing-row">
           <h5 className="listing-location">
             {listing.postcode
-              ? `${listing.postcode}, ${listing.town}`
-              : listing.town
+              ? `${listing.postcode}, ${listing?.town?.toLowerCase()}`
+              : listing?.town?.toLowerCase()
             }
           </h5>
         </div>
