@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const SortingDropdown = ({ listings, setListings }) => {
   const dropdownRef = useRef();
   const dropdownItems = ["Price up", "Price down", "Agent A-Z", "Agent Z-A", "House size up", "House size down", "Garden size up", "Garden size down", "No. bedrooms up", "No. bedrooms down"];
+  const [sortingBy, setSortingBy] = useState();
 
   const renderArrow = direction => {
     return <span className={`dropdown-arrow dropdown-${direction}-arrow`}>{"\u279C"}</span>
@@ -45,7 +46,9 @@ const SortingDropdown = ({ listings, setListings }) => {
     sort = sort.split(" ");
     const direction = sort.pop();
     sort = sort.join(" ");
-    
+    const directionArrow = direction === "up" ? "\u21c8" : direction === "down" ? "\u21ca" : direction;
+    setSortingBy(sort + " " + directionArrow);
+
     if (direction === "A-Z") {
       setListings([...listings].sort((a, b) => a[sortMapping[sort]].toUpperCase() > b[sortMapping[sort]].toUpperCase() ? 1 : -1));
     } else if (direction === "Z-A") {
@@ -77,7 +80,7 @@ const SortingDropdown = ({ listings, setListings }) => {
   return (
     <ul className="sorting-dropdown-container">
       <li className="sorting-dropdown" ref={dropdownRef} onClick={toggleDropdown}>
-        <h2 className="sorting-dropdown-title">Sort by</h2>
+        <h2 className="sorting-dropdown-title">{sortingBy || "Sort by"}</h2>
         <ul className="sorting-dropdown-items">
           {dropdownItems.map(item => {
             // split the item by space and if the last word is up/down, render an arrow instead
