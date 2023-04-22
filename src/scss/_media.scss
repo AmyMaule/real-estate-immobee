@@ -208,4 +208,19 @@
   .grass {
     top: 13rem;
   }
+
+  .for-sale-sign {
+    left: 14.5rem;
+    animation: for-sale-sign-slide-down-mobile 0.3s linear forwards;
+    animation-delay: 2.75s;
+
+    &::before {
+      width: 2.3rem;
+      font-size: 0.75rem;
+    }
+  
+    &::after {
+      width: 3.15rem;
+    }
+  }  
 }

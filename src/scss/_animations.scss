@@ -1,5 +1,5 @@
 
-@keyframes grow-translate-left {
+@keyframes grow-house {
   0% {
     transform: translateX(-50%) scale(0);
     opacity: 0;
@@ -22,7 +22,7 @@
   }
 }
 
-@keyframes grow {
+@keyframes grow-house-features {
   0% {
     transform: scale(0);
     opacity: 0;
@@ -45,13 +45,35 @@
   }
 }
 
-@keyframes slide-down {
+@keyframes chimney-slide-down {
   0% {
     top: -8rem;
     opacity: 0;
   }
   100% {
     top: -6rem;
+    opacity: 1;
+  }
+}
+
+@keyframes for-sale-sign-slide-down {
+  0% {
+    top: -2rem;
+    opacity: 0;
+  }
+  100% {
+    top: 9.7rem;
+    opacity: 1;
+  }
+}
+
+@keyframes for-sale-sign-slide-down-mobile {
+  0% {
+    top: -2rem;
+    opacity: 0;
+  }
+  100% {
+    top: 9rem;
     opacity: 1;
   }
 }

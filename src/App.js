@@ -5,12 +5,16 @@ import { baseURL } from './data';
 import { getSearchURL } from "./utilities";
 
 import ListingsContainer from "./components/ListingsContainer";
+import LoadingAnimation from "./components/LoadingAnimation";
 import SearchForm from "./components/SearchForm";
 
-// TODO: Sort listings by price/size/location, etc
+// Scroll down the page as listings load, or as "no listings" loads
+// bug where no listings are found, then can't search again
+// figure out why the smooth scroll isn't working
 
 function App() {
   const [loadingListings, setLoadingListings] = useState(false);
+  const [loadingTimer, setLoadingTimer] = useState();
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState([]);
@@ -24,11 +28,12 @@ function App() {
       fetch(baseURL + queryURL)
         .then(res => res.json())
         .then(data => {
+          // sort listings by increasing price initially
+          setListings(data?.length ? data.sort((a, b) => a.price > b.price ? 1 : -1) : []);
           setNoListingsFound(!data.length);
-          setListings(data);
+          setQueryURL(null);
           setShowSearchResults(true);
           setSearch(false);
-          setLoadingListings(true);
         });
     }
   }, [queryURL]);
@@ -41,12 +46,25 @@ function App() {
     }
   }, [search]);
 
+  useEffect(() => {
+    document.body.style.overflow = loadingListings 
+      ? "hidden"
+      : "auto"
+  }, [loadingListings]);
+
   return (
       <>
+      {loadingListings && 
+        <LoadingAnimation />
+      }
+
       <div className="page-container">
         <h1 className="page-title">Property for sale</h1>
         <SearchForm
           search={search}
+          setListings={setListings}
+          setLoadingListings={setLoadingListings}
+          setLoadingTimer={setLoadingTimer}
           setNoListingsFound={setNoListingsFound}
           setSearch={setSearch}
           setSearchQuery={setSearchQuery}
@@ -57,6 +75,7 @@ function App() {
             listings={listings}
             noListingsFound={noListingsFound}
             loadingListings={loadingListings}
+            loadingTimer={loadingTimer}
             setListings={setListings}
             setLoadingListings={setLoadingListings}
           />

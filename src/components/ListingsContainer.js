@@ -48,7 +48,7 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
         } else if (noListingsRef.current) {
           handleScroll(noListingsRef);
         }
-      }, 1550 - timeElapsed);
+      }, 3550 - timeElapsed);
     }
   }, [listings]);
 
