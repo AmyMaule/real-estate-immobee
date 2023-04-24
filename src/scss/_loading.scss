@@ -4,22 +4,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #5d5d5da1;
+  background-color: #433d3dc9;
   min-width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 50;
-}
-
-.loading-circle-outer-container {
-  position: relative;
-  background-color: #9a8d8ded;
-  width: 26rem;
-  height: 26rem;
-  border-radius: 15%;
-  overflow: hidden;
-  box-shadow: 0 0 1rem 0.2rem rgb(147, 147, 147);
+  z-index: 60;
 }
 
 .loading-circle-container {
@@ -30,17 +20,17 @@
   overflow: hidden;
   background: linear-gradient(#b3d8e8, #569ebb);
   box-shadow: 0 0 1rem 0.2rem rgb(88, 88, 88);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
 }
 
 .loading-text {
   position: relative;
-  font-size: 1.8rem;
+  color: rgb(210, 210, 210);
+  font-size: 2rem;
   font-weight: bold;
   text-align: center;
-  bottom: -3.75rem;
 }
 
 .grass {
