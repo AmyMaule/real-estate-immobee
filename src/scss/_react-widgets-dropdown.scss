@@ -1,0 +1,42 @@
+.rw-multiselect {
+  position: relative;
+  min-height: 2.5rem;
+  min-width: 37rem;
+  margin-top: 0.5rem;
+
+  .rw-multiselect-taglist {
+    cursor: pointer;
+  }
+
+  .rw-widget-input {
+    position: relative;
+    border: 1px solid rgb(236, 231, 231);
+    
+    &:hover {
+      border-color: #c5cadc;
+      box-shadow: $hover-shadow;
+    }
+  }
+
+  &.rw-state-focus .rw-widget-input {
+    border-color: rgb(236, 231, 231);
+    box-shadow: $focus-shadow;
+  }
+
+  .rw-multiselect-tag {
+    text-transform: capitalize;
+    font-size: 1rem;
+    background-color: #eaf5ff;
+    border-color: #eaf5ff;
+  }
+
+  .rw-popup-container {
+    min-width: 20rem;
+  }
+
+  .rw-list-option {
+    text-align: left;
+    padding: 0.25rem 0.75rem;
+    text-transform: capitalize;
+  }
+}

@@ -1,7 +1,7 @@
 @media screen and (max-width: 990px) {
-  .page-container {
-    padding: 2rem 0;
-  }
+  // .page-container {
+  //   padding: 2rem 0;
+  // }
 
   .search-criteria-container {
     padding: 0 5rem;
@@ -123,17 +123,17 @@
     width: 22rem;
   }
 
-  .btn-search {
-    padding: 0.75rem 0;
-    width: 100%;
-  }
+  // .btn-search {
+  //   padding: 0.75rem 0;
+  //   width: 100%;
+  // }
 }
 
 @media screen and (max-width: 478px) {
-  .page-container {
-    margin: 1rem 0 0 0;
-    padding: 2rem 0 0 0;
-  }
+  // .page-container {
+  //   margin: 1rem 0 0 0;
+  //   padding: 2rem 0 0 0;
+  // }
 
   .loading-screen-container {
     padding: 1rem;
@@ -223,4 +223,207 @@
       width: 3.15rem;
     }
   }  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// for updated design
+@media screen and (max-width: 1200px) {
+  .hero-section {
+    min-height: 76rem;
+  }
+  
+  .search-form-container {
+    width: 85%;
+  }
+
+  .advanced-search-btn-container {
+    width: 100%;
+    padding: 0;
+  }
+
+  .btn-advanced-search {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .hero-section {
+    min-height: 82rem;
+  }
+
+  .hero-section-title {
+    font-size: 2.75rem;
+  }
+
+  .search-form-container {
+    flex-direction: row;
+    gap: 0.5rem;
+    width: 80%;
+    padding: 2.5rem 3rem;
+  }
+
+  .search-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 28rem;
+  }
+
+  .search-input-container {
+    gap: 1rem;
+  }
+
+  .search-input {
+    width: 7.5rem;
+  }
+
+  .search-textarea {
+    min-width: unset;
+  }  
+
+  .search-label-long {
+    flex-direction: column;
+    min-width: 100%;
+    max-width: 100%;
+
+    .search-input-container {
+      min-width: 100%;
+
+      .search-input {
+        width: 100%;
+      }
+    }
+
+    .rw-popup-container {
+      min-width: unset;
+    }
+  }
+
+  .search-dropdown-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 28rem;
+  }
+
+  .search-dropdown-input {
+    width: 16rem;
+  }
+
+  .rw-multiselect {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .advanced-search-btn-container {
+    margin: 1rem 0 0.5rem 0;
+  }
+
+  .btn-advanced-search {
+    justify-content: center;
+    width: 13rem;
+    border-top: 1px solid rgb(199, 199, 219);
+    border-bottom: 1px solid rgb(199, 199, 219);
+    box-shadow: 0 0 0.2rem 0 rgb(186, 186, 222);
+  }
+
+  // re-order the fields so the dropdowns don't overhang the container too much
+  .advanced-search-container {
+    margin: 1rem 0 1.5rem 0;
+    :nth-child(1),
+    :nth-child(2),
+    :nth-child(3) { 
+      order: 2;
+    }
+
+    :nth-child(4) { 
+      order: 1;
+    }
+
+    :nth-child(5) { 
+      order: 3; 
+    }
+
+    :nth-child(6) { 
+      order: 2; 
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .hero-section {
+    min-height: 95rem;
+  }
+
+  .hero-section-title {
+    font-size: 3rem;
+    max-width: 22rem;
+    margin: 10rem auto 0.5rem auto;
+  }
+
+  .search-form-container {
+    gap: 1rem;
+    width: 25rem;
+  }
+
+  .search-label,
+  .search-dropdown-container {
+    font-size: 1.1rem;
+    flex-direction: column;
+    min-width: unset;
+  }
+
+    .search-input {
+    width: 8.25rem;
+  }
+
+  .search-dropdown-input {
+    width: 17.5rem;
+  }
+
+  
+.search-dropdown-options {
+  left: 50%;
+  transform: translateX(-50%);
+}
+}
+
+@media screen and (max-width: 500px) {
+  .search-form-container {
+    width: 22rem;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .search-form-container {
+    width: 88%;
+    padding: 2.5rem 2rem;
+  }
+
+  .search-input-container {
+    gap: 0.5rem;
+  }
+
+  .search-input {
+    width: 6.5rem;
+  }
+
+  .search-dropdown-input {
+    width: 13rem;
+  }
+
+  .btn-advanced-search {
+    width: 12rem;
+  }
+  
 }
