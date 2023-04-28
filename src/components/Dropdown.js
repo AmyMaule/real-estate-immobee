@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
-const Dropdown = ({ options, showSelectedNames, title }) => {
+const Dropdown = ({ options, register, setValue, showSelectedNames, title }) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState([]);
+  const inputName = title.toLowerCase().replaceAll(" ", "_");
 
   const handleSelect = e => {
     e.stopPropagation();
     const option = e.target.innerText;
 
     if (selected.indexOf(option) === -1) {
+      if (!selected.length) {
+        setValue(inputName, [option]);
+      } else {
+        setValue(inputName, [...selected, option]);
+      }
       setSelected(prev => [...prev, option]);
     } else {
       setSelected(prev => prev.filter(p => p !== option));
+      setValue(inputName, selected.filter(p => p !== option));
     }
   }
   

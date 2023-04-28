@@ -1,7 +1,13 @@
 // data related to properties/agents that may need periodic updates
-export const propertyTypeList = ["Appartement", "Commerce", "Immeuble", "Maison", "Terrain"];
+export const propertyTypeMapping = {
+  "House": "Maison",
+  "Apartment": "Appartement",
+  "Building": "Immeuble",
+  "Land": "Terrain",
+  "Commercial": "Commerce"
+}
 
-export const agentChoicesMapping = {
+export const agentMapping = {
   "Ami Immobilier": "ami",
   "A.P.I.": "api",
   "Arthur Immo": "arthur",

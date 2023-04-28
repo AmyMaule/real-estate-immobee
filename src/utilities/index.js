@@ -1,25 +1,39 @@
-import { agentChoicesMapping } from "../data";
+import { 
+  agentMapping,
+  propertyTypeMapping
+} from "../data";
 
 export const getSearchURL = searchQuery => {
   const queryParams = Object.keys(searchQuery);
   let query = "";
 
+  console.log(searchQuery)
+
   if (queryParams.indexOf("agents") !== -1) {
     const agentQuery = searchQuery.agents.map(agent => {
-      return agentChoicesMapping[agent];
+      return agentMapping[agent];
     }).join(",");
     query += `&agents=${agentQuery}`;
   }
   
+  // only search by department if area has no value
+  if (queryParams.indexOf("department") !== -1 && queryParams.indexOf("area") === -1) {
+    // only send the department number in the query string (i.e. "11" not "Aude (11)"")
+    const departments = searchQuery.department.map(dept => {
+      return dept.split("(")[1].split(")")[0];
+    }).join(",");
+    query += `&depts=${departments}&inc_none_location=false`;
+  }
+
   if (queryParams.indexOf("area") !== -1) {
     const areaQuery = searchQuery.area.map(area => {
       return area.split(",")[0].replaceAll(" ", "%20")
     }).join(",");
-    query += `&town=${areaQuery}&inc_none_location=false`;
+    query += `&town=${areaQuery}&search_radius=${searchQuery.search_radius || "1"}`;
   }
 
-  if (queryParams.indexOf("propertyType") !== -1) {
-    const propertyTypeQuery = searchQuery.propertyType.join(",");
+  if (queryParams.indexOf("property_type") !== -1) {
+    const propertyTypeQuery = searchQuery.property_type.map(type => propertyTypeMapping[type]).join(",");
     query += `&types=${propertyTypeQuery}`;
   }
 
@@ -50,9 +64,6 @@ export const getSearchURL = searchQuery => {
     const keywordList = searchQuery.keywords.split(/[ ,]+/).join(",");
     query += `&keywords=${keywordList}`
   }
-
-  // search_radius always has a value
-  query += `&search_radius=${searchQuery.search_radius}`;
   
   if (query) query = "?" + query.slice(1);
   

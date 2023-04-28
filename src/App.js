@@ -7,7 +7,6 @@ import { getSearchURL } from "./utilities";
 import ListingsContainer from "./components/ListingsContainer";
 import LoadingAnimation from "./components/LoadingAnimation";
 import SearchForm from "./components/SearchForm";
-import SearchForm2 from "./components/SearchForm2";
 
 // Scroll down the page as listings load, or as "no listings" loads
 // bug where no listings are found, then can't search again
@@ -60,8 +59,7 @@ function App() {
       }
 
       <div className="page-container">
-        {/* <h1 className="page-title">Find your dream home</h1> */}
-        <SearchForm2
+        <SearchForm
           search={search}
           setListings={setListings}
           setLoadingListings={setLoadingListings}
