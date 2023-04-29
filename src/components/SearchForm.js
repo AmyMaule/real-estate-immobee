@@ -9,6 +9,8 @@ import {
 
 import Dropdown from './Dropdown';
 import Input from './Input';
+import SearchSlider from './SearchSlider';
+import SearchUnknown from './SearchUnknown';
 
 // make hero-section height dynamic based on whether advanced search is selected
 // add tooltip to explain to users they can select department OR area - also code this in to make sure one disables as the other gains a value
@@ -43,7 +45,7 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
     }
 
     // incNoneValues are the checkboxes to determine whether the search results include listings with incomplete data
-    const incNoneValues = ["inc_none_beds", "inc_none_rooms", "inc_none_size", "inc_none_plot"];
+    const incNoneValues = ["inc_none_beds", "inc_none_rooms", "inc_none_size", "inc_none_plot", "inc_none_location"];
     incNoneValues.forEach(value => {
       if (submitData[value] === false) {
         searchQuery[value] = submitData[value];
@@ -65,23 +67,6 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
       setLocationChoices(locations);
     });   
   }, []);
-
-  const renderSliderOption = (id, value, radius, defaultChecked) => {
-    return (
-      <>
-        <input
-          className="input-slider"
-          defaultChecked={defaultChecked}
-          id={id}
-          name="search-radius"
-          type="radio"
-          value={value}
-          {...register("search_radius")}
-        />
-        <label className="label-slider" htmlFor={id} search-radius={`${radius} km`} />
-      </>
-    )
-  }
 
   if (!locationChoices.length) return null;
 
@@ -161,47 +146,8 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
               onChange={selected => setValue("area", selected)}
             />
           </div>
-          
-          <div className="search-label search-label-long search-label-radius">
-            Search radius
-            <div className="search-radius-slider">
-              {renderSliderOption("1", "1", "0", true)}
-              {renderSliderOption("2", "5", "5")}
-              {renderSliderOption("3", "10", "10")}
-              {renderSliderOption("4", "25", "25")}
-              {renderSliderOption("5", "50", "50")}
-              <div className="slider-cirle" />
-            </div>
-          </div>
-
-          <div className="include-unknown-container">
-            <h4 className="unknown-listings-title">
-              A few listings are missing data, such as number of bedrooms or property size.{"\n"}Do you want to include these listings in your search?
-            </h4>
-            <h6 className="unknown-listings-subtitle">Include unknown...</h6>
-            <div className="checkbox-container">
-              <label className="checkbox-label">
-                Number of rooms
-                <input type="checkbox" {...register("inc_none_rooms")} />
-              </label>
-              <label className="checkbox-label">
-                Number of bedrooms
-                <input type="checkbox" {...register("inc_none_beds")} />
-              </label>
-              <label className="checkbox-label">
-                Property size
-                <input type="checkbox" {...register("inc_none_size")} />
-              </label>
-              <label className="checkbox-label">
-                Land size
-                <input type="checkbox" {...register("inc_none_plot")} />
-              </label>
-              <label className="checkbox-label">
-                Location
-                <input type="checkbox" {...register("inc_none_location")} />
-              </label>
-            </div>
-          </div>
+          <SearchSlider register={register} />
+          <SearchUnknown register={register} />
         </div>
       </form>
     </div>
