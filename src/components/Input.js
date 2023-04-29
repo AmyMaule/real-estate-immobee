@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Input = ({ name, number, placeholder, register }) => {
+const Input = ({ className, maxLength, name, number, placeholder, register }) => {
   const [inputValue, setInputValue] = useState("");
 
   // ensure only numbers can be typed in number inputs
@@ -18,11 +18,12 @@ const Input = ({ name, number, placeholder, register }) => {
 
   return (
     <input
-      className="search-input"
+      className={className ? `search-input ${className}` : "search-input"}
+      maxLength={maxLength || null}
       placeholder={placeholder}
       {...register(name)}
       onInput={handleNumberInput}
-      value={inputValue}
+      value={inputValue.toLocaleString()}
     />
   )
 }
