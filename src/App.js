@@ -24,7 +24,7 @@ function App() {
 
   useEffect(() => {
     if (typeof queryURL === "string") {
-      console.log(baseURL + queryURL)
+      // console.log(baseURL + queryURL)
       fetch(baseURL + queryURL)
         .then(res => res.json())
         .then(data => {

@@ -49,6 +49,9 @@ export const getSearchURL = searchQuery => {
   if (searchQuery.inc_none_beds === false) {
     query += "&inc_none_beds=false";
   }
+  if (searchQuery.inc_none_location === false) {
+    query += "&inc_none_location=false";
+  }
   if (searchQuery.inc_none_rooms === false) {
     query += "&inc_none_rooms=false";
   }
