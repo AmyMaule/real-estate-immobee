@@ -8,7 +8,6 @@ import ListingsContainer from "./components/ListingsContainer";
 import LoadingAnimation from "./components/LoadingAnimation";
 import SearchForm from "./components/SearchForm";
 
-// Scroll down the page as listings load, or as "no listings" loads
 // bug where no listings are found, then can't search again
 // figure out why the smooth scroll isn't working
 
