@@ -7,6 +7,8 @@ import {
   propertyTypeMapping
 } from '../data';
 
+import { scrollTo } from '../utilities';
+
 import Dropdown from './Dropdown';
 import Input from './Input';
 import SearchSlider from './SearchSlider';
@@ -14,7 +16,6 @@ import SearchUnknown from './SearchUnknown';
 
 // add tooltip to explain to users they can select department OR area - also code this in to make sure one disables as the other gains a value
 // the input with class search-textarea should be changed to a textarea with an auto height based on what the user enters
-// add "Back to top" button after "No listings found" message
 
 const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
@@ -86,9 +87,7 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
   }, [searchFormRef.current]);
 
   useEffect(() => {
-    if (!showAdvanced) {
-      window.scrollTo({top: 0, behavior: "smooth"});
-    }
+    if (!showAdvanced) scrollTo(0);
   }, [showAdvanced]);
 
   if (!locationChoices.length) return null;
