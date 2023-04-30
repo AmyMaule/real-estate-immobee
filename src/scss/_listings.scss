@@ -20,7 +20,7 @@
   font-size: 1.4rem;
   text-align: center;
   padding: 1rem;
-  margin: 5rem 0 8rem 0;
+  margin: auto;
 }
 
 .listings-container {
@@ -28,6 +28,7 @@
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 3rem;
+  min-height: 25rem;
   margin-top: 2rem;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from "react-hook-form";
 import Multiselect from "react-widgets/Multiselect";
 
@@ -12,15 +12,17 @@ import Input from './Input';
 import SearchSlider from './SearchSlider';
 import SearchUnknown from './SearchUnknown';
 
-// make hero-section height dynamic based on whether advanced search is selected
 // add tooltip to explain to users they can select department OR area - also code this in to make sure one disables as the other gains a value
 // the input with class search-textarea should be changed to a textarea with an auto height based on what the user enters
+// add "Back to top" button after "No listings found" message
 
 const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const [locationChoices, setLocationChoices] = useState([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [minHeight, setMinHeight] = useState(window.innerHeight + 64);
   const departmentOptions = ["Aude (11)", "Ariège (09)", "Haute-Garonne (31)", "Hérault (34)", "Pyrenées-Orientales (66)"];
+  const searchFormRef = useRef();
 
   const onSubmit = submitData => {
     if (search) return;
@@ -54,6 +56,12 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
     setSearchQuery(searchQuery);
   }
 
+  const handleUpdateHeight = () => {
+    if (searchFormRef.current) {
+      setMinHeight(searchFormRef.current.clientHeight + 400);
+    }
+  }
+
   useEffect(() => {
     fetch("https://suspiciousleaf.pythonanywhere.com/postcode_dict/")
     .then(res => res.json())
@@ -68,13 +76,28 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
     });   
   }, []);
 
+  // the height of the hero container shouldn't be updated until the search form is fully expanded
+  useEffect(() => {
+    if (searchFormRef.current) {
+      const searchForm = searchFormRef.current;
+      searchForm.addEventListener("animationend", handleUpdateHeight);
+      return () => searchForm.removeEventListener("animationend", handleUpdateHeight);
+    }
+  }, [searchFormRef.current]);
+
+  useEffect(() => {
+    if (!showAdvanced) {
+      window.scrollTo({top: 0, behavior: "smooth"});
+    }
+  }, [showAdvanced]);
+
   if (!locationChoices.length) return null;
 
   return (
-    <div className="hero-section">
+    <div className="hero-section" style={{height: minHeight}}>
       <div className="hero-section-overlay" />
       <h1 className="hero-section-title">Find your dream home</h1>
-      <form className="search-form-container" onSubmit={handleSubmit(onSubmit)}>
+      <form className="search-form-container" onSubmit={handleSubmit(onSubmit)} ref={searchFormRef}>
         <div className="search-label">
           Price range (€)
           <div className="search-input-container">
