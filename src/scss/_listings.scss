@@ -16,13 +16,6 @@
   font-size: 1rem;
 }
 
-.no-listings-found {
-  font-size: 1.4rem;
-  text-align: center;
-  padding: 1rem;
-  margin: auto;
-}
-
 .listings-container {
   display: flex;
   justify-content: space-around;
@@ -30,6 +23,42 @@
   gap: 3rem;
   min-height: 25rem;
   margin-top: 2rem;
+}
+
+.no-listings-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 30rem;
+  padding: 2.5rem;
+}
+
+.no-listings-found {
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.btn-scroll {
+  font-size: 1.25rem;
+  font-weight: 500;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  transition: all ease 200ms;
+  -webkit-transition: all ease 200ms;
+
+  &:hover {
+    color: rgb(0, 114, 176);
+    transition: all ease 200ms;
+    -webkit-transition: all ease 200ms;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
 }
 
 .listing-container {

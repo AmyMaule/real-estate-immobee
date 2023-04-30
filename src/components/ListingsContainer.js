@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactPaginate from 'react-paginate';
 
+import { scrollTo } from '../utilities';
+
 import Listing from './Listing';
 import SortingDropdown from './SortingDropdown';
 
@@ -26,13 +28,6 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
     });
   };
 
-  const handleScroll = ref => {
-    window.scrollTo({
-      top: ref.current.offsetTop - 24,
-      behavior: "smooth",
-    });
-  }
-
   useEffect(() => {
     // reset page to zero when listings change
     setCurrentOffset(0);
@@ -44,9 +39,9 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
       setTimeout(() => {
         setLoadingListings(false);
         if (searchResultsContainerRef.current) {
-          handleScroll(searchResultsContainerRef);
+          scrollTo(searchResultsContainerRef.current.offsetTop - 24);
         } else if (noListingsRef.current) {
-          handleScroll(noListingsRef);
+          scrollTo(noListingsRef.current.offsetTop - 24);
         }
       }, 4100 - timeElapsed);
     }
@@ -54,10 +49,11 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
 
   if (noListingsFound) {
     return (
-      <div className="listings-container" ref={noListingsRef}>
+      <div className="no-listings-container" ref={noListingsRef}>
         <div className="no-listings-found">
           No properties found matching your search criteria.
         </div>
+        <button className="btn-scroll" onClick={() => scrollTo(0)}>Back to top</button>
       </div>
     )
   }

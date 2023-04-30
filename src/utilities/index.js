@@ -74,3 +74,5 @@ export const getSearchURL = searchQuery => {
 
   return query;
 }
+
+export const scrollTo = top => window.scrollTo({top: top, behavior: "smooth"});
