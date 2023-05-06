@@ -8,18 +8,15 @@ import ListingsContainer from "./components/ListingsContainer";
 import LoadingAnimation from "./components/LoadingAnimation";
 import SearchForm from "./components/SearchForm";
 
-// bug where no listings are found, then can't search again
-// figure out why the smooth scroll isn't working
-
-function App() {
+const App = () => {
+  const [listings, setListings] = useState([]);
   const [loadingListings, setLoadingListings] = useState(false);
   const [loadingTimer, setLoadingTimer] = useState();
-  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [noListingsFound, setNoListingsFound] = useState(false);
+  const [queryURL, setQueryURL] = useState();
   const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState([]);
-  const [queryURL, setQueryURL] = useState();
-  const [listings, setListings] = useState([]);
-  const [noListingsFound, setNoListingsFound] = useState(false);
+  const [showSearchResults, setShowSearchResults] = useState(false);
 
   useEffect(() => {
     if (typeof queryURL === "string") {
@@ -32,7 +29,8 @@ function App() {
           setQueryURL(null);
           setShowSearchResults(true);
           setSearch(false);
-        });
+        })
+        .catch(err => console.error(err));
     }
   }, [queryURL]);
 
@@ -51,11 +49,8 @@ function App() {
   }, [loadingListings]);
 
   return (
-      <>
-      {loadingListings && 
-        <LoadingAnimation />
-      }
-
+    <>
+      {loadingListings && <LoadingAnimation />}
       <div className="page-container">
         <SearchForm
           search={search}

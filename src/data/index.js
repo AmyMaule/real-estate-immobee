@@ -14,10 +14,15 @@ export const agentMapping = {
   "Aude Immobilier": "aude",
   "Cabinet Jammes": "jammes",
   "Cimm Immobilier": "cimm",
+  "Europe Sud Immobilier": "europe",
+  "IAD Immobilier": "iad",
   "L'Immo Chez Toit": "l'immo",
   "M&M Immobilier": "mm",
   "Nestenn": "nestenn",
   "Richardson Immobilier": "richardson",
+  "Safti": "safti",
+  "Selection Habitat": "selection",
+  "Sextant": "sextant",
   "Time and Stone Immobilier": "time",
 }
 

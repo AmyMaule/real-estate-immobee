@@ -86,7 +86,10 @@
 
 .search-textarea {
   min-width: 23rem;
-  // resize: none;
+  max-height: 20rem;
+  line-height: unset;
+  resize: none;
+  overflow: hidden;
 }
 
 .search-dropdown-container {

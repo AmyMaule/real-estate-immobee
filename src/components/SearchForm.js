@@ -14,8 +14,8 @@ import Input from './Input';
 import SearchSlider from './SearchSlider';
 import SearchUnknown from './SearchUnknown';
 
-// add tooltip to explain to users they can select department OR area - also code this in to make sure one disables as the other gains a value
-// the input with class search-textarea should be changed to a textarea with an auto height based on what the user enters
+// add tooltip to explain to users they can select department OR area - also make sure one disables as the other gains a value
+// figure out why the smooth scroll isn't working on last page of listings
 
 const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
@@ -24,6 +24,7 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
   const [minHeight, setMinHeight] = useState(window.innerHeight + 64);
   const departmentOptions = ["Aude (11)", "Ariège (09)", "Haute-Garonne (31)", "Hérault (34)", "Pyrenées-Orientales (66)"];
   const searchFormRef = useRef();
+  const textAreaRef = useRef();
 
   const onSubmit = submitData => {
     if (search) return;
@@ -63,6 +64,15 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
     }
   }
 
+  const handleResizeTextarea = () => {
+    if (textAreaRef.current) {
+    const textArea = textAreaRef.current.firstElementChild;
+      textArea.style.height = 0;
+      textArea.style.height = textArea.scrollHeight + "px";
+      handleUpdateHeight();
+    }
+  }
+
   useEffect(() => {
     fetch("https://suspiciousleaf.pythonanywhere.com/postcode_dict/")
     .then(res => res.json())
@@ -74,7 +84,8 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
         ))
       )).flat().sort();
       setLocationChoices(locations);
-    });   
+    })
+    .catch(err => console.error(err));
   }, []);
 
   // the height of the hero container shouldn't be updated until the search form is fully expanded
@@ -155,8 +166,14 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
           />
           <div className="search-label search-label-long">
             Keywords
-            <div className="search-input-container">
-              <Input className="search-textarea" name="keywords" placeholder="Enter search keywords" register={register} />
+            <div className="search-input-container" ref={textAreaRef}>
+              <textarea
+                className="search-input search-textarea"
+                onInput={handleResizeTextarea}
+                placeholder="Enter search keywords"
+                {...register("keywords")}
+                type="text"
+              />
             </div>
           </div>
           <div className="search-label search-label-long">
