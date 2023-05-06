@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Dropdown = ({ options, register, setValue, showSelectedNames, title }) => {
+const Dropdown = ({ options, setValue, showSelectedNames, title }) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState([]);
   const inputName = title.toLowerCase().replaceAll(" ", "_");
