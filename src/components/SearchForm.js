@@ -12,6 +12,7 @@ import { scrollTo } from '../utilities';
 import Dropdown from './Dropdown';
 import Input from './Input';
 import SearchSlider from './SearchSlider';
+import SearchTextarea from './SearchTextarea,';
 import SearchUnknown from './SearchUnknown';
 
 // add tooltip to explain to users they can select department OR area - also make sure one disables as the other gains a value
@@ -24,7 +25,6 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
   const [minHeight, setMinHeight] = useState(window.innerHeight + 64);
   const departmentOptions = ["Aude (11)", "Ariège (09)", "Haute-Garonne (31)", "Hérault (34)", "Pyrenées-Orientales (66)"];
   const searchFormRef = useRef();
-  const textAreaRef = useRef();
 
   const onSubmit = submitData => {
     if (search) return;
@@ -61,15 +61,6 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
   const handleUpdateHeight = () => {
     if (searchFormRef.current) {
       setMinHeight(searchFormRef.current.clientHeight + 400);
-    }
-  }
-
-  const handleResizeTextarea = () => {
-    if (textAreaRef.current) {
-    const textArea = textAreaRef.current.firstElementChild;
-      textArea.style.height = 0;
-      textArea.style.height = textArea.scrollHeight + "px";
-      handleUpdateHeight();
     }
   }
 
@@ -117,14 +108,12 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
         </div>
         <Dropdown
           options={Object.keys(propertyTypeMapping)}
-          register={register}
           setValue={setValue}
           showSelectedNames
           title="Property type"
         />
         <Dropdown
           options={departmentOptions}
-          register={register}
           setValue={setValue}
           title="Department"
         />
@@ -158,31 +147,29 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
               <Input name="maxBeds" number placeholder="Max" register={register} maxLength={3} />
             </div>
           </div>
-          <Dropdown
-            options={Object.keys(agentMapping)}
-            register={register}
-            setValue={setValue}
-            title="Agents" 
-          />
-          <div className="search-label search-label-long">
-            Keywords
-            <div className="search-input-container" ref={textAreaRef}>
-              <textarea
-                className="search-input search-textarea"
-                onInput={handleResizeTextarea}
-                placeholder="Enter search keywords"
-                {...register("keywords")}
-                type="text"
-              />
-            </div>
+          <div className="search-label search-label-multiselect">
+            Agents
+            <Multiselect
+              data={Object.keys(agentMapping)}
+              filter='contains'
+              onChange={selected => setValue("agents", selected)}
+              showSelectedItemsInList
+            />
           </div>
           <div className="search-label search-label-long">
+            Keywords
+            <SearchTextarea 
+              handleUpdateHeight={handleUpdateHeight}
+              register={register}
+            />
+          </div>
+          <div className="search-label search-label-long search-label-multiselect">
             Area
             <Multiselect
               data={locationChoices}
               filter='contains'
-              textField='name'
               onChange={selected => setValue("area", selected)}
+              showSelectedItemsInList
             />
           </div>
           <SearchSlider register={register} />

@@ -1,6 +1,6 @@
 @media screen and (max-width: 1200px) {
   .search-form-container {
-    width: 85%;
+    width: 88%;
   }
 
   .advanced-search-btn-container {
@@ -13,14 +13,44 @@
   }
 }
 
+@media screen and (max-width: 1075px) {
+  .search-form-container {
+    padding: 2.5rem 4rem;
+  }
+}
+
 @media screen and (max-width: 1050px) {
   .checkbox-container {
     max-width: 38rem;
   }
+  
+  .rw-multiselect {
+    min-width: unset;
+    max-width: unset;
+  }
+
+  .search-label-long.search-label-multiselect {
+    width: 100%;
+    
+    .rw-multiselect {
+      min-width: unset;
+      min-width: 20rem;
+      width: 100%;
+    }
+  }
+
+  .search-label-multiselect {
+    flex: 1;
+  }
 }
 
+@media screen and (max-width: 920px) {
+  .search-form-container {
+    padding: 2.5rem;
+  }
+}
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 853px) {
   .hero-section-title {
     font-size: 2.75rem;
   }
@@ -29,18 +59,20 @@
     flex-direction: row;
     gap: 0.5rem;
     width: 80%;
-    padding: 2.5rem 3rem;
+    padding: 2.5rem 5rem;
   }
 
   .search-label {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.5rem;
     min-width: 28rem;
   }
 
   .search-input-container {
     gap: 1rem;
+    margin: 0;
   }
 
   .search-input {
@@ -51,7 +83,8 @@
     min-width: unset;
   }
 
-  .search-label-long {
+  .search-label-long,
+  .search-label-multiselect {
     flex-direction: column;
     min-width: 100%;
     max-width: 100%;
@@ -66,6 +99,16 @@
 
     .rw-popup-container {
       min-width: unset;
+    }
+
+    .rw-multiselect {
+      min-width: unset;
+      max-width: unset;
+      width: 100%;
+    
+      .rw-multiselect-taglist {
+        max-width: unset;
+      }
     }
   }
 
@@ -143,7 +186,7 @@
 
   .search-form-container {
     gap: 1rem;
-    width: 25rem;
+    padding: 2.5rem 3rem;
   }
 
   .search-label,
@@ -154,11 +197,11 @@
   }
 
   .search-input {
-    width: 8.25rem;
+    width: calc(50% - 0.5rem);
   }
 
   .search-dropdown-input {
-    width: 17.5rem;
+    width: 100%;
   }
   
   .search-dropdown-options {
@@ -193,6 +236,12 @@
 
   .sorting-dropdown-container {
     margin: 0;
+  }
+
+  .search-label-long.search-label-multiselect {
+    .rw-multiselect {
+      min-width: 10rem;
+    }
   }
 }
 
@@ -234,11 +283,7 @@
   }
 
   .search-input {
-    width: 6.5rem;
-  }
-
-  .search-dropdown-input {
-    width: 13rem;
+    width: calc(50% - 0.25rem);
   }
 
   .btn-advanced-search {

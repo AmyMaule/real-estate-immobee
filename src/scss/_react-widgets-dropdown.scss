@@ -1,7 +1,14 @@
+.search-label-long {
+  .rw-multiselect {
+    min-width: 46rem;
+  }
+}
+
 .rw-multiselect {
   position: relative;
   min-height: 2.5rem;
-  min-width: 37rem;
+  min-width: 22rem;
+  max-width: 22rem;
   margin-top: 0.5rem;
 
   .rw-multiselect-taglist {
@@ -38,5 +45,15 @@
     text-align: left;
     padding: 0.25rem 0.75rem;
     text-transform: capitalize;
+    
+    &:hover {
+      background-color: rgb(196, 228, 255);
+    }
+
+    &.rw-state-selected {
+      background-color: #6eafff;
+      border-color: #6eafff;
+      color: #1b1d20;
+    }
   }
 }
