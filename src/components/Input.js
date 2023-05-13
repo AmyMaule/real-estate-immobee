@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 
-const Input = ({ className, maxLength, name, number, placeholder, register }) => {
+const Input = ({ className, maxLength, name, number, placeholder, register, setValue }) => {
   const [inputValue, setInputValue] = useState("");
 
   // ensure only numbers can be typed in number inputs
   const handleNumberInput = e => {
     let value = e.target.value;
     if (number) {
-      [...value].forEach((char, i) => {
-        if (char.charCodeAt(0) < 48 || char.charCodeAt(0) > 57) {
-          value = value.replace(char, "");
-        }
-      });
+      value = value.replace(/[^0-9]/g, "");
     }
-    setInputValue(value);
+    // use setValue in order to link the value of the inputs to the checkboxes below - the checkboxes untick if the corresponding input has a value, but "watch" uses the value before handleNumberInput runs unless setValue is invoked
+    const newValue = number ? parseInt(value) || "" : value;
+    setValue(name, newValue);
+    setInputValue(newValue);
   }
 
   return (

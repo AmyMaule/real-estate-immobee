@@ -19,7 +19,7 @@ import SearchUnknown from './SearchUnknown';
 // figure out why the smooth scroll isn't working on last page of listings
 
 const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const { register, handleSubmit, setValue, watch } = useForm();
   const [locationChoices, setLocationChoices] = useState([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [minHeight, setMinHeight] = useState(window.innerHeight + 64);
@@ -49,7 +49,7 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
     }
 
     // incNoneValues are the checkboxes to determine whether the search results include listings with incomplete data
-    const incNoneValues = ["inc_none_beds", "inc_none_rooms", "inc_none_size", "inc_none_plot", "inc_none_location"];
+    const incNoneValues = ["inc_none_beds", "inc_none_size", "inc_none_plot", "inc_none_location"];
     incNoneValues.forEach(value => {
       if (submitData[value] === false) {
         searchQuery[value] = submitData[value];
@@ -102,8 +102,8 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
         <div className="search-label">
           Price range (€)
           <div className="search-input-container">
-            <Input name="minPrice" number placeholder="Min" register={register} maxLength={7} />
-            <Input name="maxPrice" number placeholder="Max" register={register} maxLength={7} />
+            <Input name="minPrice" number placeholder="Min" register={register} setValue={setValue} maxLength={7} />
+            <Input name="maxPrice" number placeholder="Max" register={register} setValue={setValue} maxLength={7} />
           </div>
         </div>
         <Dropdown
@@ -129,22 +129,22 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
           <div className="search-label">
             Property size (m{String.fromCharCode(178)})
             <div className="search-input-container">
-              <Input name="minSize" number placeholder="Min" register={register} maxLength={5} />
-              <Input name="maxSize" number placeholder="Max" register={register} maxLength={5} />
+              <Input name="minSize" number placeholder="Min" register={register} setValue={setValue} maxLength={5} />
+              <Input name="maxSize" number placeholder="Max" register={register} setValue={setValue} maxLength={5} />
             </div>
           </div>
           <div className="search-label">
             Plot size (m{String.fromCharCode(178)})
             <div className="search-input-container">
-              <Input name="minPlot" number placeholder="Min" register={register} maxLength={5} />
-              <Input name="maxPlot" number placeholder="Max" register={register} maxLength={5} />
+              <Input name="minPlot" number placeholder="Min" register={register} setValue={setValue} maxLength={5} />
+              <Input name="maxPlot" number placeholder="Max" register={register} setValue={setValue} maxLength={5} />
             </div>
           </div>
           <div className="search-label">
             No. bedrooms
             <div className="search-input-container">
-              <Input name="minBeds" number placeholder="Min" register={register} maxLength={3} />
-              <Input name="maxBeds" number placeholder="Max" register={register} maxLength={3} />
+              <Input name="minBeds" number placeholder="Min" register={register} setValue={setValue} maxLength={3} />
+              <Input name="maxBeds" number placeholder="Max" register={register} setValue={setValue} maxLength={3} />
             </div>
           </div>
           <div className="search-label search-label-multiselect">
@@ -153,7 +153,11 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
               data={Object.keys(agentMapping)}
               filter='contains'
               onChange={selected => setValue("agents", selected)}
-              showSelectedItemsInList
+              textField={item =>
+                watch("agents")?.includes(item)
+                // show full name if item is not selected selected, don't show "Immobilier" if selected
+                  ? item.replace(" Immobilier", "") : item
+              }
             />
           </div>
           <div className="search-label search-label-long">
@@ -173,7 +177,7 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
             />
           </div>
           <SearchSlider register={register} />
-          <SearchUnknown register={register} />
+          <SearchUnknown register={register} watch={watch} />
         </div>
       </form>
     </div>

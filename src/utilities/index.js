@@ -52,9 +52,6 @@ export const getSearchURL = searchQuery => {
   if (searchQuery.inc_none_location === false) {
     query += "&inc_none_location=false";
   }
-  if (searchQuery.inc_none_rooms === false) {
-    query += "&inc_none_rooms=false";
-  }
   if (searchQuery.inc_none_size === false) {
     query += "&inc_none_size=false";
   }
