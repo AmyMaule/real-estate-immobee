@@ -4,6 +4,8 @@ const Listing = ({ listing }) => {
   const [currentPhoto, setCurrentPhoto] = useState(0);
 
   const getListingDescription = description => {
+    if (!description) return "No description provided.";
+    
     if (typeof description === "string") {
       return description.length > 222 ? description.slice(0, 222) + "..." : description;
     }
