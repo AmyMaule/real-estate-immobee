@@ -8,6 +8,9 @@ import ListingsContainer from "./components/ListingsContainer";
 import LoadingAnimation from "./components/LoadingAnimation";
 import SearchForm from "./components/SearchForm";
 
+// figure out why the smooth scroll isn't working on last page of listings
+// add modal to show more listing information
+
 const App = () => {
   const [listings, setListings] = useState([]);
   const [loadingListings, setLoadingListings] = useState(false);
@@ -40,7 +43,7 @@ const App = () => {
       setQueryURL(searchURL);
       setSearch(false);
     }
-  }, [search]);
+  }, [search, searchQuery]);
 
   useEffect(() => {
     document.body.style.overflow = loadingListings 

@@ -15,10 +15,6 @@ import SearchSlider from './SearchSlider';
 import SearchTextarea from './SearchTextarea,';
 import SearchUnknown from './SearchUnknown';
 
-// add tooltip to explain to users they can select department OR area - also make sure one disables as the other gains a value
-// figure out why the smooth scroll isn't working on last page of listings
-// show users that they can't search by area AND department, and that area takes priority
-
 const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
   const { register, handleSubmit, setValue, watch } = useForm();
   const [locationChoices, setLocationChoices] = useState([]);
@@ -41,7 +37,7 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
     for (let [key, value] of Object.entries(submitData)) {
       if (typeof value === "string" && value.trim()) {
         if (numberValues.indexOf(key) !== -1) {
-          value = Number(value)
+          value = Number(value.replace(",", ""));
         }
         searchQuery[key] = value;
       } else if (Array.isArray(value) && value.length) {
@@ -115,6 +111,7 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
         />
         <Dropdown
           options={departmentOptions}
+          locked={watch("area")?.length}
           setValue={setValue}
           title="Department"
         />

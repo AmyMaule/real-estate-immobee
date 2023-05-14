@@ -19,28 +19,30 @@ const Listing = ({ listing }) => {
 
   return (
     <div className="listing-container">
-      <div className="listing-image-container">
-        <img
-          alt="See original listing for more pictures"
-          className="listing-image"
-          src={listing.photos_hosted[currentPhoto]}
-        />
-      <div className="listing-image-control-bar">
-        <div className="img-arrow img-arrow-left" onClick={() => handleChangePhoto("L")}>
-          <span>&#x27a4;</span>
-        </div>
-        {listing.photos_hosted.map((photo, i) => {
-          if ((window.innerWidth < 410 && i > 9) || i > 14) return;
-          return i === currentPhoto
-            ? <div className="listing-image-circle listing-image-circle-current" key={i}>{"\u2022"}</div>
-            : <div className="listing-image-circle" onClick={() => setCurrentPhoto(i)} key={i}>{"\u2022"}</div>
-          })}
-        <div className="img-arrow img-arrow-right" onClick={() => handleChangePhoto("R")}>
-          <span>&#x27A4;</span>
-        </div>
-      </div>
-      </div>
+      {listing.photos_hosted.length
+       ? <div className="listing-image-container">
+            <img
+              alt="listing images"
+              className="listing-image"
+              src={listing.photos_hosted[currentPhoto]}
+            />
 
+          <div className="listing-image-control-bar">
+            <div className="img-arrow img-arrow-left" onClick={() => handleChangePhoto("L")}>
+              <span>&#x27a4;</span>
+            </div>
+            {listing.photos_hosted.map((photo, i) => {
+              if ((window.innerWidth < 410 && i > 9) || i > 14) return null;
+              return i === currentPhoto
+                ? <div className="listing-image-circle listing-image-circle-current" key={i}>{"\u2022"}</div>
+                : <div className="listing-image-circle" onClick={() => setCurrentPhoto(i)} key={i}>{"\u2022"}</div>
+              })}
+            <div className="img-arrow img-arrow-right" onClick={() => handleChangePhoto("R")}>
+              <span>&#x27A4;</span>
+            </div>
+          </div>
+        </div>
+      : <div className="no-images-text">No images available</div>}
 
       <div className="listing-details-container">
         <div className="listing-row">
@@ -54,7 +56,10 @@ const Listing = ({ listing }) => {
           <div className="listing-row">
             {checkUnlisted(listing.bedrooms) && listing.types !== "Terrain" &&
               <h5 className="listing-bedrooms">
-                {checkUnlisted(listing.bedrooms)} beds
+                {checkUnlisted(listing.bedrooms) === "1"
+                  ? `${checkUnlisted(listing.bedrooms)} bed`
+                  : `${checkUnlisted(listing.bedrooms)} beds`
+                }
                 {checkUnlisted(listing.rooms) && <span className="divider">|</span>}
               </h5>}
             {checkUnlisted(listing.rooms) && listing.types !== "Terrain" &&
@@ -92,8 +97,8 @@ const Listing = ({ listing }) => {
           </h5>
         </div>}
 
-        <div class="listing-link-container">
-          <span class="listing-link">
+        <div className="listing-link-container">
+          <span className="listing-link">
             <a className="listing-link-hover" href={listing.link_url} target="_blank" rel="noreferrer">View original listing</a>
           </span>
           <a className="listing-link-default" href={listing.link_url} target="_blank" rel="noreferrer">View original listing</a>
