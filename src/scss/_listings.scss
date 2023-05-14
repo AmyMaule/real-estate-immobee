@@ -62,13 +62,15 @@
 }
 
 .listing-container {
+  font-family: 'Work Sans', sans-serif;
   display: flex;
   flex-direction: column;
-  width: 22rem;
-  height: 40rem;
-  background-color: rgb(250, 246, 235);
+  width: 23rem;
+  height: 27rem;
+  color: #222427;
+  background-color: rgb(253, 253, 252);
   border-radius: 0.6rem;
-  box-shadow: 0 0.25rem 1.2rem #8787874d;
+  box-shadow: 0 0.25rem 1rem #a4a4a44d;
   overflow: hidden;
 }
 
@@ -80,7 +82,7 @@
   text-align: center;
   width: 100%;
   min-height: 10rem;
-  max-height: 19rem;
+  max-height: 16rem;
   background-color: rgba(222, 224, 241, 0.5);
   box-shadow: 0 2px 12px rgba(135, 135, 135, 0.1);
   overflow: hidden;
@@ -140,12 +142,31 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.5rem 0.75rem;
+  font-weight: 400;
+  gap: 0.5rem;
+}
 
-  h5 {
-    font-size: 1rem;
-    margin: 0;
-  }
+.listing-bedrooms,
+.listing-rooms,
+.listing-house-size,
+.listing-plot-size,
+.listing-location,
+.listing-ref {
+  font-weight: 400;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.listing-type {
+  font-weight: 500;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.listing-price {
+  font-weight: 500;
+  font-size: 1.05rem;
+  margin: 0 0 0 auto;
 }
 
 .divider {
@@ -167,54 +188,71 @@
   object-fit: contain; 
 }
 
-.listing-description-row {
-  align-items: flex-start;
-  height: 100%;
-}
-
 .listing-location {
+  color: rgb(94, 94, 94);
+  font-size: 0.9rem;
+  font-weight: 500;
   text-transform: capitalize;
 }
 
-// .btn-listing-description-see-more {
-//   font-weight: bold;
-//   background-color: transparent;
-//   outline: none;
-//   border: none;
-//   transition: all 200ms;
-//   -webkit-transition: all 200ms;
+.listing-link-container {
+  font-weight: 600;
+  text-align: center;
+  text-transform: none;
+  margin: 0.25rem auto;
+}
 
-//   &:hover {
-//     color: rgb(79, 54, 109);
-//     transition: all 200ms;
-//     -webkit-transition: all 200ms;
-//   }
-// }
+.listing-link-container {
+  position: relative;
+  display: inline-block;
+
+  &:hover .listing-link {
+    width: 100%;
+  }
+}
 
 .listing-link {
-  color: black;
-  background-color: rgb(239, 241, 255);
-  outline: none;
-  font-weight: bold;
-  text-decoration: underline;
-  border: none;
-  text-align: center;
-  padding: 0.25rem 0;
-  transition: all 200ms;
-  -webkit-transition: all 200ms;
+  position: absolute;
+  display: inline-block;
+  width: 0;
+  white-space: pre;
+  overflow: hidden;
+  transition: width 500ms;
+  border-bottom: 1px solid #9590d1;
+}
+
+.listing-link-default {
+  color: #222427;
+  text-decoration: none;
 
   &:hover {
-    color: black;
-    background-color: rgb(222, 224, 241);
-    transition: all 200ms;
-    -webkit-transition: all 200ms;
-  }  
+    color: #222427;
+    text-decoration: none;
+  }
+}
+
+.listing-link-hover {
+  color: #6f6ca8;
+  text-decoration: none;
+
+  &:hover {
+    color: #6f6ca8;
+    text-decoration: none;
+  }
 }
 
 .listing-agent-container {
-  border-top: 1px solid rgb(202, 202, 255);
-  padding-top: 1rem;
   justify-content: space-between;
+}
+
+.listing-agent {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.listing-ref {
+  font-weight: 500;
 }
 
 .pagination-container {

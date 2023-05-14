@@ -3,15 +3,6 @@ import React, { useState } from 'react';
 const Listing = ({ listing }) => {
   const [currentPhoto, setCurrentPhoto] = useState(0);
 
-  const getListingDescription = description => {
-    if (!description) return "No description provided.";
-    
-    if (typeof description === "string") {
-      return description.length > 222 ? description.slice(0, 222) + "..." : description;
-    }
-    return description[0].length > 222 ? description[0].slice(0, 222) : description[0];
-  }
-
   const handleChangePhoto = direction => {
     if (direction === "R") {
       if (currentPhoto === listing.photos_hosted.length - 1) {
@@ -24,11 +15,7 @@ const Listing = ({ listing }) => {
     }
   }
 
-  const checkUnlisted = (field) => {
-    return field === null
-      ? "Unlisted"
-      : field.toLocaleString();
-  }
+  const checkUnlisted = field => field ? field.toLocaleString() : null;
 
   return (
     <div className="listing-container">
@@ -46,46 +33,61 @@ const Listing = ({ listing }) => {
         </div>
       </div>
       <div className="listing-details-container">
+
         <div className="listing-row">
-          {listing.types === "Terrain" 
-          ? <h5>Terrain</h5>
-          : <>
-              <h5 className="listing-bedrooms">
-                {checkUnlisted(listing.bedrooms)} bedrooms
-                <span className="divider">|</span>
-              </h5>
-              <h5 className="listing-rooms">
-              {checkUnlisted(listing.rooms)} rooms
-                <span className="divider">|</span>
-              </h5>
-            </>
-          }
+          <h5 className="listing-type">
+            {listing.types}
+          </h5>
           <h5 className="listing-price">€{listing.price.toLocaleString()}</h5>
         </div>
+
+        {(checkUnlisted(listing.bedrooms) || checkUnlisted(listing.rooms)) &&
+          <div className="listing-row">
+            {checkUnlisted(listing.bedrooms) && listing.types !== "Terrain" &&
+              <h5 className="listing-bedrooms">
+                {checkUnlisted(listing.bedrooms)} beds
+                {checkUnlisted(listing.rooms) && <span className="divider">|</span>}
+              </h5>}
+            {checkUnlisted(listing.rooms) && listing.types !== "Terrain" &&
+              <h5 className="listing-rooms">
+                {checkUnlisted(listing.rooms) === "1"
+                  ? `${checkUnlisted(listing.rooms)} room`
+                  : `${checkUnlisted(listing.rooms)} rooms`
+                }
+              </h5>}
+          </div>}
+
+        {(checkUnlisted(listing.size) || checkUnlisted(listing.plot)) &&
         <div className="listing-row listing-icons-container">
-          <div className="listing-icon-container">
-            <img src="house-size-icon.png" className="listing-icon" alt="house-size" />
-            <h5 className="listing-house-size">{checkUnlisted(listing.size)} m&#178;</h5>
-          </div>
-          <div className="listing-icon-container">
-            <img src="forest-icon.png" className="listing-icon" alt="plot-size" />
-            <h5 className="listing-plot-size">{checkUnlisted(listing.plot)} m&#178;</h5>
-          </div>
-        </div>
+          {checkUnlisted(listing.size) &&
+            <div className="listing-icon-container">
+              <img src="house-size-icon.png" className="listing-icon" alt="house-size" />
+              <h5 className="listing-house-size">{checkUnlisted(listing.size)} m&#178;</h5>
+            </div>}
+          
+          {checkUnlisted(listing.plot) &&
+            <div className="listing-icon-container">
+              <img src="forest-icon.png" className="listing-icon" alt="plot-size" />
+              <h5 className="listing-plot-size">{checkUnlisted(listing.plot)} m&#178;</h5>
+            </div>}
+        </div>}
         <div className="listing-row">
+          <img src="location-icon.png" className="listing-icon" alt="house-size" />
           <h5 className="listing-location">
             {listing.postcode
-              ? `${listing.postcode}, ${listing?.town?.toLowerCase()}`
+              ? `${listing?.town?.toLowerCase()}, ${listing.postcode}`
               : listing?.town?.toLowerCase()
             }
           </h5>
         </div>
-        <div className="listing-row listing-description-row">
-          <div className="listing-description">
-            {getListingDescription(listing.description)}
-          </div>
+
+        <div class="listing-link-container">
+          <span class="listing-link">
+            <a className="listing-link-hover" href={listing.link_url} target="_blank" rel="noreferrer">View original listing</a>
+          </span>
+          <a className="listing-link-default" href={listing.link_url} target="_blank" rel="noreferrer">View original listing</a>
         </div>
-        <a className="listing-link" href={listing.link_url} target="_blank">See original listing</a>
+
         <div className="listing-row listing-agent-container">
           <h5 className="listing-agent">{listing.agent}</h5>
           <h5 className="listing-ref">Ref: {listing.ref}</h5>

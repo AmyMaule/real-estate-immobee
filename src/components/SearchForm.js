@@ -17,6 +17,7 @@ import SearchUnknown from './SearchUnknown';
 
 // add tooltip to explain to users they can select department OR area - also make sure one disables as the other gains a value
 // figure out why the smooth scroll isn't working on last page of listings
+// show users that they can't search by area AND department, and that area takes priority
 
 const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
   const { register, handleSubmit, setValue, watch } = useForm();
