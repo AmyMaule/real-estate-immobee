@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Dropdown = ({ options, setValue, showSelectedNames, title }) => {
+const Dropdown = ({ locked, options, setValue, showSelectedNames, title }) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState([]);
   const inputName = title.toLowerCase().replaceAll(" ", "_");
@@ -21,6 +21,11 @@ const Dropdown = ({ options, setValue, showSelectedNames, title }) => {
       setValue(inputName, selected.filter(p => p !== option));
     }
   }
+
+  const handleToggleDropdown = () => {
+    if (locked) return;
+    setOpen(prev => !prev);
+  }
   
   const handleCloseDropdown = (e) => {
     // if the dropdown is open, and the user clicks on the "search-dropdown-input" element of ANOTHER dropdown, the first one should close
@@ -40,15 +45,22 @@ const Dropdown = ({ options, setValue, showSelectedNames, title }) => {
     <div className={`search-dropdown-container ${open ? "search-dropdown-container-open" : ""}`}>
     <label>{title}</label>
     <button
-      className={`search-dropdown-input ${selected.length ? "search-dropdown-input-selected" : ""} ${open ? "search-dropdown-input-open" : ""}`}
-      onClick={() => setOpen(prev => !prev)}
+      className={`search-dropdown-input
+        ${selected.length ? "search-dropdown-input-selected" : ""}
+        ${open ? "search-dropdown-input-open" : ""}
+      ${locked ? "search-dropdown-locked" : ""}`
+      }
+      onClick={handleToggleDropdown}
       type="button"
     >
-      {selected.length 
-        ? selected.length === 1
-          ? showSelectedNames ? selected[0] : "1 selected"
-          : selected.length + " selected"
-        : "Select"}
+      {locked
+        ? "Select area OR department"
+        : selected.length 
+          ? selected.length === 1
+            ? showSelectedNames ? selected[0] : "1 selected"
+            : selected.length + " selected"
+          : "Select"
+      }
       {open && 
         <div className="search-dropdown-options">
           {options.map(option => (

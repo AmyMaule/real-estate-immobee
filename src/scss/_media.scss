@@ -251,6 +251,12 @@
   .search-form-container {
     width: 88%;
   }
+
+  .search-results-container {
+    border-radius: 0;
+    margin: 3rem 0 0 0;
+    padding: 2rem 0.5rem;
+  }
 }
 
 @media screen and (max-width: 478px) {
@@ -260,12 +266,6 @@
 
   .search-radius-slider {
     width: 20rem;
-  }
-
-  .search-results-container {
-    border-radius: 0;
-    margin: 3rem 0 0 0;
-    padding: 2rem 1rem;
   }
 
   .img-arrow {    

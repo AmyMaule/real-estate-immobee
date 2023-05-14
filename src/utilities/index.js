@@ -7,8 +7,6 @@ export const getSearchURL = searchQuery => {
   const queryParams = Object.keys(searchQuery);
   let query = "";
 
-  console.log(searchQuery)
-
   if (queryParams.indexOf("agents") !== -1) {
     const agentQuery = searchQuery.agents.map(agent => {
       return agentMapping[agent];

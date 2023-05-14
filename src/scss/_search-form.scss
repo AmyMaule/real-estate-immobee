@@ -145,6 +145,20 @@
   }
 }
 
+.search-dropdown-locked {
+  font-size: 0.9rem;
+  background-color: rgb(242, 237, 237);
+  color: rgb(159, 158, 158);
+  cursor: default;
+
+  &:hover,
+  &:focus {
+    border: 1px solid rgb(236, 231, 231);
+    box-shadow: none;
+    cursor: default;
+  }
+}
+
 .search-dropdown-input-selected {
   background-color: #eaf5ff;
 }
