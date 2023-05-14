@@ -66,7 +66,7 @@
   display: flex;
   flex-direction: column;
   width: 23rem;
-  height: 27rem;
+  height: 29rem;
   color: #222427;
   background-color: rgb(253, 253, 252);
   border-radius: 0.6rem;
@@ -76,20 +76,21 @@
 
 .listing-image-container {
   position: relative;
-  // ensure the alt is displayed in the center of the img
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   text-align: center;
+  flex: 1;
   width: 100%;
-  min-height: 10rem;
-  max-height: 16rem;
-  background-color: rgba(222, 224, 241, 0.5);
-  box-shadow: 0 2px 12px rgba(135, 135, 135, 0.1);
+  min-height: 17rem;
   overflow: hidden;
+  margin-bottom: 0.5rem;
 }
 
 .listing-image {
-  height: 100%;
+  width: 100%;
+  min-height: 15.25rem;
+  max-height: calc(100% - 2rem);
   object-fit: cover;
   margin: 0 auto;
 }
@@ -100,9 +101,9 @@
   justify-content: center;
   position: absolute;
   font-size: 1.4rem;
+  color: #0a1064;
   height: 100%;
   width: 1.5rem;
-  background-color: rgba(222, 224, 241, 0.6);
   top: 0;
   cursor: pointer;
   user-select: none;
@@ -112,14 +113,14 @@
   overflow: hidden;
   
   &:hover {
-    width: 35px;
+    color: #9590d1;
     transition: all 200ms;
     -webkit-transition: all 200ms;
   }
 }
 
 .img-arrow-left {
-  left: 0;
+  left: 0.5rem;
 
   span {
     transform: rotate(180deg);
@@ -127,15 +128,42 @@
 }
 
 .img-arrow-right {
-  right: 0;
+  right: 0.5rem;
+}
+
+.listing-image-control-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  width: 100%;
+  height: 2rem;
+  background-color: eee;
+}
+
+.listing-image-circle {
+  font-size: 2rem;
+  color: #0a1064;
+  width: 1rem;
+  transition: 300ms ease all;
+  -webkit-transition: 300ms ease all;
+  cursor: pointer;
+}
+
+.listing-image-circle-current {
+  color: #1a75ff;
+  font-size: 2.75rem;
+  transition: 300ms ease all;
+  -webkit-transition: 300ms ease all;
 }
 
 .listing-details-container {
   display: flex;
   flex-direction: column;
-  flex: 1;
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
+  margin-top: auto;
 }
 
 .listing-row {
@@ -189,7 +217,7 @@
 }
 
 .listing-location {
-  color: rgb(94, 94, 94);
+  color: rgb(98, 98, 98);
   font-size: 0.9rem;
   font-weight: 500;
   text-transform: capitalize;
@@ -199,7 +227,8 @@
   font-weight: 600;
   text-align: center;
   text-transform: none;
-  margin: 0.25rem auto;
+  padding-top: 0.25rem;
+  margin: auto auto 0 auto;
 }
 
 .listing-link-container {
