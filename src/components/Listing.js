@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { propertyTypeMapping } from '../data';
+
 const Listing = ({ listing }) => {
   const [currentPhoto, setCurrentPhoto] = useState(0);
 
@@ -12,6 +14,12 @@ const Listing = ({ listing }) => {
       if (currentPhoto === 0) {
         setCurrentPhoto(listing.photos_hosted.length - 1);
       } else setCurrentPhoto(prev => prev - 1);
+    }
+  }
+
+  const getPropertyType = type => {
+    for (let key in propertyTypeMapping) {
+      if (propertyTypeMapping[key] === type) return key;
     }
   }
 
@@ -47,7 +55,7 @@ const Listing = ({ listing }) => {
       <div className="listing-details-container">
         <div className="listing-row">
           <h5 className="listing-type">
-            {listing.types}
+            {getPropertyType(listing.types)}
           </h5>
           <h5 className="listing-price">€{listing.price.toLocaleString()}</h5>
         </div>
