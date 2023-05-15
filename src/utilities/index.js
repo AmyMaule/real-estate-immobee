@@ -20,7 +20,7 @@ export const getSearchURL = searchQuery => {
     const departments = searchQuery.department.map(dept => {
       return dept.split("(")[1].split(")")[0];
     }).join(",");
-    query += `&depts=${departments}&inc_none_location=false`;
+    query += `&depts=${departments}`;
   }
 
   if (queryParams.indexOf("area") !== -1) {
