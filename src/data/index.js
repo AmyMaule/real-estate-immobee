@@ -3,7 +3,7 @@ export const propertyTypeMapping = {
   "House": "Maison",
   "Apartment": "Appartement",
   "Building": "Immeuble",
-  "Land": "Terrain",
+  "Terrain": "Terrain",
   "Commercial": "Commerce"
 }
 
@@ -12,6 +12,7 @@ export const agentMapping = {
   "A.P.I.": "api",
   "Arthur Immo": "arthur",
   "Aude Immobilier": "aude",
+  "Beaux Villages": "beaux",
   "Cabinet Jammes": "jammes",
   "Cimm Immobilier": "cimm",
   "Europe Sud Immobilier": "europe",
