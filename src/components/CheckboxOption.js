@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const CheckboxOption = ({ option, register, watch }) => {
+const CheckboxOption = ({ option, register, setValue, watch }) => {
   const [checked, setChecked] = useState(true);
   // if the user checks or unchecks the box, their choice overrides the default checking/unchecking when associated fields have values
   const [userChecked, setUserChecked] = useState(false);
@@ -13,9 +13,9 @@ const CheckboxOption = ({ option, register, watch }) => {
 
   useEffect(() => {
     if (!userChecked) {
-      if (option.relatedFields.some(field => watch(field) !== "" && watch(field) !== undefined)) {
-        setChecked(false);
-      } else setChecked(true);
+      const fieldHasValue = option.relatedFields.some(field => watch(field) !== "" && watch(field) !== undefined);
+      setChecked(!fieldHasValue);
+      setValue(option.name, !fieldHasValue);
     }
   }, [userChecked, watchFields]);
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import CheckboxOption from './CheckboxOption';
 
-const SearchUnknown = ({ register, watch }) => {
+const SearchUnknown = ({ register, setValue, watch }) => {
   const checkboxOptions = [
     { label: "Number of bedrooms", name: "inc_none_beds", relatedFields: ["minBeds", "maxBeds"] },
     { label: "Property size", name: "inc_none_size", relatedFields: ["minSize", "maxSize"] },
@@ -18,7 +18,13 @@ const SearchUnknown = ({ register, watch }) => {
       <h6 className="unknown-listings-subtitle">Include unknown...</h6>
       <div className="checkbox-container">
         {checkboxOptions.map(option => (
-          <CheckboxOption key={option.name} option={option} register={register} watch={watch} />
+          <CheckboxOption
+            key={option.name}
+            option={option}
+            register={register}
+            setValue={setValue}
+            watch={watch}
+          />
         ))}
       </div>
     </div>

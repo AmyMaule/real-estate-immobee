@@ -175,7 +175,7 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
             />
           </div>
           <SearchSlider register={register} />
-          <SearchUnknown register={register} watch={watch} />
+          <SearchUnknown register={register} setValue={setValue} watch={watch} />
         </div>
       </form>
     </div>
