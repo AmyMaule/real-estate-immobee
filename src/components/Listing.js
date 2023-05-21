@@ -1,10 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { propertyTypeMapping } from '../data';
 
 import ListingImage from './ListingImage';
 
 const Listing = ({ listing }) => {
+  // link_url is the unique identifier for each listing
+  const [isSaved, setIsSaved] = useState(
+    JSON.parse(localStorage.getItem("listings")).some(savedListing => savedListing.link_url === listing.link_url)
+  );
+  if (isSaved) console.log(listing)
+
   const heartRef = useRef();
   const dotRef = useRef();
 
@@ -17,15 +23,29 @@ const Listing = ({ listing }) => {
   const checkUnlisted = field => field ? field.toLocaleString() : null;
 
   const handleToggleLike = () => {
+    setIsSaved(prevSaved => !prevSaved);
     heartRef.current.classList.toggle("saved");
     dotRef.current.classList.toggle("saved");
+
+    const savedListings = JSON.parse(localStorage.getItem("listings"));
+    
+    if (savedListings?.length) {
+      if (isSaved) {
+        const filteredListings = savedListings.filter(savedListing => savedListing.link_url !== listing.link_url);
+        localStorage.setItem("listings",  JSON.stringify([...filteredListings]));
+      } else {
+        localStorage.setItem("listings", JSON.stringify([...savedListings, listing]));
+      }
+    } else {
+      localStorage.setItem("listings", JSON.stringify([listing]));
+    }
   }
 
   return (
     <div className="listing-container">
       <div className="listing-save-container" onClick={handleToggleLike} >
-        <i className="fa-regular fa-heart heart-icon" ref={heartRef} />
-        <div className="heart-dot" ref={dotRef}></div>
+        <i className={`fa-regular fa-heart heart-icon ${isSaved ? "saved" : ""}`} ref={heartRef} />
+        <div className={`${isSaved ? "heart-dot saved" : "heart-dot"}`} ref={dotRef}></div>
       </div>
       <ListingImage listing={listing} />
       <div className="listing-details-container">
