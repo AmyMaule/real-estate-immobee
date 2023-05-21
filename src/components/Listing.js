@@ -9,7 +9,6 @@ const Listing = ({ listing }) => {
   const [isSaved, setIsSaved] = useState(
     JSON.parse(localStorage.getItem("listings")).some(savedListing => savedListing.link_url === listing.link_url)
   );
-  if (isSaved) console.log(listing)
 
   const heartRef = useRef();
   const dotRef = useRef();
