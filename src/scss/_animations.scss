@@ -1602,3 +1602,188 @@
     opacity: 0;
   }
 }
+
+// listing animations
+@keyframes move-dot {
+  0% {
+    box-shadow:
+    0 0 0 0 #c1a0ff,
+    0 0 0 0 #c1a0ff,
+    0 0 0 0 #c1a0ff,
+    0 0 0 0 #c1a0ff,
+
+    0 0 0 0 #f6fa91,
+    0 0 0 0 #f6fa91,
+    0 0 0 0 #f6fa91,
+    0 0 0 0 #f6fa91,
+
+    0 0 0 0 #88ebf4,
+    0 0 0 0 #88ebf4,
+    0 0 0 0 #88ebf4,
+    0 0 0 0 #88ebf4;
+  }
+  60% {
+    opacity: 1;
+    width: 0.15rem;
+    height: 0.15rem;
+    box-shadow:
+    21.5px 0 0 0 #c1a0ff,
+    -21.5px 0 0 0 #c1a0ff,
+    0 -21.5px 0 0 #c1a0ff,
+    0 21.5px 0 0 #c1a0ff,
+    
+    18.5px 11px 0 0 #f6fa91,
+    -18.5px 11px 0 0 #f6fa91,
+    -18.5px -11px 0 0 #f6fa91,
+    18.5px -11px 0 0 #f6fa91,
+
+    11px 18.5px 0 0 #88ebf4,
+    -11px 18.5px 0 0 #88ebf4,
+    -11px -18.5px 0 0 #88ebf4,
+    11px -18.5px 0 0 #88ebf4;
+  }
+  70% {
+    opacity: 1;
+    width: 0.15rem;
+    height: 0.15rem;
+    box-shadow:
+    21.5px 0 0 0 #c1a0ff,
+    -21.5px 0 0 0 #c1a0ff,
+    0 -21.5px 0 0 #c1a0ff,
+    0 21.5px 0 0 #c1a0ff,
+    
+    18.5px 11px 0 0 #f6fa91,
+    -18.5px 11px 0 0 #f6fa91,
+    -18.5px -11px 0 0 #f6fa91,
+    18.5px -11px 0 0 #f6fa91,
+
+    11px 18.5px 0 0 #88ebf4,
+    -11px 18.5px 0 0 #88ebf4,
+    -11px -18.5px 0 0 #88ebf4,
+    11px -18.5px 0 0 #88ebf4;
+  }
+  100% {
+    opacity: 0.5;
+    width: 0;
+    height: 0;
+    box-shadow:
+    26.5px 0 0 0 #c1a0ff,
+    -26.5px 0 0 0 #c1a0ff,
+    0 -26.5px 0 0 #c1a0ff,
+    0 26.5px 0 0 #c1a0ff,
+
+    23.5px 16px 0 0 #f6fa91,
+    -23.5px 16px 0 0 #f6fa91,
+    -23.5px -16px 0 0 #f6fa91,
+    23.5px -16px 0 0 #f6fa91,
+
+    16px 23.5px 0 0 #88ebf4,
+    -16px 23.5px 0 0 #88ebf4,
+    -16px -23.5px 0 0 #88ebf4,
+    16px -23.5px 0 0 #88ebf4;
+  }
+}
+
+@-webkit-keyframes move-dot {
+  0% {
+    box-shadow:
+    0 0 0 0 #c1a0ff,
+    0 0 0 0 #c1a0ff,
+    0 0 0 0 #c1a0ff,
+    0 0 0 0 #c1a0ff,
+
+    0 0 0 0 #f6fa91,
+    0 0 0 0 #f6fa91,
+    0 0 0 0 #f6fa91,
+    0 0 0 0 #f6fa91,
+
+    0 0 0 0 #88ebf4,
+    0 0 0 0 #88ebf4,
+    0 0 0 0 #88ebf4,
+    0 0 0 0 #88ebf4;
+  }
+  60% {
+    opacity: 1;
+    width: 0.15rem;
+    height: 0.15rem;
+    box-shadow:
+    21.5px 0 0 0 #c1a0ff,
+    -21.5px 0 0 0 #c1a0ff,
+    0 -21.5px 0 0 #c1a0ff,
+    0 21.5px 0 0 #c1a0ff,
+    
+    18.5px 11px 0 0 #f6fa91,
+    -18.5px 11px 0 0 #f6fa91,
+    -18.5px -11px 0 0 #f6fa91,
+    18.5px -11px 0 0 #f6fa91,
+
+    11px 18.5px 0 0 #88ebf4,
+    -11px 18.5px 0 0 #88ebf4,
+    -11px -18.5px 0 0 #88ebf4,
+    11px -18.5px 0 0 #88ebf4;
+  }
+  70% {
+    opacity: 1;
+    width: 0.15rem;
+    height: 0.15rem;
+    box-shadow:
+    21.5px 0 0 0 #c1a0ff,
+    -21.5px 0 0 0 #c1a0ff,
+    0 -21.5px 0 0 #c1a0ff,
+    0 21.5px 0 0 #c1a0ff,
+    
+    18.5px 11px 0 0 #f6fa91,
+    -18.5px 11px 0 0 #f6fa91,
+    -18.5px -11px 0 0 #f6fa91,
+    18.5px -11px 0 0 #f6fa91,
+
+    11px 18.5px 0 0 #88ebf4,
+    -11px 18.5px 0 0 #88ebf4,
+    -11px -18.5px 0 0 #88ebf4,
+    11px -18.5px 0 0 #88ebf4;
+  }
+  100% {
+    opacity: 0.5;
+    width: 0;
+    height: 0;
+    box-shadow:
+    26.5px 0 0 0 #c1a0ff,
+    -26.5px 0 0 0 #c1a0ff,
+    0 -26.5px 0 0 #c1a0ff,
+    0 26.5px 0 0 #c1a0ff,
+
+    23.5px 16px 0 0 #f6fa91,
+    -23.5px 16px 0 0 #f6fa91,
+    -23.5px -16px 0 0 #f6fa91,
+    23.5px -16px 0 0 #f6fa91,
+
+    16px 23.5px 0 0 #88ebf4,
+    -16px 23.5px 0 0 #88ebf4,
+    -16px -23.5px 0 0 #88ebf4,
+    16px -23.5px 0 0 #88ebf4;
+  }
+}
+
+@keyframes fill-heart {
+  0% {
+    font-size: 0;
+  }
+  80% {
+    font-size: 2.2rem;
+  }
+  100% {
+    font-size: 1.9rem;
+  }
+}
+
+@-webkit-keyframes fill-heart {
+  0% {
+    font-size: 0;
+  }
+  80% {
+    font-size: 2.2rem;
+  }
+  100% {
+    font-size: 1.9rem;
+  }
+}

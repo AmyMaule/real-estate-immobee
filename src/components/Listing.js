@@ -1,21 +1,12 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 
 import { propertyTypeMapping } from '../data';
 
-const Listing = ({ listing }) => {
-  const [currentPhoto, setCurrentPhoto] = useState(0);
+import ListingImage from './ListingImage';
 
-  const handleChangePhoto = direction => {
-    if (direction === "R") {
-      if (currentPhoto === listing.photos_hosted.length - 1) {
-        setCurrentPhoto(0);
-      } else setCurrentPhoto(prev => prev + 1);
-    } else if (direction === "L") {
-      if (currentPhoto === 0) {
-        setCurrentPhoto(listing.photos_hosted.length - 1);
-      } else setCurrentPhoto(prev => prev - 1);
-    }
-  }
+const Listing = ({ listing }) => {
+  const heartRef = useRef();
+  const dotRef = useRef();
 
   const getPropertyType = type => {
     for (let key in propertyTypeMapping) {
@@ -25,33 +16,18 @@ const Listing = ({ listing }) => {
 
   const checkUnlisted = field => field ? field.toLocaleString() : null;
 
+  const handleToggleLike = () => {
+    heartRef.current.classList.toggle("saved");
+    dotRef.current.classList.toggle("saved");
+  }
+
   return (
     <div className="listing-container">
-      {listing.photos_hosted.length
-       ? <div className="listing-image-container">
-            <img
-              alt="listing images"
-              className="listing-image"
-              src={listing.photos_hosted[currentPhoto]}
-            />
-
-          <div className="listing-image-control-bar">
-            <div className="img-arrow img-arrow-left" onClick={() => handleChangePhoto("L")}>
-              <span>&#x27a4;</span>
-            </div>
-            {listing.photos_hosted.map((photo, i) => {
-              if ((window.innerWidth < 410 && i > 9) || i > 14) return null;
-              return i === currentPhoto
-                ? <div className="listing-image-circle listing-image-circle-current" key={i}>{"\u2022"}</div>
-                : <div className="listing-image-circle" onClick={() => setCurrentPhoto(i)} key={i}>{"\u2022"}</div>
-              })}
-            <div className="img-arrow img-arrow-right" onClick={() => handleChangePhoto("R")}>
-              <span>&#x27A4;</span>
-            </div>
-          </div>
-        </div>
-      : <div className="no-images-text">No images available</div>}
-
+      <div className="listing-save-container" onClick={handleToggleLike} >
+        <i className="fa-regular fa-heart heart-icon" ref={heartRef} />
+        <div className="heart-dot" ref={dotRef}></div>
+      </div>
+      <ListingImage listing={listing} />
       <div className="listing-details-container">
         <div className="listing-row">
           <h5 className="listing-type">

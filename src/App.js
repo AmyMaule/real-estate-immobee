@@ -10,6 +10,9 @@ import SearchForm from "./components/SearchForm";
 
 // figure out why the smooth scroll isn't working on last page of listings
 // add modal to show more listing information
+// allow users to save listings to local storage
+// add navbar where users can retrieve saved listings
+// add footer with contact link
 
 const App = () => {
   const [listings, setListings] = useState([]);
