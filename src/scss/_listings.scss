@@ -85,10 +85,22 @@
   height: 2.4rem;
   background-color: #292323d8;
   border-radius: 50%;
+  box-shadow: 0 0 2px 1px #3c3c3c;
   z-index: 10;
   right: 1rem;
   top: 1rem;
   cursor: pointer;
+  transition: all ease 200ms;
+  -webkit-transition: all ease 200ms;
+
+  &:hover {
+    background-color: #292323e4;
+    .heart-icon {
+      color: #fe1239;
+      transition: all ease 200ms;
+      -webkit-transition: all ease 200ms;
+    }
+  }
 }
 
 .heart-icon {
@@ -96,6 +108,8 @@
   font-weight: 400;
   color: #fc5d78;
   z-index: 10;
+  transition: all ease 200ms;
+  -webkit-transition: all ease 200ms;
 
   &.saved {
     font-weight: 900;

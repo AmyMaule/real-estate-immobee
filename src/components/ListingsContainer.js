@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactPaginate from 'react-paginate';
+import { Link, useLocation } from 'react-router-dom'
 
 import { scrollTo } from '../utilities';
 
@@ -11,11 +12,11 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
   const searchResultsContainerRef = useRef();
   const noListingsRef = useRef();
   const listingsPerPage = window.innerWidth > 1274 ? 12 : 10;
-
   const currentPageData = listings
     .slice(currentOffset, currentOffset + listingsPerPage)
     .map(listing => <Listing listing={listing} key={listing.id} />);
   const pageCount = Math.ceil(listings.length / listingsPerPage);
+  const location = useLocation();
 
   const handlePageChange = e => {
     const newOffset = (e.selected * listingsPerPage) % listings.length;
@@ -50,10 +51,23 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
   if (noListingsFound) {
     return (
       <div className="no-listings-container" ref={noListingsRef}>
-        <div className="no-listings-found">
-          No properties found matching your search criteria.
-        </div>
-        <button className="btn-scroll" onClick={() => scrollTo(0)}>Back to top</button>
+        {location.pathname === "/" ? (
+            <>
+              <div className="no-listings-found">
+                No properties found matching your search criteria.
+              </div>
+              <button className="btn-scroll" onClick={() => scrollTo(0)}>Back to top</button>
+            </>
+          ) : (
+            <>
+            <div className="no-listings-found">
+              You haven't saved any listings yet.
+            </div>
+            <Link to="/" className="link">Search properties</Link>
+          </>
+          )
+        }
+
       </div>
     )
   }
