@@ -7,7 +7,7 @@ import ListingImage from './ListingImage';
 const Listing = ({ listing }) => {
   // link_url is the unique identifier for each listing
   const [isSaved, setIsSaved] = useState(
-    JSON.parse(localStorage.getItem("listings")).some(savedListing => savedListing.link_url === listing.link_url)
+    JSON.parse(localStorage.getItem("listings"))?.some(savedListing => savedListing.link_url === listing.link_url) || null
   );
 
   const heartRef = useRef();
