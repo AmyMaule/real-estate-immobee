@@ -78,20 +78,20 @@ const Listing = ({ listing }) => {
         <div className="listing-row listing-icons-container">
           {checkUnlisted(listing.size) &&
             <div className="listing-icon-container">
-              <img src="house-size-icon.png" className="listing-icon" alt="house size icon" />
+              <img src="/house-size-icon.png" className="listing-icon" alt="house size icon" />
               <h5 className="listing-house-size">{checkUnlisted(listing.size)} m&#178;</h5>
             </div>}
           
           {checkUnlisted(listing.plot) &&
             <div className="listing-icon-container">
-              <img src="forest-icon.png" className="listing-icon" alt="plot size icon" />
+              <img src="/forest-icon.png" className="listing-icon" alt="plot size icon" />
               <h5 className="listing-plot-size">{checkUnlisted(listing.plot)} m&#178;</h5>
             </div>}
         </div>}
 
         {(listing.town || listing.postcode) && 
           <div className="listing-row">
-          <img src="location-icon.png" className="listing-icon" alt="location icon" />
+          <img src="/location-icon.png" className="listing-icon" alt="location icon" />
           <h5 className="listing-location">
             {listing.postcode
               ? `${listing?.town?.toLowerCase()}, ${listing.postcode}`
