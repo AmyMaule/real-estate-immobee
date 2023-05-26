@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { baseURL } from './data';
 
 import { getSearchURL } from "./utilities";
 
-import ListingsContainer from "./components/ListingsContainer";
+import ListingsContainer2 from "./components/ListingsContainer2";
 import LoadingAnimation from "./components/LoadingAnimation";
-import Navbar from "./components/Navbar";
 import SearchForm from "./components/SearchForm";
 
-// figure out why the smooth scroll isn't working on last page of listings
 // add modal to show more listing information
-// allow users to save listings to local storage
-// add navbar where users can retrieve saved listings
 // add footer with contact link
 // add error page and ErrorElement to react router config
+// speed up animation
 
 const App = () => {
   const [listings, setListings] = useState([]);
@@ -25,6 +23,18 @@ const App = () => {
   const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const { page } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // if user refreshes the page, return to the base URL
+    if (!listings.length && page && !noListingsFound) {
+      if (!location.pathname.startsWith("/saved-listings")) {
+        navigate("/");
+      }
+    }
+  }, [page, listings]);
 
   useEffect(() => {
     if (typeof queryURL === "string") {
@@ -71,7 +81,7 @@ const App = () => {
         />
 
         {showSearchResults &&
-          <ListingsContainer
+          <ListingsContainer2
             listings={listings}
             noListingsFound={noListingsFound}
             loadingListings={loadingListings}

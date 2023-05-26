@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from "react-hook-form";
 import Multiselect from "react-widgets/Multiselect";
+import { useNavigate } from 'react-router-dom';
 
 import { 
   agentMapping,
@@ -22,8 +23,10 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
   const [minHeight, setMinHeight] = useState(window.innerHeight + 64);
   const departmentOptions = ["Aude (11)", "Ariège (09)", "Haute-Garonne (31)", "Hérault (34)", "Pyrenées-Orientales (66)"];
   const searchFormRef = useRef();
+  const navigate = useNavigate();
 
   const onSubmit = submitData => {
+    navigate("/");
     if (search) return;
     setLoadingListings(true);
     setLoadingTimer(Date.now())
