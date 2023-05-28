@@ -5,7 +5,7 @@ import { baseURL } from './data';
 
 import { getSearchURL } from "./utilities";
 
-import ListingsContainer2 from "./components/ListingsContainer2";
+import ListingsContainer from "./components/ListingsContainer";
 import LoadingAnimation from "./components/LoadingAnimation";
 import SearchForm from "./components/SearchForm";
 
@@ -14,7 +14,7 @@ import SearchForm from "./components/SearchForm";
 // add error page and ErrorElement to react router config
 // speed up animation
 
-const App = () => {
+const App = (props) => {
   const [listings, setListings] = useState([]);
   const [loadingListings, setLoadingListings] = useState(false);
   const [loadingTimer, setLoadingTimer] = useState();
@@ -71,6 +71,7 @@ const App = () => {
       {loadingListings && <LoadingAnimation />}
       <div className="page-container">
         <SearchForm
+          // allowAdvanced={props.allowAdvanced}
           search={search}
           setListings={setListings}
           setLoadingListings={setLoadingListings}
@@ -81,7 +82,7 @@ const App = () => {
         />
 
         {showSearchResults &&
-          <ListingsContainer2
+          <ListingsContainer
             listings={listings}
             noListingsFound={noListingsFound}
             loadingListings={loadingListings}

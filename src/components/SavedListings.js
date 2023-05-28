@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import ListingsContainer2 from './ListingsContainer2';
+import ListingsContainer from './ListingsContainer';
 
 const SavedListings = () => {
   const [listings, setListings] = useState(JSON.parse(localStorage.getItem("listings")));
@@ -10,7 +10,7 @@ const SavedListings = () => {
   }, []);
 
   return (
-    <ListingsContainer2
+    <ListingsContainer
       listings={listings}
       noListingsFound={!listings.length}
       setListings={setListings}

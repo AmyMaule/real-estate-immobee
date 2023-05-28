@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'Berton';
+  src: url("/assets/fonts/Berton-Roman-trial.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: 'AYearWithoutRain';
+  src: url("/assets/fonts/AYearWithoutRain.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: 'KGYouWontBringMeDown';
+  src: url("/assets/fonts/KGYouWontBringMeDown.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: 'Aleo-Regular';
+  src: url("/assets/fonts/Aleo-Regular.otf") format('opentype');
+}
+
+@font-face {
+  font-family: 'Elsie-Regular';
+  src: url("/assets/fonts/Elsie-Regular.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: 'JandaRomantic';
+  src: url("/assets/fonts/JandaRomantic.ttf") format('truetype');
+}
+
+
+@font-face {
+  font-family: 'AlexBrush-Regular';
+  src: url("/assets/fonts/AlexBrush-Regular.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: 'Berton-Voyage-trial';
+  src: url("/assets/fonts/Berton-Voyage-trial.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: 'ChelseaMarket';
+  src: url("/assets/fonts/ChelseaMarket.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: 'FabfeltScript';
+  src: url("/assets/fonts/FabfeltScript.otf") format('opentype');
+}
+
+@font-face {
+  font-family: 'Glitter';
+  src: url("/assets/fonts/Glitter.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: 'KGStrawberryLimeade';
+  src: url("/assets/fonts/KGStrawberryLimeade.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: 'mathilde';
+  src: url("/assets/fonts/mathilde.otf") format('truetype');
+}
+
+@font-face {
+  font-family: 'Otterly';
+  src: url("/assets/fonts/Otterly.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: 'ValentineBees';
+  src: url("/assets/fonts/ValentineBees.ttf") format('truetype');
+}
+
+@import "./reset";
+@import "./variables";
+
+@import "react-widgets/scss/styles.scss";
+@import "./react-widgets-dropdown.scss";
+
+@import "./animations";
+@import "./search-form";
+@import "./listings";
+@import "./loading";
+@import "./navbar";
+@import "./sorting-dropdown";
+
+// media queries
+@import "./media";
+
+.hide {
+  display: none;
+}
