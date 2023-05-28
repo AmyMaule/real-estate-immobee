@@ -67,6 +67,9 @@ export const getSearchURL = searchQuery => {
   
   console.log(query);
 
+  // save the search string to local storage
+  localStorage.setItem("searchQuery", query);
+
   return query;
 }
 

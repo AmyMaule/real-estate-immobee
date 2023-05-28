@@ -1,6 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import ReactPaginate from 'react-paginate';
-import { Link, useLocation } from 'react-router-dom'
+import { 
+  Link,
+  useLocation,
+  useNavigate
+} from 'react-router-dom';
 
 import { scrollTo } from '../utilities';
 
@@ -8,30 +12,53 @@ import Listing from './Listing';
 import SortingDropdown from './SortingDropdown';
 
 const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListingsFound, setListings, setLoadingListings }) => {
-  const [currentOffset, setCurrentOffset] = useState(0);
   const searchResultsContainerRef = useRef();
   const noListingsRef = useRef();
-  const listingsPerPage = window.innerWidth > 1274 ? 12 : 10;
-  const currentPageData = listings
-    .slice(currentOffset, currentOffset + listingsPerPage)
-    .map(listing => <Listing listing={listing} key={listing.id} />);
-  const pageCount = Math.ceil(listings.length / listingsPerPage);
+  const listingsPerPage = 12;
+  const navigate = useNavigate();
   const location = useLocation();
+  const isSavedListingsPage = location.pathname.startsWith("/saved-listings");
+  const currentPage = location.pathname.slice(isSavedListingsPage ? 16 : 8);
+  const currentOffset = (currentPage - 1) * listingsPerPage;
+  
+  useEffect(() => {
+    if (!loadingListings) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: isSavedListingsPage ? 0 : searchResultsContainerRef.current?.offsetTop - 67 || 0,
+          behavior: "auto",
+        });
+      }, 0);
+    }
+  }, [currentPage]);
 
-  const handlePageChange = e => {
-    const newOffset = (e.selected * listingsPerPage) % listings.length;
-    setCurrentOffset(newOffset);
+  const handlePageChange = (e) => {
+    const baseURL = isSavedListingsPage ? "/saved-listings" : "/search";
+    
+    // add 1 as pagination is zero-indexed
+    navigate(`${baseURL}/${e.selected + 1}`);
+    renderListings();
+  }
 
-    // the last page of results doesn't smooth scroll if it is not full height
-    window.scrollTo({
-      top: searchResultsContainerRef.current.offsetTop - 24,
-      behavior: (listings.length - newOffset < 9 || window.innerWidth < 860) ? "auto" : "smooth",
-    });
-  };
+  const renderListings = () => {
+    return listings
+      .slice(currentOffset, (currentOffset) + 12)
+      .map(listing => <Listing listing={listing} key={listing.id} />)
+  }
 
   useEffect(() => {
-    // reset page to zero when listings change
-    setCurrentOffset(0);
+    if (listings.length || noListingsFound) {
+      if (currentPage === "") {
+        if (!isSavedListingsPage) {
+          let timeElapsed = Date.now() - loadingTimer;
+          setTimeout(() => {
+            navigate("/search/1");
+          }, 3500 - timeElapsed);
+        } else navigate("/saved-listings/1");
+      }
+
+      if (isSavedListingsPage) scrollTo(0, 0);
+    }
 
     // ensure animation plays fully before showing listings
     if ((listings.length || noListingsFound) && loadingListings) {
@@ -40,11 +67,11 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
       setTimeout(() => {
         setLoadingListings(false);
         if (searchResultsContainerRef.current) {
-          scrollTo(searchResultsContainerRef.current.offsetTop - 24);
+          scrollTo(searchResultsContainerRef.current.offsetTop - 67);
         } else if (noListingsRef.current) {
-          scrollTo(noListingsRef.current.offsetTop - 24);
+          scrollTo(noListingsRef.current.offsetTop - 67);
         }
-      }, 4100 - timeElapsed);
+      }, 3550 - timeElapsed);
     }
   }, [listings]);
 
@@ -67,7 +94,6 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
           </>
           )
         }
-
       </div>
     )
   }
@@ -78,27 +104,26 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
     <div className="search-results-container" ref={searchResultsContainerRef}>
       <div className="listings-title-container">
       <h3 className="listings-title">
-        Showing results {currentOffset + 1} - {currentOffset + currentPageData.length} of {listings.length}
+        Page {currentPage}{"\n"}
+        Showing results {currentOffset + 1} - {currentOffset + renderListings().length} of {listings.length}
       </h3>
       <SortingDropdown listings={listings} setListings={setListings} />
       </div>
 
       <div className="listings-container">
-        {currentPageData}
+        {renderListings()}
       </div>
       <div className="pagination-container">
         {listings.length >= 10 && 
           <ReactPaginate
-            pageCount={pageCount}
+            pageCount={Math.floor(listings.length / listingsPerPage) + 1}
             onPageChange={handlePageChange}
-            previousLabel={window.innerWidth < 800 ? "Prev" : "Previous"}
-            nextLabel="Next"
             pageClassName="page-item"
             pageLinkClassName="page-link"
             previousLinkClassName={window.innerWidth < 700 ? "hide" : "page-link"}
             nextLinkClassName={window.innerWidth < 700 ? "hide" : "page-link"}
-            nextClassName={currentOffset + listingsPerPage >= listings.length ? "hide" : ""}
-            previousClassName={currentOffset === 0 ? "hide" : ""}
+            nextClassName="hide"
+            previousClassName="hide"
             breakClassName="page-item"
             breakLinkClassName="page-link"
             marginPagesDisplayed={window.innerWidth < 700 ? 2 : 3}

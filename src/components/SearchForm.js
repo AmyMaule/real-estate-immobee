@@ -13,10 +13,10 @@ import { scrollTo } from '../utilities';
 import Dropdown from './Dropdown';
 import Input from './Input';
 import SearchSlider from './SearchSlider';
-import SearchTextarea from './SearchTextarea,';
+import SearchTextarea from './SearchTextarea';
 import SearchUnknown from './SearchUnknown';
 
-const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
+const SearchForm = ({ allowAdvanced, search, setListings, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
   const { register, handleSubmit, setValue, watch } = useForm();
   const [locationChoices, setLocationChoices] = useState([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -26,7 +26,7 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
   const navigate = useNavigate();
 
   const onSubmit = submitData => {
-    navigate("/");
+    navigate("/search");
     if (search) return;
     setLoadingListings(true);
     setLoadingTimer(Date.now())
@@ -95,9 +95,9 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
   if (!locationChoices.length) return null;
 
   return (
-    <div className="hero-section" style={{height: minHeight}}>
-      <div className="hero-section-overlay" />
-      <h1 className="hero-section-title">Find your dream home</h1>
+    <div className="hero-section-search" style={{height: minHeight}}>
+      <div className="hero-section-search-overlay" />
+      <h1 className="hero-section-search-title">Find your dream home</h1>
       <form className="search-form-container" onSubmit={handleSubmit(onSubmit)} ref={searchFormRef}>
         <div className="search-label">
           Price range (€)
@@ -118,12 +118,11 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
           setValue={setValue}
           title="Department"
         />
-        <div className="advanced-search-btn-container">
+
           <button className="btn-advanced-search" type="button" onClick={() => setShowAdvanced(prev => !prev)}>
-            <span className="btn-advanced-search-icon">{showAdvanced ? "- " : "+ "}</span>
-            Advanced search
+            <i className="fa-solid fa-sliders btn-advanced-search-icon" />
+            {showAdvanced ? "Minimise" : "Advanced"}
           </button>
-        </div>
         <button className="btn-search" type="submit">Search</button>
 
         <div className={`advanced-search-container ${showAdvanced ? "show-advanced" : "hide-advanced"}`}>

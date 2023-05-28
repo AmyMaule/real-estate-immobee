@@ -10,7 +10,7 @@
   top: 0;
   left: 0;
   z-index: 60;
-  animation: disappear 0.6s linear forwards 3.9s;
+  animation: disappear 0.6s linear forwards 3.3s;
 }
 
 .loading-circle-container {
@@ -21,7 +21,7 @@
   overflow: hidden;
   background: linear-gradient(#b3d8e8, #569ebb);
   box-shadow: 0 0 1rem 0.2rem rgb(88, 88, 88);
-  animation: disappear 0.5s linear forwards 3.6s;
+  animation: disappear 0.5s linear forwards 3s;
 }
 
 .loading-text {
@@ -30,7 +30,7 @@
   font-size: 2.1rem;
   font-weight: bold;
   text-align: center;
-  animation: fade-out 0.3s linear forwards 3.6s;
+  animation: fade-out 0.3s linear forwards 3s;
 }
 
 .grass {
@@ -254,7 +254,7 @@
   transform: translate(-50%, -2.65rem);
   box-shadow: #7f9bb3 -3px -3px 8px;
   z-index: 2;
-  animation: grow-house 0.75s linear forwards;
+  animation: grow-house 0.65s linear forwards;
 }
 
 .roof {
@@ -276,8 +276,7 @@
     left: -10px;
     bottom: -3px;
     opacity: 0;
-    animation: roof 0.75s linear forwards; 
-    animation-delay: 2.1s;
+    animation: roof 0.75s linear forwards 1.95s;
   }
 }
 
@@ -291,7 +290,7 @@
   border: 3px solid #a92929;
   border-bottom: none;
   opacity: 0;
-  animation: grow-house-features 0.6s linear forwards 0.55s;//, shrink-house-features 0.5s linear 3.2s forwards;
+  animation: grow-house-features 0.5s linear forwards 0.45s;
   z-index: 44;
 
   &::before {
@@ -378,7 +377,7 @@
   border: 3px solid #ffefe9;
   box-shadow: 2px 1px 4px 0 rgba(0, 0, 0, 0.05);
   opacity: 0;
-  animation: grow-house-features 0.6s linear forwards 1.25s;//, shrink-house-features 0.4s linear 3.5s forwards;
+  animation: grow-house-features 0.5s linear forwards 1.05s;
 
   &::before {
     content: "";
@@ -401,7 +400,7 @@
   }
 
   &:nth-of-type(1) {
-    animation: grow-house-features 0.6s linear forwards 1s;//, shrink-house-features 0.4s linear 3.5s forwards;
+    animation: grow-house-features 0.5s linear forwards 0.8s;
   }
 }
 
@@ -412,9 +411,9 @@
   height: 1.9rem;
   border-right: 2px solid #aea7a7;
   opacity: 0;
-  top: -6rem;
+  top: -7.8rem;
   left: 2rem;
-  animation: chimney-slide-down 0.35s linear forwards 1.55s;//, shrink-house-features 0.4s linear 3.5s forwards;
+  animation: chimney-slide-down 0.35s linear forwards 1.4s;
  
   &::before {
     content: "";
@@ -496,7 +495,7 @@
   left: 50%;
   transform: translate(5.55rem, 0);
   opacity: 0;
-  animation: for-sale-sign-slide-down 0.3s linear forwards 2.75s;
+  animation: for-sale-sign-slide-down 0.3s linear forwards 2.5s;
   z-index: 2;
   
   &::before {

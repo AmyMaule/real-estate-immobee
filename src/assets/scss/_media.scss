@@ -1,25 +1,19 @@
-@media screen and (max-width: 1200px) {
-  .search-form-container {
-    width: 88%;
-  }
-
-  .advanced-search-btn-container {
-    width: 100%;
-    padding: 0;
-  }
-
-  .btn-advanced-search {
-    margin: 0 auto;
-  }
+@media screen and (max-width: 1250px) {
+  
 }
 
-@media screen and (max-width: 1075px) {
+
+@media screen and (max-width: 1150px) {
   .search-form-container {
-    padding: 2.5rem 4rem;
+    padding: 2.5rem 3.5rem;
   }
 }
 
 @media screen and (max-width: 1050px) {
+  .search-dropdown-input {
+    width: 11rem;
+  }
+
   .checkbox-container {
     max-width: 38rem;
   }
@@ -45,19 +39,27 @@
 }
 
 @media screen and (max-width: 960px) {
+  .search-form-container {
+    padding: 2.5rem;
+  }
+
   .unknown-listings-title {
     white-space: unset;
   }
 }
 
-@media screen and (max-width: 920px) {
-  .search-form-container {
-    padding: 2.5rem;
+@media screen and (max-width: 910px) {
+  .btn-advanced-search {
+    position: absolute;
+    bottom: 0;
+    right: 1rem;
+    z-index: 100;
+    margin: 0;
   }
 }
 
 @media screen and (max-width: 853px) {
-  .hero-section-title {
+  .hero-section-search-title {
     font-size: 2.75rem;
   }
 
@@ -134,43 +136,9 @@
     max-width: 100%;
   }
 
-  .advanced-search-btn-container {
-    margin: 1rem 0 0.5rem 0;
-  }
-
-  .btn-advanced-search {
-    justify-content: center;
-    width: 13rem;
-    border-top: 1px solid rgb(199, 199, 219);
-    border-bottom: 1px solid rgb(199, 199, 219);
-    box-shadow: 0 0 0.2rem 0 rgb(186, 186, 222);
-  }
-
   // re-order the fields so the dropdowns don't overhang the container too much
   .advanced-search-container {
     margin: 1rem 0 1.5rem 0;
-    // :nth-child(1),
-    // :nth-child(2),
-    // :nth-child(3) { 
-    //   order: 2;
-    // }
-
-    // :nth-child(4) { 
-    //   order: 1;
-    // }
-    
-    // :nth-child(6) { 
-    //   order: 3; 
-    // }
-        
-    // :nth-child(7) {
-    //   order: 4;
-    // }
-
-    // :nth-child(5),
-    // :nth-child(8) { 
-    //   order: 5; 
-    // }
   }
 
   .checkbox-container {
@@ -184,7 +152,7 @@
 }
 
 @media screen and (max-width: 700px) {
-  .hero-section-title {
+  .hero-section-search-title {
     font-size: 3rem;
     max-width: 22rem;
     margin: 5rem auto 0.5rem auto;
@@ -229,6 +197,16 @@
 }
 
 @media screen and (max-width: 630px) {
+  .search-form-container {
+    padding: 2.5rem 3rem 5rem 3rem;
+  }
+  
+  .btn-advanced-search {
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .listings-title-container {
     flex-direction: column;
     align-items: center;
@@ -277,7 +255,7 @@
 
 @media screen and (max-width: 440px) {
   .search-form-container {
-    padding: 2.5rem 2rem;
+    padding: 2.5rem 2rem 5rem 2rem;
   }
 
   .search-input-container {
@@ -288,10 +266,6 @@
     width: calc(50% - 0.25rem);
   }
 
-  .btn-advanced-search {
-    width: 12rem;
-  }
-  
   .search-radius-slider {
     width: 18rem;
   }
