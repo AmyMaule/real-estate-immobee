@@ -31,7 +31,7 @@ const ListingImage = ({ listing }) => {
               {listing.photos_hosted.map((photo, i) => {
                 if ((window.innerWidth < 410 && i > 9) || i > 14) return null;
                 return i === currentPhoto
-                  ? <div className="listing-image-circle-current" key={i} />
+                  ? <img src="/bee-image-2.png" key={i} className="listing-image-current" />
                   : <div className="listing-image-circle" key={i} onClick={() => setCurrentPhoto(i)} />
                 })}
               <div className="img-arrow img-arrow-right" onClick={() => handleChangePhoto("R")}>

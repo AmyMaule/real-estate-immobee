@@ -16,7 +16,7 @@ import SearchSlider from './SearchSlider';
 import SearchTextarea from './SearchTextarea';
 import SearchUnknown from './SearchUnknown';
 
-const SearchForm = ({ allowAdvanced, search, setListings, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
+const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
   const { register, handleSubmit, setValue, watch } = useForm();
   const [locationChoices, setLocationChoices] = useState([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -96,8 +96,9 @@ const SearchForm = ({ allowAdvanced, search, setListings, setLoadingListings, se
 
   return (
     <div className="hero-section-search" style={{height: minHeight}}>
+      <img src="/47720.jpg" className="hero-section-search-img" />
       <div className="hero-section-search-overlay" />
-      <h1 className="hero-section-search-title">Find your dream home</h1>
+      <h1 className="hero-section-search-title">Let <span className="text-logo">ImmoBee</span> help you{"\n"}find your dream home</h1>
       <form className="search-form-container" onSubmit={handleSubmit(onSubmit)} ref={searchFormRef}>
         <div className="search-label">
           Price range (€)
@@ -168,7 +169,7 @@ const SearchForm = ({ allowAdvanced, search, setListings, setLoadingListings, se
             />
           </div>
           <div className="search-label search-label-long search-label-multiselect">
-            Area
+            Town
             <Multiselect
               data={locationChoices}
               filter='contains'

@@ -3,7 +3,8 @@ import ReactPaginate from 'react-paginate';
 import { 
   Link,
   useLocation,
-  useNavigate
+  useNavigate,
+  useParams
 } from 'react-router-dom';
 
 import { scrollTo } from '../utilities';
@@ -17,8 +18,8 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
   const listingsPerPage = 12;
   const navigate = useNavigate();
   const location = useLocation();
+  const currentPage = +useParams().page;  // get currentPage as number
   const isSavedListingsPage = location.pathname.startsWith("/saved-listings");
-  const currentPage = location.pathname.slice(isSavedListingsPage ? 16 : 8);
   const currentOffset = (currentPage - 1) * listingsPerPage;
   
   useEffect(() => {
@@ -48,7 +49,7 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
 
   useEffect(() => {
     if (listings.length || noListingsFound) {
-      if (currentPage === "") {
+      if (!currentPage) {
         if (!isSavedListingsPage) {
           let timeElapsed = Date.now() - loadingTimer;
           setTimeout(() => {
@@ -78,7 +79,7 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
   if (noListingsFound) {
     return (
       <div className="no-listings-container" ref={noListingsRef}>
-        {location.pathname === "/" ? (
+        {location.pathname === "/search/1" ? (
             <>
               <div className="no-listings-found">
                 No properties found matching your search criteria.
@@ -87,11 +88,11 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
             </>
           ) : (
             <>
-            <div className="no-listings-found">
-              You haven't saved any listings yet.
-            </div>
-            <Link to="/" className="link">Search properties</Link>
-          </>
+              <div className="no-listings-found">
+                You haven't saved any listings yet.
+              </div>
+              <Link to="/search" className="link">Search properties</Link>
+            </>
           )
         }
       </div>
@@ -129,6 +130,7 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
             marginPagesDisplayed={window.innerWidth < 700 ? 2 : 3}
             containerClassName="pagination"
             activeClassName="active"
+            forcePage={currentPage - 1}
           />
         }
       </div>

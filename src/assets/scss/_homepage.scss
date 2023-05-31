@@ -1,0 +1,144 @@
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 4rem);
+  background-color: $color-secondary;
+  bottom: 0;
+}
+
+.hero-section-img-container {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: right;
+  height: 100%;
+  bottom: 0;
+}
+
+.hero-section-img {
+  position: relative;
+  width: 100%;
+  right: 0;
+  z-index: 5;
+}
+
+.hero-text-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  top: 0;
+  padding: 0.5rem 3rem 1rem 3rem;
+  z-index: 20;
+}
+
+.hero-title {
+  position: relative;
+  font-family: 'FabfeltScript';
+  font-size: 4.5rem;
+  width: fit-content;
+  text-align: center;
+  margin: 0 auto;
+  z-index: 21;    
+
+  &::before {
+    position: absolute;
+    content: "";
+    width: calc(100% + 8rem);
+    border-bottom: 0.25rem solid $color-primary;
+    z-index: -1;
+    bottom: 0.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.hero-subtitle {
+  position: relative;
+  font-family: 'KGYouWontBringMeDown';
+  font-size: 2.5rem;
+  width: fit-content;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  text-align: center;
+  margin: 0.25rem auto 0 auto;
+}
+
+.hero-subtitle-highlight {
+  display: inline;
+  position: relative;
+  font-weight: bold;
+  width: fit-content;
+  white-space: pre;
+  margin-left: 1rem;
+  z-index: 20;
+
+  &::before {
+    position: absolute;
+    content: "";
+    height: 1.3rem;
+    width: calc(100% + 0.75rem);
+    background-color: $color-highlight;
+    border-top: 9px solid $color-primary;
+    z-index: -1;
+    transform: rotate(-2deg);
+    border-radius: 3px;
+    bottom: 1.4rem;
+    left: -0.2rem;
+  }
+}
+
+.hero-section-bee {
+  position: absolute;
+  width: 80px;
+  transform: rotate(22deg);
+  margin-left: 0.55rem;
+  bottom: 0.55rem;
+  z-index: 58;
+}
+
+.hero-intro-text {
+  font-family: 'AYearWithoutRain';
+  font-size: 1.55rem;
+  max-width: 35rem;
+  margin-top: 2.5rem;
+}
+
+.hero-text-highlight {
+  text-decoration: underline;
+  text-decoration-color: $color-primary;
+}
+
+.btn-hero {
+  display: block;
+  font-family: 'AYearWithoutRain';
+  font-size: 1.75rem;
+  font-weight: 500;
+  width: 23rem;
+  color: #322;
+  background-color: $color-primary;
+  border: 3px solid $color-highlight;
+  border-radius: 0.5rem;
+  outline: none;
+  text-align: center;
+  padding: 0.5rem 0;
+  transition: 300ms ease all;
+  -webkit-transition: 300ms ease all;
+  margin-top: 2rem;
+
+  &:visited {
+    color: #322;
+    background-color: $color-primary;
+    border: 3px solid $color-highlight;
+  }
+
+  &:hover {
+    color: #322;
+    background-color: $color-highlight;
+    border: 3px solid $color-primary;
+    text-decoration: none;
+    transition: 300ms ease all;
+    -webkit-transition: 300ms ease all;
+  }
+}

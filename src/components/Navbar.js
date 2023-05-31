@@ -5,8 +5,9 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar">
-        <Link to="/" className="navbar-link navbar-logo">
-          ImmoBee
+        <Link to="/" className="navbar-logo">
+          <img src="/logo9.png" className="navbar-logo-img" />
+          <div className="navbar-logo-text">ImmoBee</div>
           {/* <i className="fa-solid fa-magnifying-glass" /> */}
         </Link>
         <Link to="/search" className="navbar-link">

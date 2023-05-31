@@ -12,9 +12,9 @@ import SearchForm from "./components/SearchForm";
 // add modal to show more listing information
 // add footer with contact link
 // add error page and ErrorElement to react router config
-// speed up animation
+// make the search form "advanced" button grow the backround gradually as well as the search box
 
-const App = (props) => {
+const App = () => {
   const [listings, setListings] = useState([]);
   const [loadingListings, setLoadingListings] = useState(false);
   const [loadingTimer, setLoadingTimer] = useState();
@@ -29,10 +29,9 @@ const App = (props) => {
 
   useEffect(() => {
     // if user refreshes the page, return to the base URL
-    if (!listings.length && page && !noListingsFound) {
-      if (!location.pathname.startsWith("/saved-listings")) {
-        navigate("/");
-      }
+    if (page && !listings.length && !noListingsFound) {
+      let baseURL = location.pathname.slice(0, location.pathname.indexOf("/" + page));
+      navigate(baseURL)
     }
   }, [page, listings]);
 
@@ -71,7 +70,6 @@ const App = (props) => {
       {loadingListings && <LoadingAnimation />}
       <div className="page-container">
         <SearchForm
-          // allowAdvanced={props.allowAdvanced}
           search={search}
           setListings={setListings}
           setLoadingListings={setLoadingListings}
