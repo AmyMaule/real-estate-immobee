@@ -18,7 +18,7 @@ root.render(
     <Navbar/>
     <Routes>
       <Route exact path="/" element={<Home />}/>
-      <Route exact path="/search" element={<App allowAdvanced />} />
+      <Route exact path="/search" element={<App />} />
       <Route path="/search/:page" element={<App />} />
       <Route path="/saved-listings/:page?" element={<SavedListings />} />
     </Routes>
