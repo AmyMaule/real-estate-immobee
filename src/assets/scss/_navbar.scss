@@ -8,8 +8,6 @@
   background-color: $color-secondary;
   width: 100%;
   height: 4rem;
-  // box-shadow: 0 0.5rem 1.1rem #6d6d6d33;
-  // padding: 0 2rem;
   top: 0;
   z-index: 59;
   overflow: hidden;
@@ -25,9 +23,7 @@
 .navbar-logo {
   display: flex;
   align-items: center;
-  font-family: 'mathilde';
-  font-family: 'Otterly';
-  font-size: 2rem;
+  color: $color-text;
   height: 100%;
   margin-right: auto;
 
@@ -39,36 +35,73 @@
 
 .navbar-logo-img {
   position: absolute;
-  height: 4rem;
+  height: 3.6rem;
   padding: 0.2rem;
-  top: 0;
+  top: 50%;
   left: 0;
+  transform: translateY(-50%);
 }
 
 .navbar-logo-text {
   position: relative;
-  color: $color-text;
-  height: 100%;
-  left: 3.75rem;
+  font-family: 'ChelseaMarket';
+  font-size: 1.4rem;
+  top: 0.15rem;
+  left: 2.55rem;
 }
 
 .navbar-link {
-  font-family: 'Otterly';
+  position: relative;
+  font-family: 'ChelseaMarket';
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  font-size: 1.3rem;
-  font-weight: 500;
+  font-size: 1.1rem;
   color: $color-text;
+  padding: 0.25rem;
   text-decoration: none;
-  letter-spacing: 0;
   z-index: inherit;
   transition: 300ms ease all;
+  cursor: pointer;
   
   &:hover {
     color: black;
     text-decoration: none;
-    letter-spacing: 0.025rem;
     transition: 300ms ease all;
+
+    &::before {
+      -webkit-transition: 0.3s all ease;
+      transition: 0.3s all ease;
+      left: 0;
+      right: 0;
+      opacity: 1;
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    border-top: 2px solid rgb(19, 181, 181);
+    border-bottom: 2px solid rgb(19, 181, 181);
+    opacity: 0;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    z-index: -1;
+    -webkit-transition: 0.3s all ease;
+    transition: 0.3s all ease;
+  }
+
+  &.current-page {
+    &::before {
+      border-top: 2px solid rgb(19, 181, 181);
+      border-bottom: 2px solid rgb(19, 181, 181);
+      left: 0;
+      right: 0;
+      opacity: 1;
+      -webkit-transition: 0.3s all ease;
+      transition: 0.3s all ease;
+    }
   }
 }

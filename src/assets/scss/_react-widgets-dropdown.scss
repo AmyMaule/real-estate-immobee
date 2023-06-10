@@ -5,6 +5,7 @@
 }
 
 .rw-multiselect {
+  font-family: "Raleway", sans-serif;
   position: relative;
   min-height: 2.5rem;
   min-width: 22rem;
@@ -17,7 +18,7 @@
 
   .rw-widget-input {
     position: relative;
-    border: 1px solid rgb(236, 231, 231);
+    border: 1px solid rgb(212, 212, 208);
     
     &:hover {
       border-color: #c5cadc;
