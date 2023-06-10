@@ -55,13 +55,52 @@
 }
 
 .no-listings-found {
+  font-family: 'ChelseaMarket';
   font-size: 1.4rem;
+  color: $color-text;
   text-align: center;
 }
 
-.btn-scroll {
-  font-size: 1.25rem;
+.no-listings-link {
+  font-family: 'ChelseaMarket';
+  font-size: 1.5rem;
   font-weight: 500;
+  color: $color-text;
+  background-color: $color-primary;
+  border: 3px solid $color-highlight;
+  border-radius: 0.5rem;
+  outline: none;
+  text-align: center;
+  padding: 0.75rem 1.5rem;
+  transition: 300ms ease all;
+  -webkit-transition: 300ms ease all;
+  margin-top: 2rem;
+
+  &:focus {
+    outline: none;
+  }
+  
+  &:visited {
+    color: $color-text;
+    background-color: $color-primary;
+    border: 3px solid $color-highlight;
+  }
+
+  &:hover {
+    color: $color-text;
+    background-color: $color-highlight;
+    border: 3px solid $color-primary;
+    text-decoration: none;
+    transition: 300ms ease all;
+    -webkit-transition: 300ms ease all;
+  }
+}
+
+.btn-scroll {
+  font-family: 'ChelseaMarket';
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: $color-text;
   background-color: transparent;
   outline: none;
   border: none;
@@ -69,7 +108,7 @@
   -webkit-transition: all ease 200ms;
 
   &:hover {
-    color: rgb(0, 114, 176);
+    color: $color-tertiary;
     transition: all ease 200ms;
     -webkit-transition: all ease 200ms;
   }
@@ -242,7 +281,7 @@
   justify-content: center;
   position: absolute;
   font-size: 1.4rem;
-  color: #7041cf;
+  color: $color-tertiary;
   height: 100%;
   width: 1.5rem;
   top: 0;
@@ -284,20 +323,20 @@
 }
 
 .listing-image-circle {
-  color: #7041cf;
+  color: $color-tertiary;
   background-color: $color-primary;
   width: 0.7rem;
   height: 0.7rem;
   transition: 200ms ease all;
   -webkit-transition: 200ms ease all;
-  border: 2px solid #7041cf;
+  border: 2px solid $color-tertiary;
   border-radius: 50%;
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
 
   &:hover {
-    background-color: #7041cf;
+    background-color: $color-tertiary;
     transition: 200ms ease all;
     -webkit-transition: 200ms ease all;
   }
@@ -393,7 +432,7 @@
 .listing-link {
   position: absolute;
   display: inline-block;
-  color: #7041cf;
+  color: $color-tertiary;
   width: 0;
   white-space: pre;
   overflow: hidden;
@@ -413,12 +452,12 @@
 }
 
 .listing-link-hover {
-  color: #7041cf;
+  color: $color-tertiary;
   text-decoration: none;
   padding: 0.5rem 0;
 
   &:hover {
-    color: #7041cf;
+    color: $color-tertiary;
     text-decoration: none;
   }
 }
