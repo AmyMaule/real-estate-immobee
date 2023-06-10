@@ -6,17 +6,20 @@
 }
 
 body {
-  font-family: "Raleway", sans-serif;
   color: #212529;
+  background-color: $color-secondary;
 }
 
 i {
   font-family: unset;
 }
 
+label { 
+  margin: 0;
+}
+
 .page-container {
   position: relative;
-  background-color: #fffbf0;
   margin: 0 auto;
 }
 

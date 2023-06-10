@@ -1,19 +1,8 @@
-
-  // font-family: 'mathilde';
-  // font-family: 'KGStrawberryLimeade';
-  // font-family: 'Glitter';
-  // font-family: 'Berton-Voyage-trial';
-  // font-family: 'AYearWithoutRain';
-  // font-family: 'Berton';
-  // font-family: 'Otterly';
-  // font-family: 'ValentineBees';
-
 .hero-section-search {
   position: relative;
   background-color: $color-secondary;
   width: 100%;
-  // height: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh + 1rem);
   overflow: hidden;
   z-index: 49;
 }
@@ -35,14 +24,14 @@
 }
 
 .hero-section-search-title {
-  font-family: 'KGYouWontBringMeDown';
   position: relative;
-  font-size: 3.75rem;
-  color: white;
+  font-family: 'ChelseaMarket';
+  font-size: 2.5rem;
+  color: $color-highlight;
   font-weight: bold;
   text-align: center;
   margin-top: 5rem;
-  text-shadow: 2px 2px 3px #aeae89;
+  text-shadow: 2px 2px 4px #9d9d7d;
   white-space: pre-wrap;
   line-height: 1;
   z-index: 15;
@@ -51,7 +40,7 @@
 .text-logo {
   color: $color-primary;
   font-weight: 700;
-  text-shadow: 2px 2px 2px #aeae89;
+  text-shadow: 1px 2px 4px #89896b;
 }
 
 .search-form-container {
@@ -62,14 +51,15 @@
   justify-content: center;
   gap: 1rem;
   width: 90%;
-  max-width: 62rem;
+  max-width: 70rem;
   min-height: 11.5rem;
   background-color: $color-highlight;
-  background: url("../../../public/honeycomb.jpg");
+  background: url("../../../public/honeycombbg.jpg");
   background-position: top center;
   border-radius: 0.6rem;
   box-shadow: 0 0 3px 1px #8baeb3;
   margin: 3rem auto 0 auto;
+  margin-bottom: 10rem;
   padding: 2.5rem 6rem;
   z-index: 56;
 
@@ -77,8 +67,10 @@
     content: "";
     position: absolute;
     width: 100%;
-    height: 100%;
-    background-color: rgba(252, 249, 229, 0.92);
+    min-height: 100%;
+    background-color: rgba(255, 250, 213, 0.955);
+    border-radius: 0.6rem;
+    top: 0;
     z-index: -1;
   }
 }
@@ -91,6 +83,7 @@
 }
 
 .search-label {
+  font-family: 'ChelseaMarket';
   font-size: 1.2rem;
   font-weight: 500;
   height: max-content;
@@ -99,6 +92,7 @@
 }
 
 .search-input-container {
+  font-family: "Raleway", sans-serif;
   display: flex;
   gap: 0.5rem;
   margin-top: 0.5rem;
@@ -110,7 +104,7 @@
   height: 2.5rem;
   line-height: 2.5rem;
   outline: none;
-  border: 1px solid rgb(236, 231, 231);
+  border: 1px solid rgb(212, 212, 208);
   border-radius: 0.3rem;
   text-align: center;
   padding: 0.3rem;
@@ -139,6 +133,7 @@
 }
 
 .search-dropdown-container {
+  font-family: 'ChelseaMarket';
   position: relative;
   display: flex;
   flex-direction: column;
@@ -154,6 +149,7 @@
 }
 
 .search-dropdown-input {
+  font-family: "Raleway", sans-serif;
   position: relative;
   font-size: 1.25rem;
   background-color: white;
@@ -161,7 +157,7 @@
   width: calc(6.25rem * 2 + 0.5rem);
   height: 2.5rem;
   outline: none;
-  border: 1px solid rgb(236, 231, 231);
+  border: 1px solid rgb(212, 212, 208);
   border-radius: 0.3rem;
   text-align: center;
   user-select: none;
@@ -187,7 +183,7 @@
 .search-dropdown-locked {
   font-size: 0.9rem;
   background-color: rgb(242, 237, 237);
-  color: rgb(159, 158, 158);
+  color: rgb(148, 147, 147);
   cursor: default;
 
   &:hover,
@@ -257,12 +253,13 @@
 }
 
 .btn-advanced-search {
+  font-family: 'ChelseaMarket';
   display: flex;
   align-items: center;
   gap: 0 0.25rem;
   font-size: 1.1rem;
   font-weight: 500;
-  color: #212529;
+  color: $color-text;
   height: 2.5rem;
   background-color: transparent;
   border: none;
@@ -286,9 +283,9 @@
 }
 
 .btn-search {
-  font-family: 'AYearWithoutRain';
+  font-family: 'ChelseaMarket';
   position: absolute;
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 500;
   color: white;
   width: 12rem;
@@ -333,11 +330,16 @@
 }
 
 .show-advanced {
-  animation: 0.4s grow ease forwards;
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: center;
+  transition: 300ms ease-in-out all;
 }
 
 .hide-advanced {
-  animation: 0.4s shrink ease forwards;
+  height: 0;
+  transform: scale(0);
+  opacity: 0;
   z-index: 20;
 }
 
@@ -450,14 +452,15 @@
 }
 
 .unknown-listings-title {
+  font-family: 'ChelseaMarket';
   font-size: 1.1rem;
   text-align: center;
   white-space: pre-wrap;
 }
 
 .unknown-listings-subtitle {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: 'ChelseaMarket';
+  font-size: 1.25rem;
   text-align: center;
   margin-top: 1.25rem;
 }
@@ -471,6 +474,8 @@
 }
 
 .checkbox-label {
+  font-family: 'ChelseaMarket';
+  font-size: 1rem;
   display: flex;
   cursor: pointer;
 
