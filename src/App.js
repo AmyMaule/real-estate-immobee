@@ -13,6 +13,7 @@ import SearchForm from "./components/SearchForm";
 // add footer with contact link
 // add error page and ErrorElement to react router config
 // make the search form "advanced" button grow the backround gradually as well as the search box
+// when listings dropdown changes, reset page to 1
 
 const App = () => {
   const [listings, setListings] = useState([]);
