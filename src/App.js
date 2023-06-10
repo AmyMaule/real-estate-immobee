@@ -27,12 +27,12 @@ const App = () => {
   const { page } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     // if user refreshes the page, return to the base URL
     if (page && !listings.length && !noListingsFound) {
-      let baseURL = location.pathname.slice(0, location.pathname.indexOf("/" + page));
-      navigate(baseURL)
+      let url = location.pathname.slice(0, location.pathname.indexOf("/" + page));
+      navigate(url);
     }
   }, [page, listings]);
 

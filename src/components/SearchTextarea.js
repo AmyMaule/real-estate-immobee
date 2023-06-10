@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-const SearchTextarea = ({ handleUpdateHeight, register }) => {
+const SearchTextarea = ({ register }) => {
   const textAreaRef = useRef();
 
   const handleResizeTextarea = () => {
@@ -8,7 +8,6 @@ const SearchTextarea = ({ handleUpdateHeight, register }) => {
       const textArea = textAreaRef.current.firstElementChild;
       textArea.style.height = 0;
       textArea.style.height = textArea.scrollHeight + "px";
-      handleUpdateHeight();
     }
   }
 

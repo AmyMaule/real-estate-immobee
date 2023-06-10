@@ -8,8 +8,6 @@ import {
   propertyTypeMapping
 } from '../data';
 
-import { scrollTo } from '../utilities';
-
 import Dropdown from './Dropdown';
 import Input from './Input';
 import SearchSlider from './SearchSlider';
@@ -20,7 +18,6 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
   const { register, handleSubmit, setValue, watch } = useForm();
   const [locationChoices, setLocationChoices] = useState([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
-  const [minHeight, setMinHeight] = useState(window.innerHeight + 64);
   const departmentOptions = ["Aude (11)", "Ariège (09)", "Haute-Garonne (31)", "Hérault (34)", "Pyrenées-Orientales (66)"];
   const searchFormRef = useRef();
   const navigate = useNavigate();
@@ -58,10 +55,12 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
     setSearchQuery(searchQuery);
   }
 
-  const handleUpdateHeight = () => {
-    if (searchFormRef.current) {
-      setMinHeight(searchFormRef.current.clientHeight + 400);
+  const toggleAdvancedSearch = () => {
+    if (showAdvanced) {
+      // If user hits "minimise", reset the towns so they can select a department instead
+      setValue("area", "");
     }
+    setShowAdvanced(prev => !prev);
   }
 
   useEffect(() => {
@@ -79,24 +78,11 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
     .catch(err => console.error(err));
   }, []);
 
-  // the height of the hero container shouldn't be updated until the search form is fully expanded
-  useEffect(() => {
-    if (searchFormRef.current) {
-      const searchForm = searchFormRef.current;
-      searchForm.addEventListener("animationend", handleUpdateHeight);
-      return () => searchForm.removeEventListener("animationend", handleUpdateHeight);
-    }
-  }, [searchFormRef.current]);
-
-  useEffect(() => {
-    if (!showAdvanced) scrollTo(0);
-  }, [showAdvanced]);
-
   if (!locationChoices.length) return null;
-
+  
   return (
-    <div className="hero-section-search" style={{height: minHeight}}>
-      <img src="/47720.jpg" className="hero-section-search-img" />
+    <div className="hero-section-search">
+      <img src="/47720.jpg" className="hero-section-search-img" alt="" />
       <div className="hero-section-search-overlay" />
       <h1 className="hero-section-search-title">Let <span className="text-logo">ImmoBee</span> help you{"\n"}find your dream home</h1>
       <form className="search-form-container" onSubmit={handleSubmit(onSubmit)} ref={searchFormRef}>
@@ -120,7 +106,7 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
           title="Department"
         />
 
-          <button className="btn-advanced-search" type="button" onClick={() => setShowAdvanced(prev => !prev)}>
+          <button className="btn-advanced-search" type="button" onClick={toggleAdvancedSearch}>
             <i className="fa-solid fa-sliders btn-advanced-search-icon" />
             {showAdvanced ? "Minimise" : "Advanced"}
           </button>
@@ -163,10 +149,7 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
           </div>
           <div className="search-label search-label-long">
             Keywords
-            <SearchTextarea 
-              handleUpdateHeight={handleUpdateHeight}
-              register={register}
-            />
+            <SearchTextarea register={register} />
           </div>
           <div className="search-label search-label-long search-label-multiselect">
             Town
@@ -175,6 +158,7 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
               filter='contains'
               onChange={selected => setValue("area", selected)}
               showSelectedItemsInList
+              value={watch("area") || []}
             />
           </div>
           <SearchSlider register={register} />

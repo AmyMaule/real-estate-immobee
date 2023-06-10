@@ -54,7 +54,7 @@ const Dropdown = ({ locked, options, setValue, showSelectedNames, title }) => {
       type="button"
     >
       {locked
-        ? "Select area OR department"
+        ? "Select town OR department"
         : selected.length 
           ? selected.length === 1
             ? showSelectedNames ? selected[0] : "1 selected"
