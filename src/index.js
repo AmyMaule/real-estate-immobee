@@ -11,7 +11,7 @@ import './assets/scss/index.scss';
 import App from './App';
 import ErrorPage from './components/ErrorPage';
 import Home from './components/Home';
-import ListingDetail from './components/ListingDetail';
+// import ListingDetail from './components/ListingDetail';
 import Navbar from './components/Navbar';
 import SavedListings from './components/SavedListings';
 
@@ -26,7 +26,7 @@ root.render(
       <Route exact path="/search/:page" element={<App />} />
       <Route exact path="/saved-listings/" element={<SavedListings />} />
       <Route exact path="/saved-listings/:page?" element={<SavedListings />} />
-      <Route exact path="/listings/:id" element={<ListingDetail />} />
+      {/* <Route exact path="/listings/:id" element={<ListingDetail />} /> */}
       <Route path="/error" element={<ErrorPage />} />
       <Route path="*" element={<Navigate replace to="/error" />} />
     </Routes>
