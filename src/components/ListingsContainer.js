@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import ReactPaginate from 'react-paginate';
 import { 
   Link,
+  Navigate,
   useLocation,
   useNavigate,
   useParams
@@ -21,12 +22,12 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
   const currentPage = +useParams().page;  // get currentPage as number
   const isSavedListingsPage = location.pathname.startsWith("/saved-listings");
   const currentOffset = (currentPage - 1) * listingsPerPage;
-  
+
   useEffect(() => {
     if (!loadingListings) {
       setTimeout(() => {
         window.scrollTo({
-          top: isSavedListingsPage ? 0 : searchResultsContainerRef.current?.offsetTop - 67 || 0,
+          top: isSavedListingsPage ? 0 : searchResultsContainerRef.current?.offsetTop + 1 || 0,
           behavior: "auto",
         });
       }, 0);
@@ -43,9 +44,12 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
 
   const renderListings = () => {
     return listings
-      .slice(currentOffset, (currentOffset) + 12)
-      .map(listing => <Listing listing={listing} key={listing.id} />)
-  }
+      .slice(currentOffset, currentOffset + 12)
+      .map(listing => (
+        <Listing listing={listing} key={listing.link_url} />
+      ));
+  };
+
 
   useEffect(() => {
     if (listings.length || noListingsFound) {
@@ -54,11 +58,11 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
           let timeElapsed = Date.now() - loadingTimer;
           setTimeout(() => {
             navigate("/search/1");
-          }, 3500 - timeElapsed);
+          }, 3650 - timeElapsed);
         } else navigate("/saved-listings/1");
       }
 
-      if (isSavedListingsPage) scrollTo(0, 0);
+      if (isSavedListingsPage) scrollTo();
     }
 
     // ensure animation plays fully before showing listings
@@ -68,11 +72,11 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
       setTimeout(() => {
         setLoadingListings(false);
         if (searchResultsContainerRef.current) {
-          scrollTo(searchResultsContainerRef.current.offsetTop - 67);
+          scrollTo(searchResultsContainerRef.current.offsetTop + 1);
         } else if (noListingsRef.current) {
-          scrollTo(noListingsRef.current.offsetTop - 67);
+          scrollTo(noListingsRef.current.offsetTop + 1);
         }
-      }, 3550 - timeElapsed);
+      }, 3650 - timeElapsed);
     }
   }, [listings]);
 
@@ -84,14 +88,14 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
               <div className="no-listings-found">
                 No properties found matching your search criteria.
               </div>
-              <button className="btn-scroll" onClick={() => scrollTo(0)}>Back to top</button>
+              <button className="no-listings-link" onClick={() => scrollTo(0)}>Back to top</button>
             </>
           ) : (
             <>
               <div className="no-listings-found">
                 You haven't saved any listings yet.
               </div>
-              <Link to="/search" className="link">Search properties</Link>
+              <Link to="/search" className="no-listings-link">Search properties</Link>
             </>
           )
         }
@@ -100,6 +104,10 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
   }
 
   if (!listings.length) return null;
+
+  if (currentPage > Math.ceil(listings.length / listingsPerPage)) {
+    return <Navigate replace to="/error" />
+  }
 
   return (   
     <div className="search-results-container" ref={searchResultsContainerRef}>
@@ -117,20 +125,20 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
       <div className="pagination-container">
         {listings.length >= 10 && 
           <ReactPaginate
-            pageCount={Math.floor(listings.length / listingsPerPage) + 1}
-            onPageChange={handlePageChange}
-            pageClassName="page-item"
-            pageLinkClassName="page-link"
-            previousLinkClassName={window.innerWidth < 700 ? "hide" : "page-link"}
-            nextLinkClassName={window.innerWidth < 700 ? "hide" : "page-link"}
-            nextClassName="hide"
-            previousClassName="hide"
+            activeClassName="active"
             breakClassName="page-item"
             breakLinkClassName="page-link"
-            marginPagesDisplayed={window.innerWidth < 700 ? 2 : 3}
             containerClassName="pagination"
-            activeClassName="active"
-            forcePage={currentPage - 1}
+            forcePage={currentPage ? currentPage - 1 : null}
+            marginPagesDisplayed={window.innerWidth < 700 ? 2 : 3}
+            nextClassName="hide"
+            nextLinkClassName={window.innerWidth < 700 ? "hide" : "page-link"}
+            onPageChange={handlePageChange}
+            pageClassName="page-item"
+            pageCount={Math.ceil(listings.length / listingsPerPage)}
+            pageLinkClassName="page-link"
+            previousClassName="hide"
+            previousLinkClassName={window.innerWidth < 700 ? "hide" : "page-link"}
           />
         }
       </div>
