@@ -7,6 +7,11 @@
   .search-form-container {
     padding: 2.5rem 3.5rem;
   }
+
+  .listing-detail-img-container {
+    max-height: calc(100vh - 4rem); // minus navbar height
+    height: fit-content;
+  }
 }
 
 @media screen and (max-width: 1050px) {
@@ -194,7 +199,7 @@
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 700px) {  ///////////////////////// add hamburger in here
   .hero-text-container {
     padding: 0 0 2rem 0;
   }

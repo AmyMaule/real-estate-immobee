@@ -9,7 +9,8 @@ const ListingDetail = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const location = useLocation();
   const listingID = location.pathname.slice(10);
-  const [listing, setListing] = useState(location.state || JSON.parse(localStorage.getItem(listingID)));
+  // use location.state when opening the listing in the same tab
+  const [listing, setListing] = useState(JSON.parse(localStorage.getItem(listingID)));
 
   useEffect(() => {
     scrollTo(0, "auto");
@@ -24,7 +25,6 @@ const ListingDetail = () => {
         <ImageControlBar
           currentImage={currentImage}
           listingPhotos={listing.photos_hosted}
-          maxImages={listing.photos_hosted.length}
           setCurrentImage={setCurrentImage}
         />
       </div>

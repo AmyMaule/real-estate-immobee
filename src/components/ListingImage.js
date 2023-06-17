@@ -17,7 +17,6 @@ const ListingImage = ({ listing }) => {
             <ImageControlBar
               currentImage={currentImage}
               listingPhotos={listing.photos_hosted}
-              maxImages={14}
               setCurrentImage={setCurrentImage}
             />
           </div>
