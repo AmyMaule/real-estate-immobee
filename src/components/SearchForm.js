@@ -89,8 +89,8 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
         <div className="search-label">
           Price range (€)
           <div className="search-input-container">
-            <Input name="minPrice" number placeholder="Min" register={register} setValue={setValue} maxLength={7} />
-            <Input name="maxPrice" number placeholder="Max" register={register} setValue={setValue} maxLength={7} />
+            <Input name="minPrice" number placeholder="Min" register={register} setValue={setValue} maxLength={9} />
+            <Input name="maxPrice" number placeholder="Max" register={register} setValue={setValue} maxLength={9} />
           </div>
         </div>
         <Dropdown
@@ -116,15 +116,15 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
           <div className="search-label">
             Property size (m{String.fromCharCode(178)})
             <div className="search-input-container">
-              <Input name="minSize" number placeholder="Min" register={register} setValue={setValue} maxLength={5} />
-              <Input name="maxSize" number placeholder="Max" register={register} setValue={setValue} maxLength={5} />
+              <Input name="minSize" number placeholder="Min" register={register} setValue={setValue} maxLength={6} />
+              <Input name="maxSize" number placeholder="Max" register={register} setValue={setValue} maxLength={6} />
             </div>
           </div>
           <div className="search-label">
             Plot size (m{String.fromCharCode(178)})
             <div className="search-input-container">
-              <Input name="minPlot" number placeholder="Min" register={register} setValue={setValue} maxLength={5} />
-              <Input name="maxPlot" number placeholder="Max" register={register} setValue={setValue} maxLength={5} />
+              <Input name="minPlot" number placeholder="Min" register={register} setValue={setValue} maxLength={6} />
+              <Input name="maxPlot" number placeholder="Max" register={register} setValue={setValue} maxLength={6} />
             </div>
           </div>
           <div className="search-label">

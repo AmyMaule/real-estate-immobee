@@ -22,22 +22,25 @@ const Listing = ({ listing }) => {
   const handleSelectListing = (e) => {
     const otherTargets = ["img-arrow", "img-arrow-glyph", "listing-image-circle", "listing-image-current", "listing-save-container", "heart-icon"];
     const classNames = e.target.classList;
-    // e.button === 0 is a left click
-    if (e.button === 0 && !e.ctrlKey) {
-      for (let className of classNames) {
-        if (otherTargets.indexOf(className) !== -1) {
+    
+    for (let className of classNames) {
+      if (otherTargets.indexOf(className) !== -1) {
+        // e.button === 0 is a left click
+        if (e.button === 0 && !e.ctrlKey) {
           e.preventDefault();
-          return;
         }
+        return;
       }
     }
+    
 
-    if (e.button === 0 && !e.ctrlKey) {
-      e.preventDefault();
-      navigate(`/listings/${listing.ref}`, { state: listing });
-    } else {
+    // if (e.button === 0 && !e.ctrlKey) {
+    //   e.preventDefault();
+    //   navigate(`/listings/${listing.ref}`, { state: listing });
+    // } else {
       localStorage.setItem(listing.ref, JSON.stringify(listing));
-    }
+      window.open(`/listings/${listing.ref}`, "_blank", "noreferrer");
+    // }
   }
 
   const getPropertyType = type => {
