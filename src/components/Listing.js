@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { propertyTypeMapping } from '../data';
 
@@ -7,11 +8,21 @@ import ListingImage from './ListingImage';
 const Listing = ({ listing }) => {
   // link_url is the unique identifier for each listing
   const [isSaved, setIsSaved] = useState(
-    JSON.parse(localStorage.getItem("listings"))?.some(savedListing => savedListing.link_url === listing.link_url) || null
+    JSON.parse(localStorage.getItem("listings"))?.some(savedListing => savedListing?.link_url === listing.link_url) || null
   );
-
   const heartRef = useRef();
   const dotRef = useRef();
+  const navigate = useNavigate();
+
+  // ensure listing is only selected if other buttons on the listing are not clicked
+  const handleSelectListing = (e) => {
+    const otherTargets = ["img-arrow", "img-arrow-glyph", "listing-image-circle", "listing-image-current", "listing-save-container", "heart-icon"];
+    const classNames = e.target.classList;
+    for (let className of classNames) {
+      if (otherTargets.indexOf(className) !== -1) return;
+    }
+    navigate(`/listings/${listing.ref}`, { state: listing })
+  }
 
   const getPropertyType = type => {
     for (let key in propertyTypeMapping) {
@@ -41,7 +52,7 @@ const Listing = ({ listing }) => {
   }
 
   return (
-    <div className="listing-container">
+    <div className="listing-container" onClick={handleSelectListing}>
       <div className="listing-save-container" onClick={handleToggleLike} >
         <i className={`fa-regular fa-heart heart-icon ${isSaved ? "saved" : ""}`} ref={heartRef} />
         <div className={`${isSaved ? "heart-dot saved" : "heart-dot"}`} ref={dotRef}></div>
@@ -99,14 +110,6 @@ const Listing = ({ listing }) => {
             }
           </h5>
         </div>}
-
-        <div className="listing-link-container">
-          <span className="listing-link">
-            <a className="listing-link-hover" href={listing.link_url} target="_blank" rel="noreferrer">View original listing</a>
-          </span>
-          <a className="listing-link-default" href={listing.link_url} target="_blank" rel="noreferrer">View original listing</a>
-        </div>
-
         <div className="listing-row listing-agent-container">
           <h5 className="listing-agent">{listing.agent}</h5>
           <h5 className="listing-ref">Ref: {listing.ref}</h5>
