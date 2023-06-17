@@ -144,6 +144,8 @@
   z-index: 2;
 
   &:hover {
+    color: #222427;
+    text-decoration: none;
     border: 2px solid rgba(247, 221, 22, 0.8);
     box-shadow:
     rgba(247, 221, 22, 0.27) 0 0 1px 1px,

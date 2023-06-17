@@ -8,11 +8,14 @@ import ImageControlBar from './ImageControlBar';
 const ListingDetail = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const location = useLocation();
-  const listing = location.state;
+  const listingID = location.pathname.slice(10);
+  const [listing, setListing] = useState(location.state || JSON.parse(localStorage.getItem(listingID)));
 
   useEffect(() => {
     scrollTo(0, "auto");
   }, []);
+
+  if (!listing) return null;
 
   return (
     <div className="listing-detail-page-container">
