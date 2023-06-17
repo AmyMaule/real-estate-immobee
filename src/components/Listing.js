@@ -14,14 +14,30 @@ const Listing = ({ listing }) => {
   const dotRef = useRef();
   const navigate = useNavigate();
 
+  const handleMiddleClick = e => {
+    if (e.button === 1) handleSelectListing(e);
+  }
+
   // ensure listing is only selected if other buttons on the listing are not clicked
   const handleSelectListing = (e) => {
     const otherTargets = ["img-arrow", "img-arrow-glyph", "listing-image-circle", "listing-image-current", "listing-save-container", "heart-icon"];
     const classNames = e.target.classList;
-    for (let className of classNames) {
-      if (otherTargets.indexOf(className) !== -1) return;
+    // e.button === 0 is a left click
+    if (e.button === 0 && !e.ctrlKey) {
+      for (let className of classNames) {
+        if (otherTargets.indexOf(className) !== -1) {
+          e.preventDefault();
+          return;
+        }
+      }
     }
-    navigate(`/listings/${listing.ref}`, { state: listing })
+
+    if (e.button === 0 && !e.ctrlKey) {
+      e.preventDefault();
+      navigate(`/listings/${listing.ref}`, { state: listing });
+    } else {
+      localStorage.setItem(listing.ref, JSON.stringify(listing));
+    }
   }
 
   const getPropertyType = type => {
@@ -52,7 +68,13 @@ const Listing = ({ listing }) => {
   }
 
   return (
-    <div className="listing-container" onClick={handleSelectListing}>
+    <a 
+      className="listing-container"
+      href={`/listings/${listing.ref}`}
+      onContextMenu={handleSelectListing}
+      onClick={handleSelectListing}
+      onMouseDown={handleMiddleClick}
+    >
       <div className="listing-save-container" onClick={handleToggleLike} >
         <i className={`fa-regular fa-heart heart-icon ${isSaved ? "saved" : ""}`} ref={heartRef} />
         <div className={`${isSaved ? "heart-dot saved" : "heart-dot"}`} ref={dotRef}></div>
@@ -115,7 +137,7 @@ const Listing = ({ listing }) => {
           <h5 className="listing-ref">Ref: {listing.ref}</h5>
         </div>
       </div>
-    </div>
+    </a>
   )
 }
 
