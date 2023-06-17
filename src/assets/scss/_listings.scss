@@ -29,7 +29,7 @@
 }
 
 .listings-title {
-  font-family: 'ChelseaMarket';
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
   font-size: 0.9rem;
   white-space: pre-wrap;
 }
@@ -55,14 +55,14 @@
 }
 
 .no-listings-found {
-  font-family: 'ChelseaMarket';
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
   font-size: 1.4rem;
   color: $color-text;
   text-align: center;
 }
 
 .no-listings-link {
-  font-family: 'ChelseaMarket';
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
   font-size: 1.5rem;
   font-weight: 500;
   color: $color-text;
@@ -97,7 +97,7 @@
 }
 
 .btn-scroll {
-  font-family: 'ChelseaMarket';
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
   font-size: 1.5rem;
   font-weight: 500;
   color: $color-text;
@@ -158,6 +158,8 @@
     width: 100%;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.81);
+    top: 0;
+    left: 0;
     z-index: -1;
   }
 
@@ -166,7 +168,7 @@
     background-position: center 10%;
 
     &::after {
-      background-color: rgba(254, 255, 239, 0.85);
+      background-color: rgba(254, 255, 240, 0.85);
     }
   }
 
@@ -175,7 +177,7 @@
     background-position: center 100%;
     
     &::after {
-      background-color: rgba(251, 243, 252, 0.9);
+      background-color: rgba(251, 245, 252, 0.9);
     }
   }
 }
@@ -356,7 +358,7 @@
 }
 
 .listing-row {
-  font-family: "ChelseaMarket";
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -414,54 +416,6 @@
   text-transform: capitalize;
 }
 
-.listing-link-container {
-  font-family: "ChelseaMarket";
-  position: relative;
-  display: inline-block;
-  font-weight: 600;
-  text-align: center;
-  text-transform: none;
-  padding-top: 0.25rem;
-  margin: auto auto 0 auto;
-
-  &:hover .listing-link {
-    width: 100%;
-  }
-}
-
-.listing-link {
-  position: absolute;
-  display: inline-block;
-  color: $color-tertiary;
-  width: 0;
-  white-space: pre;
-  overflow: hidden;
-  transition: width 400ms;
-  text-decoration: underline;
-}
-
-.listing-link-default {
-  color: #222427;
-  text-decoration: none;
-  padding: 0.5rem 0;
-
-  &:hover {
-    color: #222427;
-    text-decoration: none;
-  }
-}
-
-.listing-link-hover {
-  color: $color-tertiary;
-  text-decoration: none;
-  padding: 0.5rem 0;
-
-  &:hover {
-    color: $color-tertiary;
-    text-decoration: none;
-  }
-}
-
 .listing-agent-container {
   justify-content: space-between;
 }
@@ -510,21 +464,139 @@
 .listing-detail-page-container {
   width: 100%;
   height: 100%;
-  // background: url("../../../public/watercolorbg.jpg");
+  background-color: rgb(253, 253, 212);
+  padding-bottom: 1.5rem;
+  background: url("../../../public/watercolorbg.jpg");
+  
+  &::after {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(233, 255, 255, 0.78);
+    top: 0;
+    left: 0;
+  }
 }
 
 .listing-detail-img-container {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  height: 100%;
-  max-height: calc(100vh - 4rem);
-  background-color: rgb(65, 63, 63);
-  padding: 2rem;
+  justify-content: space-between;
+  max-width: 110rem;
+  width: 100%;
+  height: calc(100vh - 4rem); // minus navbar height
+  padding: 1rem 1rem 0.5rem 1rem;
+  margin: 0 auto;
+  z-index: 2;
 }
 
 .listing-detail-page-img {
+  position: relative;
   max-width: 100%;
-  max-height: calc(100vh - 6rem);
+  height: 100%;
+  min-height: 0;
+}
+
+.listing-detail-info-container {
+  position: relative;
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: url("../../../public/1.jpg");
+  background-size: contain;
+  border-radius: 1rem;
+  border: 5px solid $color-primary;
+  margin: 1.5rem;
+  padding: 1.5rem;
+  overflow: hidden;
+  z-index: 2;
+
+  * {
+    z-index: 2;
+  }
+  
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: $color-highlight;
+    opacity: 0.87;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+}
+
+.listing-title-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.listing-detail-title,
+.listing-detail-price {
+  font-size: 1.8rem;
+}
+
+.listing-detail-town {
+  text-transform: capitalize;
+}
+
+.listing-detail-agent {
+  text-align: center;
+}
+
+.listing-link-container {
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+  text-align: center;
+  text-transform: none;
+  padding-top: 0.25rem;
+  margin: auto auto 0 auto;
+
+  &:hover .listing-link {
+    width: 100%;
+  }
+}
+
+.listing-link {
+  position: absolute;
+  display: inline-block;
+  color: $color-tertiary;
+  width: 0;
+  white-space: pre;
+  overflow: hidden;
+  transition: width 400ms;
+  text-decoration: underline;
+}
+
+.listing-link-default {
+  color: #222427;
+  font-size: 1.5rem;
+  text-decoration: none;
+  padding: 0.5rem 0;
+
+  &:hover {
+    color: #222427;
+    text-decoration: none;
+  }
+}
+
+.listing-link-hover {
+  color: $color-tertiary;
+  font-size: 1.5rem;
+  text-decoration: none;
+  padding: 0.5rem 0;
+
+  &:hover {
+    color: $color-tertiary;
+    text-decoration: none;
+  }
 }

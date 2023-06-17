@@ -28,7 +28,7 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
       setTimeout(() => {
         window.scrollTo({
           top: isSavedListingsPage ? 0 : searchResultsContainerRef.current?.offsetTop + 1 || 0,
-          behavior: "auto",
+          behavior: "smooth",
         });
       }, 0);
     }
@@ -58,7 +58,7 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
           let timeElapsed = Date.now() - loadingTimer;
           setTimeout(() => {
             navigate("/search/1");
-          }, 3650 - timeElapsed);
+          }, 3600 - timeElapsed);
         } else navigate("/saved-listings/1");
       }
 
@@ -76,7 +76,7 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
         } else if (noListingsRef.current) {
           scrollTo(noListingsRef.current.offsetTop + 1);
         }
-      }, 3650 - timeElapsed);
+      }, 3600 - timeElapsed);
     }
   }, [listings]);
 

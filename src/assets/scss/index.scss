@@ -12,7 +12,7 @@
 }
 
 @font-face {
-  font-family: 'ChelseaMarket';
+  font-family: "ChelseaMarket";
   src: url("/assets/fonts/ChelseaMarket.ttf") format('truetype');
 }
 
@@ -26,7 +26,7 @@
   src: url("/assets/fonts/mathilde.otf") format('truetype');
 }
 
-// font-family: 'ChelseaMarket';
+// font-family: "ChelseaMarket", "Raleway", sans-serif;
 // font-family: 'KGYouWontBringMeDown';
 // font-family: 'FabfeltScript';
 // font-family: 'mathilde';
@@ -42,7 +42,6 @@
 
 @import "animations";
 @import "loading";
-// @import "modal";
 @import "navbar";
 @import "sorting-dropdown";
 
