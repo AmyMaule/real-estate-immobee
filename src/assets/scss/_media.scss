@@ -54,6 +54,12 @@
     font-size: 1rem;
     white-space: unset;
   }
+
+  // listing detail page
+  .listing-title-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @media screen and (max-width: 910px) {
@@ -196,6 +202,33 @@
   .listing-container {
     width: 25rem;
     height: fit-content;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .listing-detail-title,
+  .listing-detail-price {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .listing-detail-rooms {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .listing-detail-description {
+    font-size: 1rem;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .listing-detail-agent {
+    font-size: 1rem;
+  }
+
+  .listing-link-hover,
+  .listing-link-default {
+    font-size: 1.2rem;
   }
 }
 
@@ -350,6 +383,35 @@
     width: 15rem;
     font-size: 1.5rem;
     margin: 2.5rem auto 0 auto;
+  }
+
+  // listing detail
+  .listing-detail-info-container {
+    gap: 0.75rem;
+    padding: 1.5rem 1rem;
+    margin: 1rem;
+  }
+
+  .listing-detail-title,
+  .listing-detail-price {
+    font-size: 1.2rem;
+  }
+
+  .listing-detail-rooms {
+    font-size: 1.1rem;
+  }
+
+  .listing-detail-description {
+    font-size: 0.9rem;
+  }
+
+  .listing-detail-agent {
+    font-size: 1rem;
+  }
+
+  .listing-link-hover,
+  .listing-link-default {
+    font-size: 1.1rem;
   }
 }
 
