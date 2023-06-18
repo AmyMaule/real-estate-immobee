@@ -21,7 +21,7 @@ const ListingDetail = () => {
   return (
     <div className="listing-detail-page-container">
       <div className="listing-detail-img-container">
-        <img src={listing.photos_hosted[currentImage]} className="listing-detail-page-img" />
+        <img src={listing.photos_hosted[currentImage]} className="listing-detail-page-img" alt="listing image" />
         <ImageControlBar
           currentImage={currentImage}
           listingPhotos={listing.photos_hosted}
@@ -57,7 +57,7 @@ const ListingDetail = () => {
           }
         </h5>}
         <div>{listing.description?.map((paragraph, i) => (
-          <p key={i}>{paragraph}</p>
+          <p key={i} className="listing-detail-description">{paragraph}</p>
         ))}</div>
         <h5 className="listing-detail-agent">Listed with {listing.agent}</h5>
         <div className="listing-link-container">
