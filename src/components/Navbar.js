@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 
 import { scrollTo } from '../utilities';
+import HamburgerMenu from './HamburgerMenu';
 
 const Navbar = () => {
   const location = useLocation();
@@ -37,6 +38,7 @@ const Navbar = () => {
               <i className="fa-solid fa-house-circle-check" />
             </Link>
         }
+        <HamburgerMenu />
       </nav>
       <div className="navbar-height" />
     </>

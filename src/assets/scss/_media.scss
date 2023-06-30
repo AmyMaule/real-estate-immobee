@@ -60,6 +60,12 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .listing-detail-img-container {
+    .img-arrow {
+      font-size: 1.5rem;
+    }
+  }
 }
 
 @media screen and (max-width: 910px) {
@@ -67,7 +73,7 @@
     position: absolute;
     bottom: 0;
     right: 1rem;
-    z-index: 100;
+    // z-index: 100;
     margin: 0;
   }
 }
@@ -206,6 +212,16 @@
 }
 
 @media screen and (max-width: 770px) {
+  .listing-detail-img-container {  
+    padding: 1rem 1rem 0.5rem 1rem;
+
+    .img-arrow {
+      display: flex;
+      align-items: flex-end;
+      padding: 0 0.5rem 0.5rem 0.5rem;
+    }
+  }
+
   .listing-detail-title,
   .listing-detail-price {
     font-size: 1.5rem;
@@ -232,7 +248,15 @@
   }
 }
 
-@media screen and (max-width: 700px) {  ///////////////////////// add hamburger in here
+@media screen and (max-width: 700px) {
+  .navbar-link {
+    display: none;
+  }
+
+  .navbar-hamburger-container {
+    display: flex;
+  }
+
   .hero-text-container {
     padding: 0 0 2rem 0;
   }
@@ -422,7 +446,6 @@
 
   .search-results-container {
     border-radius: 0;
-    margin: 3rem 0 0 0;
     padding: 2rem 0.5rem;
   }
 }
@@ -472,12 +495,6 @@
 
   .search-radius-slider {
     width: 20rem;
-  }
-
-  .img-arrow {    
-    &:hover {
-      width: 1.5rem;
-    }
   }
 }
 

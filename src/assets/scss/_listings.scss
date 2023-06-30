@@ -307,7 +307,7 @@
   left: 0;
 
   span {
-    transform: rotate(180deg);
+    transform: rotateY(180deg);
   }
 }
 
@@ -327,7 +327,7 @@
   padding: 0.5rem 1.6rem;
 }
 
-.listing-image-cirlce-container {
+.listing-image-circle-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -479,6 +479,7 @@
   background-color: rgb(253, 253, 212);
   padding-bottom: 1.5rem;
   background: url("../../../public/watercolorbg.jpg");
+  background-size: cover;
   
   &::after {
     content: "";
@@ -500,9 +501,25 @@
   max-width: 110rem;
   width: 100%;
   height: calc(100vh - 4rem); // minus navbar height
-  padding: 1rem 1rem 0.5rem 1rem;
+  padding: 1rem 1.5rem 0.5rem 1.5rem;
   margin: 0 auto;
   z-index: 2;
+
+  .listing-image-control-bar {
+    position: unset;
+  }
+
+  .img-arrow {
+    width: unset;
+    font-size: 2rem;
+    height: 100%;
+    top: 0;
+    padding-bottom: 2rem;
+
+    &:hover {
+      color: $color-text;
+    }
+  }
 }
 
 .listing-detail-page-img {

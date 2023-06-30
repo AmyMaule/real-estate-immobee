@@ -34,8 +34,10 @@ const Listing = ({ listing }) => {
     }
     
 
-    // if (e.button === 0 && !e.ctrlKey) {
-    //   e.preventDefault();
+    if (e.button === 0 && !e.ctrlKey) {
+      e.preventDefault();
+    }
+    
     //   navigate(`/listings/${listing.ref}`, { state: listing });
     // } else {
       localStorage.setItem(listing.ref, JSON.stringify(listing));
