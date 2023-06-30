@@ -10,7 +10,7 @@
   height: 4rem;
   top: 0;
   z-index: 59;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .navbar-height {
@@ -100,8 +100,77 @@
       left: 0;
       right: 0;
       opacity: 1;
-      -webkit-transition: 0.3s all ease;
       transition: 0.3s all ease;
+      -webkit-transition: 0.3s all ease;
     }
+  }
+}
+
+.navbar-hamburger-container {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.navbar-hamburger {
+  color: $color-text;
+  font-size: 1.75rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  transition: 0.3s all ease;
+  -webkit-transition: 0.3s all ease;
+  
+  &:hover {
+    color: black;
+    transition: 0.3s all ease;
+    -webkit-transition: 0.3s all ease;
+  }
+}
+
+.hamburger-menu-container {
+  position: absolute;
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  width: 12rem;
+  margin: 0.75rem 0 -0.75rem auto;
+  margin-top: 2rem;
+  cursor: pointer;
+  transition: 0.25s ease-in-out all;
+}
+
+.hamburger-menu {
+  position: absolute;
+  background-color: $color-highlight;
+  width: 100%;
+  border: 3px solid $color-primary;
+  border-radius: 0.5rem;
+  top: 100%;
+  transform-origin: top;
+  transform: rotateX(-90deg);
+  transition: transform 0.25s linear;
+  padding: 0;
+  z-index: 60;
+}
+
+.hamburger-menu-item {
+  display: block;
+  color: $color-text;
+  padding: 0.5rem 0.9rem;
+  transition: 0.25s ease all;
+  -webkit-transition: 0.25s ease all;
+
+  &:hover {
+    background-color: $color-primary;
+    color: black;
+    text-decoration: none;
+    transition: 0.25s ease all;
+    -webkit-transition: 0.25s ease all;
+  }
+}
+
+.hamburger-menu-container.open {
+  .hamburger-menu {
+    transform: rotateX(0deg);
   }
 }

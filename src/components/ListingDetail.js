@@ -26,6 +26,7 @@ const ListingDetail = () => {
           currentImage={currentImage}
           listingPhotos={listing.photos_hosted}
           setCurrentImage={setCurrentImage}
+          setPadding
         />
       </div>
       <div className="listing-detail-info-container">
@@ -59,7 +60,7 @@ const ListingDetail = () => {
         <div>{listing.description?.map((paragraph, i) => (
           <p key={i} className="listing-detail-description">{paragraph}</p>
         ))}</div>
-        <h5 className="listing-detail-agent">Listed with {listing.agent}</h5>
+        <h5 className="listing-detail-agent">Listed with {listing.agent}, ref: {listing.ref}</h5>
         <div className="listing-link-container">
           <span className="listing-link">
             <a className="listing-link-hover" href={listing.link_url} target="_blank" rel="noreferrer">See original listing</a>
