@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SortingDropdown = ({ listings, setListings }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const dropdownRef = useRef();
   const dropdownItems = ["Price up", "Price down", "Agent A-Z", "Agent Z-A", "House size up", "House size down", "Garden size up", "Garden size down"];
   const [sortingBy, setSortingBy] = useState();
@@ -57,6 +60,9 @@ const SortingDropdown = ({ listings, setListings }) => {
     } else {
       setListings([...listings].sort((a, b) => a[sortMapping[sort]] < b[sortMapping[sort]] ? 1 : -1));
     }
+
+    // reset page to 1 whenever sorting type changes
+    navigate(location.pathname.slice(0, location.pathname.lastIndexOf("/")) + "/1");
   }
 
   const handleCloseDropdown = e => {
