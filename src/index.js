@@ -10,6 +10,7 @@ import './assets/scss/index.scss';
 
 import App from './App';
 import ErrorPage from './components/ErrorPage';
+import Footer from './components/Footer';
 import Home from './components/Home';
 import ListingDetail from './components/ListingDetail';
 import Navbar from './components/Navbar';
@@ -29,5 +30,6 @@ root.render(
       <Route path="/error" element={<ErrorPage />} />
       <Route path="*" element={<Navigate replace to="/error" />} />
     </Routes>
+    <Footer />
   </BrowserRouter>
 );
