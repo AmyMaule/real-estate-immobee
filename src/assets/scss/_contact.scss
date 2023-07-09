@@ -1,0 +1,214 @@
+.contact-page-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-secondary-highlight;
+  min-width: 100%;
+  // take into account height of navbar and footer
+  min-height: calc(100vh - 7.5rem);
+  background: url("../../../public/watercolorbg.jpg");
+  background-size: cover;
+  isolation: isolate;
+  box-shadow: rgb(120, 117, 54) 0px 4px 4px inset;
+
+  * {
+    z-index: 2;
+  }
+  
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(211, 241, 253, 0.85);
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+}
+
+.contact-container {
+  width: 100%;
+  max-width: 45rem;
+  height: 28rem;
+  border: 5px solid $color-primary;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.contact-title {
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  color: $color-text;
+  font-size: 2rem;
+}
+
+.letter-send {
+  position: relative;
+  background-color: rgba(112, 65, 207, 0.23);
+  max-width: 100%;
+  height: 100%;
+  max-height: 28rem;
+  top: 0;
+}
+
+.letter {
+  max-height: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  height: 14rem;
+  background-color: $color-primary-highlight;
+
+  &:nth-of-type(1) {
+    padding: 1.5rem 2rem 0 2rem;
+  }
+
+  &:nth-of-type(2) {
+    padding: 1rem 2rem 1.5rem 2rem;
+  }
+}
+
+.contact-input {
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  font-size: 1.1rem;
+  color: $color-text;
+  background-color: rgb(250, 250, 250);
+  width: 100%;
+  min-height: 2.5rem;
+  border: 3px solid $color-primary;
+  border-radius: 0.3rem;
+  resize: none;
+  outline: none;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: 300ms ease all;
+  -webkit-transition: 300ms ease all;
+
+  &:hover {
+    border-color: $color-secondary;
+    transition: 300ms ease all;
+    -webkit-transition: 300ms ease all;
+  }
+
+  &:focus {
+    border-color: $color-secondary-highlight;
+    transition: 300ms ease all;
+    -webkit-transition: 300ms ease all;
+  }
+}
+
+.contact-textarea {
+  height: 9rem;
+}
+
+.btn-contact-submit {
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  width: 23rem;
+  color: $color-text;
+  background-color: $color-primary;
+  border: 3px solid $color-primary;
+  border-radius: 0.3rem;
+  outline: none;
+  text-align: center;
+  padding: 0.5rem 0;
+  transition: 300ms ease all;
+  -webkit-transition: 300ms ease all;
+
+  &:visited {
+    color: $color-text;
+    background-color: $color-primary;
+    border: 3px solid $color-primary-highlight;
+  }
+
+  &:hover {
+    color: $color-text;
+    background-color: $color-primary-highlight;
+    border: 3px solid $color-primary;
+    text-decoration: none;
+    transition: 300ms ease all;
+    -webkit-transition: 300ms ease all;
+  }
+}
+
+// after user clicks 'send'
+.envelope {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+
+  &.front {
+    width: 10rem;
+    height: 6rem;
+    border-radius: 0 0 0.8rem 0.8rem;
+    border: 1px solid #e2e5c2;
+    border-top: none;
+    overflow: hidden;
+    z-index: 9999;
+    opacity: 0;
+
+    &::before,
+    &::after {
+      position: absolute;
+      content: '';
+      display: block;
+      width: 12rem;
+      height: 6rem;
+      background-color: #ecefd0;
+      transform: rotate(30deg);
+      transform-origin: 0 0;
+      box-shadow: 0 0 0.6rem rgba(0, 0, 0, 0.17);
+    }
+
+    &::after{
+      right: 0;
+      transform: rotate(-30deg);
+      transform-origin: 100% 0;
+    }
+  }
+
+  &.back {
+    top: -4rem;
+    width: 10rem;
+    height: 10rem;
+    overflow: hidden;
+    z-index: -9998;
+    opacity: 0;
+    transform: translateY(-6rem);
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    width: 10rem;
+    height: 10rem;
+    background-color: #ecefd0;
+    border-radius: 1rem;
+    transform: scaleY(0.6) rotate(45deg)
+  }
+}
+
+.result-message {
+  position: relative;
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  color: $color-text;
+  text-align: center;
+  font-size: 1.2rem;
+  opacity: 0;
+  white-space: pre-wrap;
+  transition: all 0.3s 1.75s;
+  -webkit-transition: all 0.3s 1.75s;
+}
