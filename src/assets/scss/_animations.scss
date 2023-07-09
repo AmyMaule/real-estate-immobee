@@ -1,3 +1,4 @@
+// loading animations
 @keyframes grow-house {
   0% {
     transform: translate(-50%, -2.65rem) scale(0);
@@ -1748,5 +1749,134 @@
   }
   100% {
     font-size: 1.9rem;
+  }
+}
+
+// contact animations
+@keyframes fold-letter {
+  45% {
+    background-color: $color-primary-highlight;
+  }
+  50% {
+    background-color: rgb(254, 254, 156);
+  }
+  80% {
+    background-color: rgb(254, 234, 106);
+  }
+  100% {
+    transform: rotateX(-180deg);
+    background-color: $color-primary;
+  }
+}
+
+@-webkit-keyframes fold-letter {
+  45% {
+    background-color: $color-primary-highlight;
+  }
+  50% {
+    background-color: rgb(254, 254, 156);
+  }
+  80% {
+    background-color: rgb(254, 234, 106);
+  }
+  100% {
+    transform: rotateX(-180deg);
+    background-color: $color-primary;
+  }
+}
+
+@keyframes fade-out-letter-contents {
+  0% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fade-out-letter-contents {
+  0% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in-envelope {
+  0% {
+    opacity: 0;
+    transform: translateY(10rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(6.25rem);
+  }
+}
+
+@-webkit-keyframes fade-in-envelope {
+  0% {
+    opacity: 0;
+    transform: translateY(10rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(6.25rem);
+  }
+}
+
+@keyframes change-letter-size {
+  0% {
+    width: 100%;
+  }
+  65% {
+    transform: translate(0, -7.5rem) scale(1, 0.55);
+    width: 15.3rem;
+  }
+  75% {
+    transform: translate(0, -7.5rem) scale(1, 0.5);
+    width: 12.3rem;
+
+  }
+  90% {
+    transform: translate(0, -7.5rem) scale(1, 0.42);    
+    width: 9.6rem;
+
+  }
+  100% {
+    transform: translate(0, -7.5rem) scale(1, 0.4);
+    width: 8.75rem;
+  }
+}
+
+@-webkit-keyframes change-letter-size {
+  0% {
+    width: 100%;
+  }
+  65% {
+    transform: translate(0, -7.5rem) scale(1, 0.55);
+    width: 15.3rem;
+  }
+  75% {
+    transform: translate(0, -7.5rem) scale(1, 0.5);
+    width: 12.3rem;
+
+  }
+  90% {
+    transform: translate(0, -7.5rem) scale(1, 0.42);    
+    width: 9.6rem;
+
+  }
+  100% {
+    transform: translate(0, -7.5rem) scale(1, 0.4);
+    width: 8.75rem;
   }
 }
