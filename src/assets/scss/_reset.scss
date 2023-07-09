@@ -19,7 +19,16 @@ label {
 }
 
 .page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   position: relative;
   min-height: 100vh;
   margin: 0 auto;
+}
+
+.main-content-container {
+  // account for height of navbar
+  min-height: calc(100vh - 3rem);
+  background-color: $color-secondary-highlight;
 }

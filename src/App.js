@@ -9,11 +9,6 @@ import ListingsContainer from "./components/ListingsContainer";
 import LoadingAnimation from "./components/LoadingAnimation";
 import SearchForm from "./components/SearchForm";
 
-// add footer with contact link
-// add bee animation to error page
-// when listings dropdown changes, reset page to 1
-// current when the user opens listing detail page in a new tab, a local storage item is set with the key as the listing's ref, but this doesn't delete - add an expiry and a function to call when the app initially loads to delete any items that have expired
-
 const App = () => {
   const [listings, setListings] = useState([]);
   const [loadingListings, setLoadingListings] = useState(false);
@@ -68,7 +63,7 @@ const App = () => {
   return (
     <>
       {loadingListings && <LoadingAnimation />}
-      <div className="page-container">
+      <div className="main-content-container">
         <SearchForm
           search={search}
           setListings={setListings}
