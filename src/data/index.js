@@ -27,4 +27,4 @@ export const agentMapping = {
   "Time and Stone Immobilier": "time",
 }
 
-export const baseURL = "https://suspiciousleaf.pythonanywhere.com/search_results";
+export const baseURL = "https://suspiciousleaf.pythonanywhere.com";

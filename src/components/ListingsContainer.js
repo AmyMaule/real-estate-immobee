@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactPaginate from 'react-paginate';
 import { 
   Link,
@@ -8,12 +8,18 @@ import {
   useParams
 } from 'react-router-dom';
 
+import { baseURL } from '../data';
+
 import { scrollTo } from '../utilities';
 
 import Listing from './Listing';
 import SortingDropdown from './SortingDropdown';
 
-const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListingsFound, setListings, setLoadingListings }) => {
+// receives all listings by ID
+// sets a 'listings' state variable with all listings that should be on the current page in order
+
+const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListingsFound, setListingIDs, setLoadingListings }) => {
+  const [listings, setListings] = useState([]);
   const searchResultsContainerRef = useRef();
   const noListingsRef = useRef();
   const listingsPerPage = 12;
@@ -21,13 +27,13 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
   const location = useLocation();
   const currentPage = +useParams().page;  // get currentPage as number
   const isSavedListingsPage = location.pathname.startsWith("/saved-listings");
-  const currentOffset = (currentPage - 1) * listingsPerPage;
+  const currentOffset = (currentPage - 1) * listingsPerPage || 0;
 
   useEffect(() => {
     if (!loadingListings) {
       setTimeout(() => {
         window.scrollTo({
-          top: isSavedListingsPage ? 0 : searchResultsContainerRef.current?.offsetTop + 1 || 0,
+          top: isSavedListingsPage ? 0 : searchResultsContainerRef?.current?.offsetTop - 63 || noListingsRef?.current?.offsetTop  - 63 || 0,
           behavior: "smooth",
         });
       }, 0);
@@ -35,24 +41,46 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
   }, [currentPage]);
 
   const handlePageChange = (e) => {
-    const baseURL = isSavedListingsPage ? "/saved-listings" : "/search";
+    setListings([]);
+    const pageURL = isSavedListingsPage ? "/saved-listings" : "/search";
     
     // add 1 as pagination is zero-indexed
-    navigate(`${baseURL}/${e.selected + 1}`);
-    renderListings();
+    navigate(`${pageURL}/${e.selected + 1}`);
   }
 
-  const renderListings = () => {
-    return listings
+  useEffect(() => {
+    if (!listingIDs?.length) return;
+
+    // On the saved listings page, the entire listing is currently saved instead of the ID
+    // No need to re-fetch those listings
+    if (isSavedListingsPage) {
+      setListings(listingIDs.slice(currentOffset, currentOffset + 12));
+      return;
+    }
+
+    const fullListingsToFetch = listingIDs
       .slice(currentOffset, currentOffset + 12)
-      .map(listing => (
-        <Listing listing={listing} key={listing.link_url} />
-      ));
+      .map((listing) => listing.id)
+      .toString();
+      
+    fetch(`${baseURL}/full_listings?id=${fullListingsToFetch}`)
+      .then(res => res.json())
+      .then(data => {
+        setListings(data);
+      })
+      .catch(err => console.log(err));
+  }, [currentOffset, listingIDs]);
+
+  const renderListings = () => {
+    const listingsToRender = listings;
+    return listingsToRender.map(listing => {
+      return <Listing listing={listing} key={listing.link_url} />
+    });
   };
 
 
   useEffect(() => {
-    if (listings.length || noListingsFound) {
+    if (listingIDs?.length || noListingsFound) {
       if (!currentPage) {
         if (!isSavedListingsPage) {
           let timeElapsed = Date.now() - loadingTimer;
@@ -62,23 +90,23 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
         } else navigate("/saved-listings/1");
       }
 
-      if (isSavedListingsPage) scrollTo();
-    }
+      // if (isSavedListingsPage) scrollTo();
 
-    // ensure animation plays fully before showing listings
-    if ((listings.length || noListingsFound) && loadingListings) {
-      let timeElapsed = Date.now() - loadingTimer;
+      // ensure animation plays fully before showing listings
+      if (loadingListings && !isSavedListingsPage) {
+        let timeElapsed = Date.now() - loadingTimer;
 
-      setTimeout(() => {
-        setLoadingListings(false);
-        if (searchResultsContainerRef.current) {
-          scrollTo(searchResultsContainerRef.current.offsetTop + 1);
-        } else if (noListingsRef.current) {
-          scrollTo(noListingsRef.current.offsetTop + 1);
-        }
-      }, 3600 - timeElapsed);
+        setTimeout(() => {
+          setLoadingListings(false);
+          if (searchResultsContainerRef.current) {
+            scrollTo(searchResultsContainerRef.current.offsetTop  - 63);
+          } else if (noListingsRef.current) {
+            scrollTo(noListingsRef.current.offsetTop  - 63);
+          }
+        }, 3600 - timeElapsed);
+      }
     }
-  }, [listings]);
+  }, [listingIDs]);
 
   if (noListingsFound) {
     return (
@@ -95,7 +123,7 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
               <div className="no-listings-found">
                 You haven't saved any listings yet.
               </div>
-              <Link to="/search" className="no-listings-link">Search properties</Link>
+              <Link to="/search/1" className="no-listings-link">Search properties</Link>
             </>
           )
         }
@@ -103,27 +131,37 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
     )
   }
 
-  if (!listings.length) return null;
+  // If on saved listings page, show the "You haven't saved any listings" message instead of null
+  if (!isSavedListingsPage && (!listingIDs?.length || !renderListings().length)) {
+    return null;
+  }
 
-  if (currentPage > Math.ceil(listings.length / listingsPerPage)) {
+  if (currentPage > Math.ceil(listingIDs?.length / listingsPerPage)) {
     return <Navigate replace to="/error" />
   }
 
   return (   
     <div className="search-results-container" ref={searchResultsContainerRef}>
       <div className="listings-title-container">
-      <h3 className="listings-title">
-        Page {currentPage}{"\n"}
-        Showing results {currentOffset + 1} - {currentOffset + renderListings().length} of {listings.length}
-      </h3>
-      <SortingDropdown listings={listings} setListings={setListings} />
+      {listingIDs?.length && (
+          <>
+            <h3 className="listings-title">
+              Page {currentPage || 1}{"\n"}
+              Showing results {currentOffset + 1} - {currentOffset + renderListings().length} of {listingIDs?.length}
+            </h3>
+            <SortingDropdown
+              listingIDs={listingIDs}
+              setListingIDs={setListingIDs}
+            />
+          </>
+        )}
       </div>
 
       <div className="listings-container">
         {renderListings()}
       </div>
       <div className="pagination-container">
-        {listings.length >= 10 && 
+        {listingIDs?.length >= 10 && 
           <ReactPaginate
             activeClassName="active"
             breakClassName="page-item"
@@ -135,7 +173,7 @@ const ListingsContainer = ({ listings, loadingListings, loadingTimer, noListings
             nextLinkClassName={window.innerWidth < 700 ? "hide" : "page-link"}
             onPageChange={handlePageChange}
             pageClassName="page-item"
-            pageCount={Math.ceil(listings.length / listingsPerPage)}
+            pageCount={Math.ceil(listingIDs.length / listingsPerPage)}
             pageLinkClassName="page-link"
             previousClassName="hide"
             previousLinkClassName={window.innerWidth < 700 ? "hide" : "page-link"}

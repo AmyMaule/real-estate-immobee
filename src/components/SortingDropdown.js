@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 
-const SortingDropdown = ({ listings, setListings }) => {
+const SortingDropdown = ({ listingIDs, setListingIDs }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dropdownRef = useRef();
   const dropdownItems = ["Price up", "Price down", "Agent A-Z", "Agent Z-A", "House size up", "House size down", "Garden size up", "Garden size down"];
-  const [sortingBy, setSortingBy] = useState();
+  const [sortingBy, setSortingBy] = useState(JSON.parse(localStorage.getItem("sortingBy")) || null);
 
   const renderArrow = direction => {
     return <span className={`dropdown-arrow dropdown-${direction}-arrow`}>{"\u279C"}</span>
@@ -50,16 +50,24 @@ const SortingDropdown = ({ listings, setListings }) => {
     sort = sort.join(" ");
     const directionArrow = direction === "up" ? "\u21c8" : direction === "down" ? "\u21ca" : direction;
     setSortingBy(sort + " " + directionArrow);
+    localStorage.removeItem("sortingBy");
+    localStorage.setItem("sortingBy", JSON.stringify(sort + " " + directionArrow));
+    
+    localStorage.removeItem("listingIDs");
+    let sortedListings;
 
     if (direction === "A-Z") {
-      setListings([...listings].sort((a, b) => a[sortMapping[sort]].toUpperCase() > b[sortMapping[sort]].toUpperCase() ? 1 : -1));
+      sortedListings = [...listingIDs].sort((a, b) => a[sortMapping[sort]].toUpperCase() > b[sortMapping[sort]].toUpperCase() ? 1 : -1);
     } else if (direction === "Z-A") {
-      setListings([...listings].sort((a, b) => a[sortMapping[sort]].toUpperCase() < b[sortMapping[sort]].toUpperCase() ? 1 : -1));
+      sortedListings = [...listingIDs].sort((a, b) => a[sortMapping[sort]].toUpperCase() < b[sortMapping[sort]].toUpperCase() ? 1 : -1);
     } else if (direction === "up") {
-      setListings([...listings].sort((a, b) => a[sortMapping[sort]] > b[sortMapping[sort]] ? 1 : -1));
+      sortedListings = [...listingIDs].sort((a, b) => a[sortMapping[sort]] > b[sortMapping[sort]] ? 1 : -1);
     } else {
-      setListings([...listings].sort((a, b) => a[sortMapping[sort]] < b[sortMapping[sort]] ? 1 : -1));
+      sortedListings = [...listingIDs].sort((a, b) => a[sortMapping[sort]] < b[sortMapping[sort]] ? 1 : -1);
     }
+
+    setListingIDs(sortedListings);
+    localStorage.setItem("listingIDs", JSON.stringify(sortedListings));
 
     // reset page to 1 whenever sorting type changes
     navigate(location.pathname.slice(0, location.pathname.lastIndexOf("/")) + "/1");

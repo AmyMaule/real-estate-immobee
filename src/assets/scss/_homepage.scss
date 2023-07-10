@@ -1,7 +1,7 @@
 .hero-section {
   position: relative;
   width: 100%;
-  height: calc(100vh - 4rem);
+  height: calc(100vh - 7.5rem);
   background-color: $color-secondary;
   bottom: 0;
 }
@@ -79,7 +79,7 @@
     content: "";
     height: 1.3rem;
     width: calc(100% + 0.75rem);
-    background-color: $color-highlight;
+    background-color: $color-primary-highlight;
     border-top: 9px solid $color-primary;
     z-index: -1;
     transform: rotate(-2deg);
@@ -117,9 +117,9 @@
   font-size: 1.75rem;
   font-weight: 500;
   width: 23rem;
-  color: #322;
+  color: $color-text;
   background-color: $color-primary;
-  border: 3px solid $color-highlight;
+  border: 3px solid $color-primary-highlight;
   border-radius: 0.5rem;
   outline: none;
   text-align: center;
@@ -129,14 +129,14 @@
   margin-top: 2rem;
 
   &:visited {
-    color: #322;
+    color: $color-text;
     background-color: $color-primary;
-    border: 3px solid $color-highlight;
+    border: 3px solid $color-primary-highlight;
   }
 
   &:hover {
-    color: #322;
-    background-color: $color-highlight;
+    color: $color-text;
+    background-color: $color-primary-highlight;
     border: 3px solid $color-primary;
     text-decoration: none;
     transition: 300ms ease all;

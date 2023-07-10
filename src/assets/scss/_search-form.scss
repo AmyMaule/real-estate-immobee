@@ -2,7 +2,8 @@
   position: relative;
   background-color: $color-secondary;
   width: 100%;
-  min-height: calc(100vh + 1rem);
+  min-height: 100vh;
+  box-shadow: rgba(120, 117, 54, 0.4) 0px 1px 7px inset;
   overflow: hidden;
   z-index: 49;
 }
@@ -27,7 +28,7 @@
   position: relative;
   font-family: "ChelseaMarket", "Raleway", sans-serif;
   font-size: 2.5rem;
-  color: $color-highlight;
+  color: $color-primary-highlight;
   font-weight: bold;
   text-align: center;
   margin-top: 5rem;
@@ -53,7 +54,7 @@
   width: 90%;
   max-width: 70rem;
   min-height: 11.5rem;
-  background-color: $color-highlight;
+  background-color: $color-primary-highlight;
   background: url("../../../public/honeycombbg.jpg");
   background-position: top center;
   border-radius: 0.6rem;
@@ -291,9 +292,9 @@
   color: white;
   width: 12rem;
   height: 4rem;
-  color: #322;
+  color: $color-text;
   background-color: $color-primary;
-  border: 3px solid $color-highlight;
+  border: 3px solid $color-primary-highlight;
   border-radius: 0.5rem;
   outline: none;
   left: 50%;
@@ -311,8 +312,8 @@
 
   &:active,
   &:hover {
-    color: #322;
-    background-color: $color-highlight;
+    color: $color-text;
+    background-color: $color-primary-highlight;
     border: 3px solid $color-primary;
     transition: 300ms ease all;
     -webkit-transition: 300ms ease all;

@@ -14,7 +14,7 @@ import SearchSlider from './SearchSlider';
 import SearchTextarea from './SearchTextarea';
 import SearchUnknown from './SearchUnknown';
 
-const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
+const SearchForm = ({ search, setListingIDs, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
   const { register, handleSubmit, setValue, watch } = useForm();
   const [locationChoices, setLocationChoices] = useState([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -23,11 +23,13 @@ const SearchForm = ({ search, setListings, setLoadingListings, setLoadingTimer, 
   const navigate = useNavigate();
 
   const onSubmit = submitData => {
-    navigate("/search");
+    localStorage.removeItem("sortingBy"); // sortingDropdown seems to be accessing this before it is removed
+    localStorage.removeItem("listingIDs");
+    navigate("/search/1");
     if (search) return;
     setLoadingListings(true);
     setLoadingTimer(Date.now())
-    setListings([]);
+    setListingIDs([]);
     setNoListingsFound(false);
     setSearch(true);
     const searchQuery = {};
