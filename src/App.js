@@ -10,7 +10,7 @@ import LoadingAnimation from "./components/LoadingAnimation";
 import SearchForm from "./components/SearchForm";
 
 const App = () => {
-  const [listings, setListings] = useState([]);
+  const [listingIDs, setListingIDs] = useState([]);
   const [loadingListings, setLoadingListings] = useState(false);
   const [loadingTimer, setLoadingTimer] = useState();
   const [noListingsFound, setNoListingsFound] = useState(false);
@@ -18,17 +18,27 @@ const App = () => {
   const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const { page } = useParams();
+  const { currentPage } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   
   useEffect(() => {
-    // if user refreshes the page, return to the base URL
-    if (page && !listings.length && !noListingsFound) {
-      let url = location.pathname.slice(0, location.pathname.indexOf("/" + page));
-      navigate(url);
+    if (!noListingsFound && !listingIDs?.length) {
+      console.log("The current page is", currentPage);
+      setListingIDs(JSON.parse(localStorage.getItem("listingIDs")));
+      setShowSearchResults(true);
+
+      // check if this is running on saved listings page - might be redundant
+      const isSavedListingsPage = location.pathname.startsWith("/saved-listings");
+      console.log(location.pathname)
+      setTimeout(() => {
+        window.scrollTo({
+          top: isSavedListingsPage ? 0 : document.querySelector(".search-results-container")?.offsetTop - 63 || 0,
+          behavior: "smooth",
+        });
+      }, 0);
     }
-  }, [page, listings]);
+  }, []);
 
   useEffect(() => {
     if (typeof queryURL === "string") {
@@ -36,8 +46,13 @@ const App = () => {
         .then(res => res.json())
         .then(data => {
           // sort listings by increasing price initially
-          setListings(data?.length ? data.sort((a, b) => a.price > b.price ? 1 : -1) : []);
-          setNoListingsFound(!data.length);
+          const sortedListings = data?.length ? data.sort((a, b) => a.price > b.price ? 1 : -1) : [];
+          console.log(sortedListings.length)
+          setListingIDs(sortedListings);
+          // save array of shortened listings to local storage
+          localStorage.setItem("listingIDs", JSON.stringify(sortedListings));
+          console.log(data)
+          setNoListingsFound(!data?.length);
           setQueryURL(null);
           setShowSearchResults(true);
           setSearch(false);
@@ -66,7 +81,7 @@ const App = () => {
       <div className="main-content-container">
         <SearchForm
           search={search}
-          setListings={setListings}
+          setListingIDs={setListingIDs}
           setLoadingListings={setLoadingListings}
           setLoadingTimer={setLoadingTimer}
           setNoListingsFound={setNoListingsFound}
@@ -76,11 +91,11 @@ const App = () => {
 
         {showSearchResults &&
           <ListingsContainer
-            listings={listings}
+            listingIDs={listingIDs}
             noListingsFound={noListingsFound}
             loadingListings={loadingListings}
             loadingTimer={loadingTimer}
-            setListings={setListings}
+            setListingIDs={setListingIDs}
             setLoadingListings={setLoadingListings}
           />
         }

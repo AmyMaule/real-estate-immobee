@@ -8,6 +8,7 @@
   padding: 2rem;
   background: url("../../../public/small-hexagons.jpg");
   background-size: cover;
+  box-shadow: rgb(56, 55, 39) 0px 1px 3px inset;
 
   &::before {
     content: "";
@@ -50,7 +51,7 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  min-height: calc(100vh - 4rem);
+  min-height: calc(100vh - 7.5rem);
   padding: 2.5rem;
 }
 
@@ -67,7 +68,7 @@
   font-weight: 500;
   color: $color-text;
   background-color: $color-primary;
-  border: 3px solid $color-highlight;
+  border: 3px solid $color-primary-highlight;
   border-radius: 0.5rem;
   outline: none;
   text-align: center;
@@ -83,12 +84,12 @@
   &:visited {
     color: $color-text;
     background-color: $color-primary;
-    border: 3px solid $color-highlight;
+    border: 3px solid $color-primary-highlight;
   }
 
   &:hover {
     color: $color-text;
-    background-color: $color-highlight;
+    background-color: $color-primary-highlight;
     border: 3px solid $color-primary;
     text-decoration: none;
     transition: 300ms ease all;

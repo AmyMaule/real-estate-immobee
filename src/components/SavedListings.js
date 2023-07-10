@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import ListingsContainer from './ListingsContainer';
 
 const SavedListings = () => {
-  const [listings, setListings] = useState(JSON.parse(localStorage.getItem("listings")) || []);
+  const [listings, setListings] = useState(JSON.parse(localStorage.getItem("savedListings")) || []);
 
   return (
     <div className="saved-listings-page-container">
       <ListingsContainer
-        listings={listings}
+        listingIDs={listings}
         noListingsFound={!listings.length}
-        setListings={setListings}
+        setListingIDs={setListings}
       />
     </div>
   )

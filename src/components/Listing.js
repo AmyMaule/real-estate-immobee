@@ -8,7 +8,7 @@ import ListingImage from './ListingImage';
 const Listing = ({ listing }) => {
   // link_url is the unique identifier for each listing
   const [isSaved, setIsSaved] = useState(
-    JSON.parse(localStorage.getItem("listings"))?.some(savedListing => savedListing?.link_url === listing.link_url) || null
+    JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.link_url === listing.link_url) || null
   );
   const heartRef = useRef();
   const dotRef = useRef();
@@ -58,17 +58,17 @@ const Listing = ({ listing }) => {
     heartRef.current.classList.toggle("saved");
     dotRef.current.classList.toggle("saved");
 
-    const savedListings = JSON.parse(localStorage.getItem("listings"));
+    const savedListings = JSON.parse(localStorage.getItem("savedListings"));
     
     if (savedListings?.length) {
       if (isSaved) {
         const filteredListings = savedListings.filter(savedListing => savedListing.link_url !== listing.link_url);
-        localStorage.setItem("listings",  JSON.stringify([...filteredListings]));
+        localStorage.setItem("savedListings",  JSON.stringify([...filteredListings]));
       } else {
-        localStorage.setItem("listings", JSON.stringify([...savedListings, listing]));
+        localStorage.setItem("savedListings", JSON.stringify([...savedListings, listing]));
       }
     } else {
-      localStorage.setItem("listings", JSON.stringify([listing]));
+      localStorage.setItem("savedListings", JSON.stringify([listing]));
     }
   }
 

@@ -67,10 +67,7 @@ export const getSearchURL = searchQuery => {
   
   console.log(query);
 
-  // save the search string to local storage
-  localStorage.setItem("searchQuery", query);
-
-  return query;
+  return "/search_results" + query;
 }
 
 export const scrollTo = (top = 0, behavior = "smooth") => window.scrollTo({top: top, behavior: behavior });
