@@ -34,6 +34,13 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Having this copy of the netlify contact form here ensures that Netlify detects the form. Build bots parse the HTML files directly at deploy time so the form in <Contact /> can't be parsed by the bots. -->
+      <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+        <textarea name="message" />
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+      </form>
+    </div>
   </body>
 </html>

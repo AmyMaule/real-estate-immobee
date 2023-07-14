@@ -23,7 +23,7 @@ const Navbar = () => {
               Search
               <i className="fa-solid fa-magnifying-glass" />
             </div>
-          : <Link to="/search" className={`navbar-link ${currentPage.startsWith("/search") ? "current-page" : ""}`}>
+          : <Link to="/search/1" className={`navbar-link ${currentPage.startsWith("/search") ? "current-page" : ""}`}>
               Search
               <i className="fa-solid fa-magnifying-glass" />
             </Link>

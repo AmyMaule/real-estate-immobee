@@ -51,7 +51,7 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  min-height: calc(100vh - 7.5rem);
+  min-height: calc(100vh - 7rem);
   padding: 2.5rem;
 }
 
@@ -192,7 +192,8 @@
   justify-content: center;
   width: 2.4rem;
   height: 2.4rem;
-  background-color: #292323d8;
+  background-color: #292323cb;
+  backdrop-filter: blur(0.25rem);
   border-radius: 50%;
   box-shadow: 0 0 2px 1px #3c3c3c;
   z-index: 10;
