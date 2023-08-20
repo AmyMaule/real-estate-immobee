@@ -15,30 +15,19 @@ import { scrollTo } from '../utilities';
 import Listing from './Listing';
 import SortingDropdown from './SortingDropdown';
 
-// receives all listings by ID
-// sets a 'listings' state variable with all listings that should be on the current page in order
-
 const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListingsFound, setListingIDs, setLoadingListings }) => {
   const [listings, setListings] = useState([]);
-  const searchResultsContainerRef = useRef();
+  // refHasValue stores whether searchResultsRef.current has a value so the scroll position can be restored
+  const [refHasValue, setRefrefHasValue] = useState(false);
+  const searchResultsRef = useRef();
   const noListingsRef = useRef();
-  const listingsPerPage = 12;
   const navigate = useNavigate();
   const location = useLocation();
+  
   const currentPage = +useParams().page;  // get currentPage as number
+  const listingsPerPage = 12;
   const isSavedListingsPage = location.pathname.startsWith("/saved-listings");
   const currentOffset = (currentPage - 1) * listingsPerPage || 0;
-
-  useEffect(() => {
-    if (!loadingListings) {
-      setTimeout(() => {
-        window.scrollTo({
-          top: isSavedListingsPage ? 0 : searchResultsContainerRef?.current?.offsetTop - 63 || noListingsRef?.current?.offsetTop  - 63 || 0,
-          behavior: "smooth",
-        });
-      }, 0);
-    }
-  }, [currentPage]);
 
   const handlePageChange = (e) => {
     setListings([]);
@@ -69,7 +58,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
         setListings(data);
       })
       .catch(err => console.log(err));
-  }, [currentOffset, listingIDs]);
+  }, [currentOffset, isSavedListingsPage, listingIDs]);
 
   const renderListings = () => {
     const listingsToRender = listings;
@@ -95,11 +84,10 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
       // ensure animation plays fully before showing listings
       if (loadingListings && !isSavedListingsPage) {
         let timeElapsed = Date.now() - loadingTimer;
-
         setTimeout(() => {
           setLoadingListings(false);
-          if (searchResultsContainerRef.current) {
-            scrollTo(searchResultsContainerRef.current.offsetTop  - 63);
+          if (searchResultsRef.current) {
+            scrollTo(searchResultsRef.current.offsetTop  - 63);
           } else if (noListingsRef.current) {
             scrollTo(noListingsRef.current.offsetTop  - 63);
           }
@@ -107,6 +95,40 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
       }
     }
   }, [listingIDs]);
+
+  // when the user clicks on a listing and returns to search results, return to their original scrolling position
+  const returnToScrollPosition = () => {
+    // retrieve scroll position when the user clicked on the listing from local storage
+    const prevScrollPosition = Number(localStorage.getItem("scrollPosition")) || 0;
+    scrollTo(prevScrollPosition, "auto");
+  };
+
+  // Callback ref to set refHasValue to the DOM node in the search results container as long as it has a value
+  const refCallback = React.useCallback((node) => {
+    if (node !== null) {
+      setRefrefHasValue(node);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (searchResultsRef.current && refHasValue && listings.length) {
+      if (window.history.state?.prevPage) {
+        if (window.history.state.prevPage === "listing") {
+          window.history.pushState({ prevPage: "" }, "");
+          returnToScrollPosition();
+        }
+      } else {
+        if (!loadingListings) {
+          setTimeout(() => {
+            window.scrollTo({
+              top: isSavedListingsPage ? 0 : searchResultsRef.current?.offsetTop - 63 || noListingsRef?.current?.offsetTop  - 63 || 0,
+              behavior: "smooth",
+            });
+          }, 0);
+        }
+      }
+    }
+  }, [currentPage, listings, loadingListings, refHasValue]);
 
   if (noListingsFound) {
     return (
@@ -132,16 +154,18 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
   }
 
   // If on saved listings page, show the "You haven't saved any listings" message instead of null
-  if (!isSavedListingsPage && (!listingIDs?.length || !renderListings().length)) {
-    return null;
-  }
+  // if (!isSavedListingsPage && (!listingIDs?.length || !renderListings().length)) {
+    // can't return null any more with the fetch request on each page or weird scroll behaviour ensues
+    // return null; 
+  // }
 
-  if (currentPage > Math.ceil(listingIDs?.length / listingsPerPage)) {
+  if (listingIDs?.length && (currentPage > Math.ceil(listingIDs?.length / listingsPerPage))) {
     return <Navigate replace to="/error" />
   }
 
   return (   
-    <div className="search-results-container" ref={searchResultsContainerRef}>
+    <div className="search-results-container" ref={searchResultsRef}>
+      <div ref={refCallback} />
       <div className="listings-title-container">
       {listingIDs?.length && (
           <>

@@ -33,16 +33,16 @@ const Listing = ({ listing }) => {
       }
     }
     
-
+    // if user left clicks, open listing in current tab using navigate
+    // if they middle or right click to open in new tab, set the listing in local storage to retrieve in new tab
     if (e.button === 0 && !e.ctrlKey) {
       e.preventDefault();
-    }
-    
-    //   navigate(`/listings/${listing.ref}`, { state: listing });
-    // } else {
+      window.history.pushState({ prevPage: "listing" }, '');
+      navigate(`/listings/${listing.ref}`, { state: listing });
+    } else {
       localStorage.setItem(listing.ref, JSON.stringify(listing));
-      window.open(`/listings/${listing.ref}`, "_blank", "noreferrer");
-    // }
+    }
+    localStorage.setItem("scrollPosition", window.scrollY);
   }
 
   const getPropertyType = type => {

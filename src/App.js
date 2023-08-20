@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { baseURL } from './data';
 
@@ -18,25 +17,11 @@ const App = () => {
   const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const { currentPage } = useParams();
-  const location = useLocation();
-  const navigate = useNavigate();
   
   useEffect(() => {
     if (!noListingsFound && !listingIDs?.length) {
-      console.log("The current page is", currentPage);
       setListingIDs(JSON.parse(localStorage.getItem("listingIDs")));
       setShowSearchResults(true);
-
-      // check if this is running on saved listings page - might be redundant
-      const isSavedListingsPage = location.pathname.startsWith("/saved-listings");
-      console.log(location.pathname)
-      setTimeout(() => {
-        window.scrollTo({
-          top: isSavedListingsPage ? 0 : document.querySelector(".search-results-container")?.offsetTop - 63 || 0,
-          behavior: "smooth",
-        });
-      }, 0);
     }
   }, []);
 
@@ -47,11 +32,9 @@ const App = () => {
         .then(data => {
           // sort listings by increasing price initially
           const sortedListings = data?.length ? data.sort((a, b) => a.price > b.price ? 1 : -1) : [];
-          console.log(sortedListings.length)
           setListingIDs(sortedListings);
           // save array of shortened listings to local storage
           localStorage.setItem("listingIDs", JSON.stringify(sortedListings));
-          console.log(data)
           setNoListingsFound(!data?.length);
           setQueryURL(null);
           setShowSearchResults(true);
@@ -89,7 +72,7 @@ const App = () => {
           setSearchQuery={setSearchQuery}
         />
 
-        {showSearchResults &&
+        {/* {showSearchResults && */}
           <ListingsContainer
             listingIDs={listingIDs}
             noListingsFound={noListingsFound}
@@ -98,7 +81,7 @@ const App = () => {
             setListingIDs={setListingIDs}
             setLoadingListings={setLoadingListings}
           />
-        }
+        {/* } */}
       </div>
     </>
   );
