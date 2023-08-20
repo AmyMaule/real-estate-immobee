@@ -10,7 +10,7 @@ const ListingDetail = () => {
   const location = useLocation();
   const listingID = location.pathname.slice(10);
   // use location.state when opening the listing in the same tab
-  const [listing, setListing] = useState(JSON.parse(localStorage.getItem(listingID)));
+  const [listing, setListing] = useState(location.state || JSON.parse(localStorage.getItem(listingID)));
 
   useEffect(() => {
     scrollTo(0, "auto");
@@ -21,7 +21,7 @@ const ListingDetail = () => {
   return (
     <div className="listing-detail-page-container">
       <div className="listing-detail-img-container">
-        <img src={listing.photos_hosted[currentImage]} className="listing-detail-page-img" alt="listing image" />
+        <img src={listing.photos_hosted[currentImage]} className="listing-detail-page-img" alt="listing" />
         <ImageControlBar
           currentImage={currentImage}
           listingPhotos={listing.photos_hosted}

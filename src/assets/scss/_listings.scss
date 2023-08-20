@@ -120,9 +120,30 @@
   }
 }
 
+.listing-container-placeholder {
+  position: relative;
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 25rem;
+  height: 27rem;
+  color: #222427;
+  background-color: rgb(253, 253, 252);
+  background: url("../../../public/watercolorbg.jpg");
+  background-size: cover;
+  background-position: center 50%;
+  border: 2px solid rgb(202, 180, 246);
+  border-radius: 0.5rem;
+  box-shadow:
+    rgba(112, 65, 207, 0.27) 1px 1px,
+    rgba(112, 65, 207, 0.23) 4px 4px,
+    rgba(112, 65, 207, 0.18) 8px 8px,
+    rgba(112, 65, 207, 0.13) 12px 12px;
+}
+
 .listing-container {
   position: relative;
-  font-family: 'Work Sans', sans-serif;
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
   display: flex;
   flex-direction: column;
   width: 25rem;
