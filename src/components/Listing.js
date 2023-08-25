@@ -38,7 +38,7 @@ const Listing = ({ listing }) => {
     if (e.button === 0 && !e.ctrlKey) {
       e.preventDefault();
       window.history.pushState({ prevPage: "listing" }, '');
-      navigate(`/listings/${listing.ref}`, { state: listing });
+      navigate(`/listings/${listing.id}`, { state: listing });
     } else {
       localStorage.setItem(listing.ref, JSON.stringify(listing));
     }
@@ -75,7 +75,7 @@ const Listing = ({ listing }) => {
   return (
     <a 
       className="listing-container"
-      href={`/listings/${listing.ref}`}
+      href={`/listings/${listing.id}`}
       onContextMenu={handleSelectListing}
       onClick={handleSelectListing}
       onMouseDown={handleMiddleClick}
