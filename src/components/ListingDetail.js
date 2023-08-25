@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { baseURL } from '../data';
 import { scrollTo } from '../utilities';
 
 import ImageControlBar from './ImageControlBar';
@@ -11,6 +12,16 @@ const ListingDetail = () => {
   const listingID = location.pathname.slice(10);
   // use location.state when opening the listing in the same tab
   const [listing, setListing] = useState(location.state || JSON.parse(localStorage.getItem(listingID)));
+
+  // If the listing page has been shared or copied to another browser, there will be nothing in state or local storage
+  useEffect(() => {
+    if (!listing) {
+      fetch(`${baseURL}/full_listings?id=${listingID}`)
+      .then(res => res.json())
+      .then(data => setListing(data[0] || null))
+      .catch(err => console.log(err));
+    }
+  }, [listing]);
 
   useEffect(() => {
     scrollTo(0, "auto");
