@@ -1880,3 +1880,40 @@
     width: 8.75rem;
   }
 }
+
+// error page
+@keyframes rotate-bee {
+  0% {
+    transform: rotate(0deg) translate(12.4rem) rotate(92deg);
+  }
+  100% {
+    transform: rotate(360deg) translate(12.4rem) rotate(92deg);
+  }
+}
+
+@-webkit-keyframes rotate-bee {
+  0% {
+    transform: rotate(0deg) translate(12.4rem) rotate(92deg);
+  }
+  100% {
+    transform: rotate(360deg) translate(12.4rem) rotate(92deg);
+  }
+}
+
+@keyframes bee-trail {
+  0% { 
+    transform: rotate(0deg); 
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes bee-trail {
+  0% { 
+    transform: rotate(0deg); 
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

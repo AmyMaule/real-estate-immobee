@@ -84,7 +84,7 @@ const SearchForm = ({ search, setListingIDs, setLoadingListings, setLoadingTimer
   
   return (
     <div className="hero-section-search">
-      <img src="/47720.jpg" className="hero-section-search-img" alt="" />
+      <img src="/search-bg.jpg" className="hero-section-search-img" alt="" />
       <div className="hero-section-search-overlay" />
       <h1 className="hero-section-search-title">Let <span className="text-logo">ImmoBee</span> help you{"\n"}find your dream home</h1>
       <form className="search-form-container" onSubmit={handleSubmit(onSubmit)} ref={searchFormRef}>

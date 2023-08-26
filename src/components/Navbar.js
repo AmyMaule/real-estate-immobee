@@ -15,7 +15,7 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <Link to="/" className="navbar-logo">
-          <img src="/logo9.png" className="navbar-logo-img" alt="logo" />
+          <img src="/logo.png" className="navbar-logo-img" alt="logo" />
           <div className="navbar-logo-text">ImmoBee</div>
         </Link>
         {currentPage.startsWith("/search")
