@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className="hero-section">
       <div className="hero-section-img-container">
-        <img src="/house5.png" className="hero-section-img" alt="" />
+        <img src="/homepage-bg.png" className="hero-section-img" alt="" />
       </div>
       <div className="hero-text-container">
         <h1 className="hero-title">Find your dream home</h1>
@@ -14,7 +14,7 @@ const Home = () => {
           your
           <div className="hero-subtitle-highlight">
             ideal home awaits
-            <img src="./bee3.png" className="hero-section-bee" alt="" />
+            <img src="./bee-3.png" className="hero-section-bee" alt="" />
           </div>
         </h3>
         <p className="hero-intro-text">

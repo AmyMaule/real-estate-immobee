@@ -40,7 +40,7 @@ const Listing = ({ listing }) => {
       window.history.pushState({ prevPage: "listing" }, '');
       navigate(`/listings/${listing.id}`, { state: listing });
     } else {
-      localStorage.setItem(listing.ref, JSON.stringify(listing));
+      localStorage.setItem(listing.id, JSON.stringify(listing));
     }
     localStorage.setItem("scrollPosition", window.scrollY);
   }

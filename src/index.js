@@ -19,6 +19,9 @@ import SavedListings from './components/SavedListings';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+// setListingIDs needs to be sent to the navbar so that it can be reset to [] when the user clicks any button in the navbar
+// for this, I will use context - send setListingIDs to App and Navbar
+
 root.render(
   <BrowserRouter>
     <div className="page-container">

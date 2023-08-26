@@ -8,7 +8,10 @@ const Footer = () => {
       <span className="copyright-symbol">&copy;</span>
       ImmoBee 2023
     </div>
-    <Link className="footer-link" to="/contact">Contact us</Link>
+    <div>
+      <img src="bee-2.png" className="footer-bee" alt="bee" />
+      <Link className="footer-link" to="/contact">Contact us</Link>
+    </div>
     </footer>
   )
 }
