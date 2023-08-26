@@ -33,7 +33,7 @@ const ImageControlBar = ({ currentImage, listingPhotos, setCurrentImage, setPadd
       </div>
       {listingPhotos.map((photo, i) => {
         return i === currentImage
-          ? <img src="/bee-4.png" key={i} className="listing-image-current" />
+          ? <img src="/bee-4.png" key={i} className="listing-image-current" alt="" />
           : <div className="listing-image-circle-container" key={i}>
               <div className="listing-image-circle" onClick={() => setCurrentImage(i)} />
             </div>

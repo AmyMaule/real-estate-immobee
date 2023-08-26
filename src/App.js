@@ -1,27 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { baseURL } from './data';
 
 import { getSearchURL } from "./utilities";
+
+import { ListingsContext } from ".";
 
 import ListingsContainer from "./components/ListingsContainer";
 import LoadingAnimation from "./components/LoadingAnimation";
 import SearchForm from "./components/SearchForm";
 
 const App = () => {
-  const [listingIDs, setListingIDs] = useState([]);
   const [loadingListings, setLoadingListings] = useState(false);
   const [loadingTimer, setLoadingTimer] = useState();
   const [noListingsFound, setNoListingsFound] = useState(false);
   const [queryURL, setQueryURL] = useState();
   const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState([]);
-  const [showSearchResults, setShowSearchResults] = useState(false);
-  
+  // const [showSearchResults, setShowSearchResults] = useState(false);
+  const { listingIDs, setListingIDs } = useContext(ListingsContext);
+
   useEffect(() => {
     if (!noListingsFound && !listingIDs?.length) {
       setListingIDs(JSON.parse(localStorage.getItem("listingIDs")));
-      setShowSearchResults(true);
+      // setShowSearchResults(true);
     }
   }, []);
 
@@ -37,7 +39,7 @@ const App = () => {
           localStorage.setItem("listingIDs", JSON.stringify(sortedListings));
           setNoListingsFound(!data?.length);
           setQueryURL(null);
-          setShowSearchResults(true);
+          // setShowSearchResults(true);
           setSearch(false);
         })
         .catch(err => console.error(err));
