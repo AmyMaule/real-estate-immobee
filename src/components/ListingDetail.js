@@ -21,7 +21,7 @@ const ListingDetail = () => {
       .then(data => setListing(data[0] || null))
       .catch(err => console.log(err));
     }
-  }, [listing]);
+  }, [listing, listingID]);
 
   useEffect(() => {
     scrollTo(0, "auto");

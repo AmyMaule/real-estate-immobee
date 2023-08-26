@@ -9,7 +9,7 @@ const Footer = () => {
       ImmoBee 2023
     </div>
     <div>
-      <img src="bee-2.png" className="footer-bee" alt="bee" />
+      <img src="/bee-2.png" className="footer-bee" alt="" />
       <Link className="footer-link" to="/contact">Contact us</Link>
     </div>
     </footer>

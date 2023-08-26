@@ -67,7 +67,6 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
     });
   };
 
-
   useEffect(() => {
     if (listingIDs?.length || noListingsFound) {
       if (!currentPage) {
@@ -128,7 +127,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
         }
       }
     }
-  }, [currentPage, listings, loadingListings, refHasValue]);
+  }, [currentPage, isSavedListingsPage, listings, loadingListings, refHasValue]);
 
   if (noListingsFound) {
     return (
@@ -158,6 +157,10 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
     // can't return null any more with the fetch request on each page or weird scroll behaviour ensues
     // return null; 
   // }
+
+  if (!listingIDs.length) {
+    return null;
+  }
 
   if (listingIDs?.length && (currentPage > Math.ceil(listingIDs?.length / listingsPerPage))) {
     return <Navigate replace to="/error" />

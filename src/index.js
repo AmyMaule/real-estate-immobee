@@ -19,11 +19,21 @@ import SavedListings from './components/SavedListings';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-// setListingIDs needs to be sent to the navbar so that it can be reset to [] when the user clicks any button in the navbar
-// for this, I will use context - send setListingIDs to App and Navbar
+export const ListingsContext = React.createContext();
+
+export const ListingsProvider = ({ children }) => {
+  const [listingIDs, setListingIDs] = React.useState([]);
+
+  return (
+    <ListingsContext.Provider value={{ listingIDs, setListingIDs }}>
+      {children}
+    </ListingsContext.Provider>
+  );
+};
 
 root.render(
   <BrowserRouter>
+    <ListingsProvider>
     <div className="page-container">
       <Navbar/>
       <Routes>
@@ -38,5 +48,6 @@ root.render(
       </Routes>
       <Footer />
     </div>
+    </ListingsProvider>
   </BrowserRouter>
 );

@@ -1,20 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { 
   Link,
   useLocation
 } from 'react-router-dom';
 
 import { scrollTo } from '../utilities';
+
 import HamburgerMenu from './HamburgerMenu';
 
+import { ListingsContext } from '..';
+
 const Navbar = () => {
+  const { setListingIDs } = useContext(ListingsContext);
   const location = useLocation();
   const currentPage = location.pathname;
+
+  const handleClick = scrollBehavior => {
+    setListingIDs([]);
+    localStorage.setItem("listingIDs", JSON.stringify([]));
+    scrollTo(0, scrollBehavior);
+  }
 
   return (
     <>
       <nav className="navbar">
-        <Link to="/" className="navbar-logo">
+        <Link to="/" className="navbar-logo" onClick={() => handleClick("auto")}>
           <img src="/logo.png" className="navbar-logo-img" alt="logo" />
           <div className="navbar-logo-text">ImmoBee</div>
         </Link>
@@ -23,7 +33,11 @@ const Navbar = () => {
               Search
               <i className="fa-solid fa-magnifying-glass" />
             </div>
-          : <Link to="/search/1" className={`navbar-link ${currentPage.startsWith("/search") ? "current-page" : ""}`}>
+          : <Link
+              className={`navbar-link ${currentPage.startsWith("/search") ? "current-page" : ""}`}
+              onClick={() => handleClick("smooth")}
+              to="/search/1"
+            >
               Search
               <i className="fa-solid fa-magnifying-glass" />
             </Link>
@@ -33,7 +47,11 @@ const Navbar = () => {
               Saved Listings
               <i className="fa-solid fa-house-circle-check" />
             </div>
-          : <Link to="/saved-listings/1" className={`navbar-link ${currentPage.startsWith("/saved-listings") ? "current-page" : ""}`}>
+          : <Link
+              className={`navbar-link ${currentPage.startsWith("/saved-listings") ? "current-page" : ""}`}
+              onClick={() => handleClick("auto")}
+              to="/saved-listings/1"
+            >
               Saved Listings
               <i className="fa-solid fa-house-circle-check" />
             </Link>
