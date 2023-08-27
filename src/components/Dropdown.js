@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const Dropdown = ({ locked, options, setValue, showSelectedNames, title }) => {
   const [open, setOpen] = useState(false);
@@ -26,20 +26,20 @@ const Dropdown = ({ locked, options, setValue, showSelectedNames, title }) => {
     if (locked) return;
     setOpen(prev => !prev);
   }
-  
-  const handleCloseDropdown = (e) => {
+
+  const handleCloseDropdown = useCallback(e => {
     // if the dropdown is open, and the user clicks on the "search-dropdown-input" element of ANOTHER dropdown, the first one should close
     // otherwise if they click the search-dropdown-input of the same dropdown that is open, it will be handled by handleSelect
     if (!e.target.classList.contains("search-dropdown-input") ||
        (e.target.classList.contains("search-dropdown-input") && e.target.previousElementSibling?.innerText !== title)) {
       setOpen(false);
     }
-  };
+  }, [title]);
   
   useEffect(() => {
     window.addEventListener("click", handleCloseDropdown);
     return () => window.removeEventListener("click", handleCloseDropdown)
-  }, []);
+  }, [handleCloseDropdown]);
 
   return (
     <div className={`search-dropdown-container ${open ? "search-dropdown-container-open" : ""}`}>
