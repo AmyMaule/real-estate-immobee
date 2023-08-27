@@ -17,7 +17,7 @@ const CheckboxOption = ({ option, register, setValue, watch }) => {
       setChecked(!fieldHasValue);
       setValue(option.name, !fieldHasValue);
     }
-  }, [userChecked, watchFields]);
+  }, [option.name, option.relatedFields, setValue, userChecked, watch, watchFields]);
 
   return (
     <label className="checkbox-label" key={option.name}>

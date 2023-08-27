@@ -17,15 +17,13 @@ const App = () => {
   const [queryURL, setQueryURL] = useState();
   const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState([]);
-  // const [showSearchResults, setShowSearchResults] = useState(false);
   const { listingIDs, setListingIDs } = useContext(ListingsContext);
 
   useEffect(() => {
     if (!noListingsFound && !listingIDs?.length) {
       setListingIDs(JSON.parse(localStorage.getItem("listingIDs")));
-      // setShowSearchResults(true);
     }
-  }, []);
+  }, [listingIDs?.length, noListingsFound, setListingIDs]);
 
   useEffect(() => {
     if (typeof queryURL === "string") {
@@ -39,12 +37,11 @@ const App = () => {
           localStorage.setItem("listingIDs", JSON.stringify(sortedListings));
           setNoListingsFound(!data?.length);
           setQueryURL(null);
-          // setShowSearchResults(true);
           setSearch(false);
         })
         .catch(err => console.error(err));
     }
-  }, [queryURL]);
+  }, [queryURL, setListingIDs]);
 
   useEffect(() => {
     if (search) {
@@ -74,16 +71,14 @@ const App = () => {
           setSearchQuery={setSearchQuery}
         />
 
-        {/* {showSearchResults && */}
-          <ListingsContainer
-            listingIDs={listingIDs}
-            noListingsFound={noListingsFound}
-            loadingListings={loadingListings}
-            loadingTimer={loadingTimer}
-            setListingIDs={setListingIDs}
-            setLoadingListings={setLoadingListings}
-          />
-        {/* } */}
+        <ListingsContainer
+          listingIDs={listingIDs}
+          noListingsFound={noListingsFound}
+          loadingListings={loadingListings}
+          loadingTimer={loadingTimer}
+          setListingIDs={setListingIDs}
+          setLoadingListings={setLoadingListings}
+        />
       </div>
     </>
   );

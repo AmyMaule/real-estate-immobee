@@ -32,6 +32,7 @@ const SearchForm = ({ search, setListingIDs, setLoadingListings, setLoadingTimer
     setListingIDs([]);
     setNoListingsFound(false);
     setSearch(true);
+    setShowAdvanced(false);
     const searchQuery = {};
 
     // only populate searchQuery with values the user has provided, ensure number values are converted to numbers
@@ -164,7 +165,7 @@ const SearchForm = ({ search, setListingIDs, setLoadingListings, setLoadingTimer
             />
           </div>
           <SearchSlider register={register} />
-          <SearchUnknown register={register} setValue={setValue} watch={watch} />
+          {showAdvanced && <SearchUnknown register={register} setValue={setValue} watch={watch} />}
         </div>
       </form>
     </div>

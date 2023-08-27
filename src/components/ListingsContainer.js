@@ -78,8 +78,6 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
         } else navigate("/saved-listings/1");
       }
 
-      // if (isSavedListingsPage) scrollTo();
-
       // ensure animation plays fully before showing listings
       if (loadingListings && !isSavedListingsPage) {
         let timeElapsed = Date.now() - loadingTimer;
@@ -93,7 +91,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
         }, 3600 - timeElapsed);
       }
     }
-  }, [listingIDs]);
+  }, [currentPage, isSavedListingsPage, listingIDs, loadingListings, loadingTimer, navigate, noListingsFound, setLoadingListings]);
 
   // when the user clicks on a listing and returns to search results, return to their original scrolling position
   const returnToScrollPosition = () => {
@@ -152,13 +150,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
     )
   }
 
-  // If on saved listings page, show the "You haven't saved any listings" message instead of null
-  // if (!isSavedListingsPage && (!listingIDs?.length || !renderListings().length)) {
-    // can't return null any more with the fetch request on each page or weird scroll behaviour ensues
-    // return null; 
-  // }
-
-  if (!listingIDs.length) {
+  if (!isSavedListingsPage && !listingIDs?.length) {
     return null;
   }
 
