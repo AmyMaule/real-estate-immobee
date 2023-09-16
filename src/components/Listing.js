@@ -4,14 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { propertyTypeMapping } from '../data';
 
 import ListingImage from './ListingImage';
+import SaveListing from './SaveListing';
 
 const Listing = ({ listing }) => {
   // link_url is the unique identifier for each listing
   const [isSaved, setIsSaved] = useState(
     JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.link_url === listing.link_url) || null
   );
-  const heartRef = useRef();
-  const dotRef = useRef();
   const navigate = useNavigate();
 
   const handleMiddleClick = e => {
@@ -53,25 +52,6 @@ const Listing = ({ listing }) => {
 
   const checkUnlisted = field => field ? field.toLocaleString() : null;
 
-  const handleToggleLike = () => {
-    setIsSaved(prevSaved => !prevSaved);
-    heartRef.current.classList.toggle("saved");
-    dotRef.current.classList.toggle("saved");
-
-    const savedListings = JSON.parse(localStorage.getItem("savedListings"));
-    
-    if (savedListings?.length) {
-      if (isSaved) {
-        const filteredListings = savedListings.filter(savedListing => savedListing.link_url !== listing.link_url);
-        localStorage.setItem("savedListings",  JSON.stringify([...filteredListings]));
-      } else {
-        localStorage.setItem("savedListings", JSON.stringify([...savedListings, listing]));
-      }
-    } else {
-      localStorage.setItem("savedListings", JSON.stringify([listing]));
-    }
-  }
-
   return (
     <a 
       className="listing-container"
@@ -80,10 +60,7 @@ const Listing = ({ listing }) => {
       onClick={handleSelectListing}
       onMouseDown={handleMiddleClick}
     >
-      <div className="listing-save-container" onClick={handleToggleLike} >
-        <i className={`fa-regular fa-heart heart-icon ${isSaved ? "saved" : ""}`} ref={heartRef} />
-        <div className={`${isSaved ? "heart-dot saved" : "heart-dot"}`} ref={dotRef}></div>
-      </div>
+      <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
       <ListingImage listing={listing} />
       <div className="listing-details-container">
         <div className="listing-row">
