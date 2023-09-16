@@ -5,6 +5,7 @@ import { baseURL } from '../data';
 import { scrollTo } from '../utilities';
 
 import ImageControlBar from './ImageControlBar';
+import SaveListing from './SaveListing';
 
 const ListingDetail = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -12,6 +13,9 @@ const ListingDetail = () => {
   const listingID = location.pathname.slice(10);
   // use location.state when opening the listing in the same tab
   const [listing, setListing] = useState(location.state || JSON.parse(localStorage.getItem(listingID)));
+  const [isSaved, setIsSaved] = useState(
+    JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.link_url === listing?.link_url) || null
+  );
 
   // If the listing page has been shared or copied to another browser, there will be nothing in state or local storage
   useEffect(() => {
@@ -32,6 +36,7 @@ const ListingDetail = () => {
   return (
     <div className="listing-detail-page-container">
       <div className="listing-detail-img-container">
+        <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
         <img src={listing.photos_hosted[currentImage]} className="listing-detail-page-img" alt="listing" />
         <ImageControlBar
           currentImage={currentImage}
