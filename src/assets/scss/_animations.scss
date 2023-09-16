@@ -1917,3 +1917,22 @@
     transform: rotate(360deg);
   }
 }
+
+// Loading bee
+@keyframes rotate-bee-small {
+  0% {
+    transform: rotate(0deg) translate(6.2rem) rotate(92deg);
+  }
+  100% {
+    transform: rotate(360deg) translate(6.2rem) rotate(92deg);
+  }
+}
+
+@-webkit-keyframes rotate-bee-small {
+  0% {
+    transform: rotate(0deg) translate(6.2rem) rotate(92deg);
+  }
+  100% {
+    transform: rotate(360deg) translate(6.2rem) rotate(92deg);
+  }
+}

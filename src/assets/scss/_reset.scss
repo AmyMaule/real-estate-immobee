@@ -28,7 +28,7 @@ label {
 }
 
 .main-content-container {
-  // account for height of navbar
-  min-height: calc(100vh - 3rem);
+  // account for height of navbar and footer
+  min-height: calc(100vh - 4rem - 3rem);
   background-color: $color-secondary-highlight;
 }

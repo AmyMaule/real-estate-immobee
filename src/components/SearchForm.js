@@ -81,7 +81,21 @@ const SearchForm = ({ search, setListingIDs, setLoadingListings, setLoadingTimer
     .catch(err => console.error(err));
   }, []);
 
-  if (!locationChoices.length) return null;
+  if (!locationChoices.length) {
+    return (
+      <div className="loading-bee-container">
+        <div className="hero-section-search">
+          <img src="/search-bg.jpg" className="hero-section-search-img" alt="" />
+          <div className="hero-section-search-overlay" />
+          <div className="loading-bee-route-container">
+            <div className="loading-bee-border" />
+            <div className="loading-bee" />
+            <h1 className="loading-bee-title">Loading...</h1>
+          </div>
+        </div>
+      </div>
+    )
+  }
   
   return (
     <div className="hero-section-search">
