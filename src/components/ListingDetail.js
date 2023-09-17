@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 import { baseURL } from '../data';
 import { scrollTo } from '../utilities';
@@ -12,7 +12,7 @@ const ListingDetail = () => {
   const location = useLocation();
   const listingID = location.pathname.slice(10);
   // use location.state when opening the listing in the same tab
-  const [listing, setListing] = useState(location.state || JSON.parse(localStorage.getItem(listingID)));
+  const [listing, setListing] = useState(location.state || JSON.parse(localStorage.getItem(listingID)) || null);
   const [isSaved, setIsSaved] = useState(
     JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.link_url === listing?.link_url) || null
   );
@@ -31,7 +31,9 @@ const ListingDetail = () => {
     scrollTo(0, "auto");
   }, []);
 
-  if (!listing) return null;
+  if (listing === null) {
+    return <Navigate replace to="/error" />
+  }
 
   return (
     <div className="listing-detail-page-container">
