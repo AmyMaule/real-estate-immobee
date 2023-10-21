@@ -37,9 +37,9 @@ const Listing = ({ listing }) => {
     if (e.button === 0 && !e.ctrlKey) {
       e.preventDefault();
       window.history.pushState({ prevPage: "listing" }, '');
-      navigate(`/listings/${listing.id}`, { state: listing });
+      navigate(`/listings/${listing.listingID}`, { state: listing });
     } else {
-      localStorage.setItem(listing.id, JSON.stringify(listing));
+      localStorage.setItem(listing.listingID, JSON.stringify(listing));
     }
     localStorage.setItem("scrollPosition", window.scrollY);
   }
@@ -55,7 +55,7 @@ const Listing = ({ listing }) => {
   return (
     <a 
       className="listing-container"
-      href={`/listings/${listing.id}`}
+      href={`/listings/${listing.listingID}`}
       onContextMenu={handleSelectListing}
       onClick={handleSelectListing}
       onMouseDown={handleMiddleClick}
