@@ -27,9 +27,7 @@ export const getSearchURL = searchQuery => {
     const areaQuery = searchQuery.area.map(area => {
       const town = area.split(", ")[0].replaceAll(" ", "%20");
       const postcode = area.split(", ")[1];
-      // return `${postcode}-${town}`;
-
-      return area.split(",")[0].replaceAll(" ", "%20")
+      return `${postcode}-${town}`;
     }).join(",");
     query += `&town=${areaQuery}&search_radius=${searchQuery.search_radius || "1"}`;
   }

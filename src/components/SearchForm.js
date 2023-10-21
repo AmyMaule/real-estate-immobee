@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import Multiselect from "react-widgets/Multiselect";
 import { useNavigate } from 'react-router-dom';
 
-import { 
+import {
   agentMapping,
+  baseURL,
   propertyTypeMapping
 } from '../data';
 
@@ -67,7 +68,7 @@ const SearchForm = ({ search, setListingIDs, setLoadingListings, setLoadingTimer
   }
 
   useEffect(() => {
-    fetch("https://suspiciousleaf.pythonanywhere.com/postcode_dict/")
+    fetch(`${baseURL}/postcode_dict/`)
     .then(res => res.json())
     .then(data => {
       const postcodes = Object.keys(data);

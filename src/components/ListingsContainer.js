@@ -49,9 +49,9 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
 
     const fullListingsToFetch = listingIDs
       .slice(currentOffset, currentOffset + 12)
-      .map((listing) => listing.id)
+      .map((listing) => listing.listingID)
       .toString();
-      
+    
     fetch(`${baseURL}/full_listings?id=${fullListingsToFetch}`)
       .then(res => res.json())
       .then(data => {
