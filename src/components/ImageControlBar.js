@@ -1,7 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useCallback } from 'react';
 
 const ImageControlBar = ({ currentImage, listingPhotos, setCurrentImage, setPadding }) => {
-  const controlBarRef = useRef();
 
   const handleChangePhoto = direction => {
     if (direction === "R") {
@@ -25,6 +24,13 @@ const ImageControlBar = ({ currentImage, listingPhotos, setCurrentImage, setPadd
     }
     return {};
   }
+  
+  // Set initial padding when the controlBarRef is attached to a DOM node
+  const controlBarRef = useCallback(node => {
+    if (node !== null) {
+      getPadding();
+    }
+  }, []);
 
   return (
     <div className="listing-image-control-bar" ref={controlBarRef}>
