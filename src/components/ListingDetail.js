@@ -57,27 +57,25 @@ const ListingDetail = () => {
         </div>
         {(listing.bedrooms || listing.rooms) && 
           <h5 className="listing-detail-rooms">
-            {listing.bedrooms && 
-              <>{listing.bedrooms} bedrooms</>
-            }
+            {listing.bedrooms && <>{listing.bedrooms} bedrooms</>}
             {listing.bedrooms && listing.rooms && ", "}
-            {listing.rooms && 
-              <>{listing.rooms} rooms</>
-            }
-          </h5>}
+            {listing.rooms && <>{listing.rooms} rooms</>}
+          </h5>
+        }
         {(listing.size || listing.plot) && 
           <h5 className="listing-detail-rooms">
-          {listing.size && 
-            <>{listing.size.toLocaleString()} m{String.fromCharCode(178)} property</>
-          }
-          {listing.size && listing.plot && " with "}
-          {listing.plot && 
-            <>{listing.plot.toLocaleString()} m{String.fromCharCode(178)} land</>
-          }
-        </h5>}
-        <div>{listing.description?.map((paragraph, i) => (
-          <p key={i} className="listing-detail-description">{paragraph}</p>
-        ))}</div>
+            {listing.size && <>{listing.size.toLocaleString()} m{String.fromCharCode(178)} property</>}
+            {listing.size && listing.plot && " with "}
+            {listing.plot && <>{listing.plot.toLocaleString()} m{String.fromCharCode(178)} land</>}
+          </h5>
+        }
+        {listing.description &&
+          <div>
+            {listing.description?.map((paragraph, i) => (
+              <p key={i} className="listing-detail-description">{paragraph}</p>
+            ))}
+          </div>
+        }
         <h5 className="listing-detail-agent">Listed with {listing.agent}, ref: {listing.ref}</h5>
         <div className="listing-link-container">
           <span className="listing-link">

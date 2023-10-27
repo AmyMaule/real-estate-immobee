@@ -4,7 +4,6 @@ import Multiselect from "react-widgets/Multiselect";
 import { useNavigate } from 'react-router-dom';
 
 import {
-  agentMapping,
   baseURL,
   propertyTypeMapping
 } from '../data';
@@ -17,6 +16,7 @@ import SearchUnknown from './SearchUnknown';
 
 const SearchForm = ({ search, setListingIDs, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
   const { register, handleSubmit, setValue, watch } = useForm();
+  const [agentChoices, setAgentChoices] = useState({});
   const [locationChoices, setLocationChoices] = useState([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const departmentOptions = ["Aude (11)", "Ariège (09)", "Haute-Garonne (31)", "Hérault (34)", "Pyrenées-Orientales (66)"];
@@ -80,6 +80,11 @@ const SearchForm = ({ search, setListingIDs, setLoadingListings, setLoadingTimer
       setLocationChoices(locations);
     })
     .catch(err => console.error(err));
+
+    fetch(`${baseURL}/agent_dict/`)
+      .then(res => res.json())
+      .then(data => setAgentChoices(data))
+      .catch(err => console.error(err));
   }, []);
 
   if (!locationChoices.length) {
@@ -155,7 +160,7 @@ const SearchForm = ({ search, setListingIDs, setLoadingListings, setLoadingTimer
           <div className="search-label search-label-multiselect">
             Agents
             <Multiselect
-              data={Object.keys(agentMapping)}
+              data={Object.values(agentChoices)}
               filter='contains'
               onChange={selected => setValue("agents", selected)}
               textField={item =>

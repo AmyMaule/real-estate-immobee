@@ -11,6 +11,7 @@ import LoadingAnimation from "./components/LoadingAnimation";
 import SearchForm from "./components/SearchForm";
 
 const App = () => {
+  const [agentChoices, setAgentChoices] = useState({});
   const [loadingListings, setLoadingListings] = useState(false);
   const [loadingTimer, setLoadingTimer] = useState();
   const [noListingsFound, setNoListingsFound] = useState(false);
@@ -30,8 +31,8 @@ const App = () => {
       fetch(baseURL + queryURL)
         .then(res => res.json())
         .then(data => {
-          // sort listings by increasing price initially
-          const sortedListings = data?.length ? data.sort((a, b) => a.price > b.price ? 1 : -1) : [];
+          // Sorting listings by most recently added means they are effectively sorted by agent, so to display them in a way that is somewhat randomized but will always return the same results in the same order, sort them using a combination of their listingID and house size
+          const sortedListings = data?.length ? data.sort((a, b) => a.listingID * (a.size || 1) < b.listingID * (b.size || 1) ? 1 : -1) : [];
           setListingIDs(sortedListings);
           // save array of shortened listings to local storage
           localStorage.setItem("listingIDs", JSON.stringify(sortedListings));
@@ -44,8 +45,18 @@ const App = () => {
   }, [queryURL, setListingIDs]);
 
   useEffect(() => {
-    if (search) {
-      const searchURL = getSearchURL(searchQuery);
+    if (search && !Object.keys(agentChoices).length) {
+      fetch(`${baseURL}/agent_dict/`)
+        .then(res => res.json())
+        .then(data => {
+          setAgentChoices(data);
+          const searchURL = getSearchURL(searchQuery, data);
+          setQueryURL(searchURL);
+          setSearch(false);
+        })
+        .catch(err => console.log(err))
+    } else if (search) {
+      const searchURL = getSearchURL(searchQuery, agentChoices);
       setQueryURL(searchURL);
       setSearch(false);
     }
