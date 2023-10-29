@@ -26,12 +26,6 @@
   src: url("/assets/fonts/mathilde.otf") format('truetype');
 }
 
-// font-family: "ChelseaMarket", "Raleway", sans-serif;
-// font-family: 'KGYouWontBringMeDown';
-// font-family: 'FabfeltScript';
-// font-family: 'mathilde';
-// font-family: 'AYearWithoutRain';
-
 @import "variables";
 
 @import "reset";
@@ -45,6 +39,7 @@
 @import "loading";
 @import "navbar";
 @import "sorting-dropdown";
+@import "tooltips";
 
 // pages
 @import "contact";

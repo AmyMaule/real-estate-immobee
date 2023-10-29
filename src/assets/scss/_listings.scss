@@ -206,7 +206,7 @@
   }
 }
 
-.listing-save-container {
+.listing-interactive-icon-container {
   position: absolute;
   display: flex;
   align-items: center;
@@ -227,12 +227,23 @@
 
   &:hover {
     background-color: #292323e4;
+
     .heart-icon {
       color: #fe1239;
       transition: all ease 200ms;
       -webkit-transition: all ease 200ms;
     }
+
+    .trash-icon {
+      color: #f1f0f0;
+      transition: all ease 200ms;
+      -webkit-transition: all ease 200ms;
+    }
   }
+}
+
+.listing-hide-container {
+  top: 4rem;
 }
 
 .heart-icon {
@@ -250,6 +261,39 @@
 }
 
 .heart-dot {
+  position: absolute;
+  width: 0.15rem;
+  height: 0.15rem;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  opacity: 1;
+  transform: translate(-50%, -50%);
+
+  &::before {
+    content: "";
+    position: absolute;
+  }
+ 
+  &.saved {
+    animation: move-dot 0.8s ease-out forwards 0.3s;
+  }
+}
+
+.trash-icon {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #dadada;
+  z-index: 10;
+  transition: all ease 200ms;
+  -webkit-transition: all ease 200ms;
+
+  &.saved {
+    animation: fill-heart 0.45s linear;
+  }
+}
+
+.trash-dot {
   position: absolute;
   width: 0.15rem;
   height: 0.15rem;

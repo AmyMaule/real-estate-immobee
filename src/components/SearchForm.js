@@ -41,7 +41,7 @@ const SearchForm = ({ search, setListingIDs, setLoadingListings, setLoadingTimer
     for (let [key, value] of Object.entries(submitData)) {
       if (typeof value === "string" && value.trim()) {
         if (numberValues.indexOf(key) !== -1) {
-          value = Number(value.replace(",", ""));
+          value = Number(value.replaceAll(",", ""));
         }
         searchQuery[key] = value;
       } else if (Array.isArray(value) && value.length) {

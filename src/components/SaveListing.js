@@ -1,14 +1,8 @@
-import React, { useRef } from "react";
+import React from "react";
 
 const SaveListing = ({ isSaved, listing, setIsSaved }) => {
-  const heartRef = useRef();
-  const dotRef = useRef();
-
   const handleToggleLike = () => {
     setIsSaved(prevSaved => !prevSaved);
-    heartRef.current.classList.toggle("saved");
-    dotRef.current.classList.toggle("saved");
-
     const savedListings = JSON.parse(localStorage.getItem("savedListings"));
     
     if (savedListings?.length) {
@@ -24,9 +18,9 @@ const SaveListing = ({ isSaved, listing, setIsSaved }) => {
   }
 
   return (
-    <div className="listing-save-container" onClick={handleToggleLike} >
-      <i className={`fa-regular fa-heart heart-icon ${isSaved ? "saved" : ""}`} ref={heartRef} />
-      <div className={`${isSaved ? "heart-dot saved" : "heart-dot"}`} ref={dotRef}></div>
+    <div className="listing-interactive-icon-container" onClick={handleToggleLike} >
+      <i className={`fa-regular fa-heart heart-icon ${isSaved ? "saved" : ""}`} />
+      <div className={`${isSaved ? "heart-dot saved" : "heart-dot"}`}></div>
     </div>
   )
 }

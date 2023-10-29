@@ -5,6 +5,7 @@ import { propertyTypeMapping } from '../data';
 
 import ListingImage from './ListingImage';
 import SaveListing from './SaveListing';
+// import HideListing from './HideListing';
 
 const Listing = ({ listing }) => {
   // link_url is the unique identifier for each listing
@@ -19,7 +20,7 @@ const Listing = ({ listing }) => {
 
   // ensure listing is only selected if other buttons on the listing are not clicked
   const handleSelectListing = (e) => {
-    const otherTargets = ["img-arrow", "img-arrow-glyph", "listing-image-circle", "listing-image-current", "listing-save-container", "heart-icon"];
+    const otherTargets = ["img-arrow", "img-arrow-glyph", "listing-image-circle", "listing-image-current", "listing-interactive-icon-container", "heart-icon", "trash-icon"];
     const classNames = e.target.classList;
     
     for (let className of classNames) {
@@ -61,6 +62,8 @@ const Listing = ({ listing }) => {
       onMouseDown={handleMiddleClick}
     >
       <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
+      {/* <HideListing listing={listing} /> */}
+      
       <ListingImage listing={listing} />
       <div className="listing-details-container">
         <div className="listing-row">
