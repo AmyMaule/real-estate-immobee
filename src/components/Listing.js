@@ -1,16 +1,18 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { propertyTypeMapping } from '../data';
 
 import ListingImage from './ListingImage';
 import SaveListing from './SaveListing';
-// import HideListing from './HideListing';
+import HideListing from './HideListing';
+import ListingWrapper from './ListingWrapper';
 
 const Listing = ({ listing }) => {
-  // link_url is the unique identifier for each listing
+  const hiddenListings = JSON.parse(localStorage.getItem("hiddenListings")) || [];
+  const [isHidden, setIsHidden] = useState(hiddenListings.includes(listing.listingID));
   const [isSaved, setIsSaved] = useState(
-    JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.link_url === listing.link_url) || null
+    JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.listingID === listing.listingID) || null
   );
   const navigate = useNavigate();
 
@@ -54,15 +56,15 @@ const Listing = ({ listing }) => {
   const checkUnlisted = field => field ? field.toLocaleString() : null;
 
   return (
-    <a 
-      className="listing-container"
-      href={`/listings/${listing.listingID}`}
-      onContextMenu={handleSelectListing}
-      onClick={handleSelectListing}
-      onMouseDown={handleMiddleClick}
+    <ListingWrapper
+      handleMiddleClick={handleMiddleClick}
+      handleSelectListing={handleSelectListing}
+      isHidden={isHidden}
+      listing={listing}
+      setIsHidden={setIsHidden}
     >
       <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
-      {/* <HideListing listing={listing} /> */}
+      <HideListing isHidden={isHidden} listing={listing} setIsHidden={setIsHidden} />
       
       <ListingImage listing={listing} />
       <div className="listing-details-container">
@@ -122,7 +124,7 @@ const Listing = ({ listing }) => {
           <h5 className="listing-ref">Ref: {listing.ref}</h5>
         </div>
       </div>
-    </a>
+    </ListingWrapper>
   )
 }
 

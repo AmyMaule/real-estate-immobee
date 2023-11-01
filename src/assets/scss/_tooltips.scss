@@ -1,14 +1,14 @@
-.tooltiptext {
+.tooltip-text {
   position: absolute;
   font-size: 0.95rem;
   background-color: $color-text;
-  color: #f1f0f0;
+  color: $white;
   width: 10.5rem;
   height: fit-content;
   text-align: center;
   border-radius: 6px;
   top: 0;
-  right: 105%;
+  right: 2.75rem;
   bottom: 100%;
   letter-spacing: 0.02rem;
   padding: 0.5rem;
@@ -16,11 +16,12 @@
   z-index: 1;
   transition: all 300ms;
   -webkit-transition: all 300ms;
+  pointer-events: none;
 }
 
 .trash-icon {
   &:hover {
-    ~.tooltiptext {
+    ~.tooltip-text {
       opacity: 1;
       transition: all 300ms;
       -webkit-transition: all 300ms;

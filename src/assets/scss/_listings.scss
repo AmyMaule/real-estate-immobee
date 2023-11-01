@@ -164,7 +164,7 @@
   overflow: hidden;
   cursor: pointer;
   z-index: 2;
-
+  
   &:hover {
     color: #222427;
     text-decoration: none;
@@ -206,6 +206,46 @@
   }
 }
 
+.listing-container-hidden {
+  cursor: default;
+  pointer-events: none;
+
+  &:hover {
+    box-shadow:
+    rgba(112, 65, 207, 0.27) 1px 1px,
+    rgba(112, 65, 207, 0.23) 4px 4px,
+    rgba(112, 65, 207, 0.18) 8px 8px,
+    rgba(112, 65, 207, 0.13) 12px 12px;
+    border: 2px solid rgb(202, 180, 246);
+  }
+}
+
+.listing-hidden-info-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 1.3rem;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(248, 248, 222, 0.91);
+  z-index: 150;
+  text-align: center;
+  pointer-events: none;
+  cursor: default !important;
+  padding: 1.75rem;
+
+  .btn {
+    pointer-events: all;
+  }
+}
+
+.undo-icon {
+  font-size: 1.3rem;
+}
+
 .listing-interactive-icon-container {
   position: absolute;
   display: flex;
@@ -229,13 +269,13 @@
     background-color: #292323e4;
 
     .heart-icon {
-      color: #fe1239;
+      color: #e80e32;
       transition: all ease 200ms;
       -webkit-transition: all ease 200ms;
     }
 
     .trash-icon {
-      color: #f1f0f0;
+      color: $white;
       transition: all ease 200ms;
       -webkit-transition: all ease 200ms;
     }
@@ -281,36 +321,11 @@
 }
 
 .trash-icon {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #dadada;
+  font-size: 1.45rem;
+  color: rgb(205, 197, 197);
   z-index: 10;
   transition: all ease 200ms;
   -webkit-transition: all ease 200ms;
-
-  &.saved {
-    animation: fill-heart 0.45s linear;
-  }
-}
-
-.trash-dot {
-  position: absolute;
-  width: 0.15rem;
-  height: 0.15rem;
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  opacity: 1;
-  transform: translate(-50%, -50%);
-
-  &::before {
-    content: "";
-    position: absolute;
-  }
- 
-  &.saved {
-    animation: move-dot 0.8s ease-out forwards 0.3s;
-  }
 }
 
 .no-images-text {
