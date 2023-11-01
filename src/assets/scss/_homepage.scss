@@ -110,36 +110,3 @@
   text-decoration: underline;
   text-decoration-color: $color-primary;
 }
-
-.btn-hero {
-  display: block;
-  font-family: "ChelseaMarket", "Raleway", sans-serif;
-  font-size: 1.75rem;
-  font-weight: 500;
-  width: 23rem;
-  color: $color-text;
-  background-color: $color-primary;
-  border: 3px solid $color-primary-highlight;
-  border-radius: 0.5rem;
-  outline: none;
-  text-align: center;
-  padding: 0.5rem 0;
-  transition: 300ms ease all;
-  -webkit-transition: 300ms ease all;
-  margin-top: 2rem;
-
-  &:visited {
-    color: $color-text;
-    background-color: $color-primary;
-    border: 3px solid $color-primary-highlight;
-  }
-
-  &:hover {
-    color: $color-text;
-    background-color: $color-primary-highlight;
-    border: 3px solid $color-primary;
-    text-decoration: none;
-    transition: 300ms ease all;
-    -webkit-transition: 300ms ease all;
-  }
-}

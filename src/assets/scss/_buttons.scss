@@ -1,0 +1,61 @@
+.btn {
+  display: block;
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  outline: none;
+  text-align: center;
+  transition: 300ms ease all;
+  -webkit-transition: 300ms ease all;
+
+  &:hover {
+    text-decoration: none;
+    transition: 300ms ease all;
+    -webkit-transition: 300ms ease all;
+  }
+}
+
+.btn-hero {
+  width: 23rem;
+  color: $color-text;
+  background-color: $color-primary;
+  border: 3px solid $color-primary-highlight;
+  padding: 0.5rem 0;
+  margin-top: 2rem;
+
+  &:visited {
+    color: $color-text;
+    background-color: $color-primary;
+    border: 3px solid $color-primary-highlight;
+  }
+
+  &:hover {
+    color: $color-text;
+    background-color: $color-primary-highlight;
+    border: 3px solid $color-primary;
+  }
+}
+
+.btn-undo {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  color: $color-text;
+  background-color: $color-primary-highlight;
+  border: 3px solid $color-primary;
+  padding: 0.5rem 2rem;
+
+  &:visited {
+    color: $color-text;
+    background-color: $color-primary-highlight;
+    border: 3px solid $color-primary;
+  }
+
+  &:hover {
+    color: $color-text;
+    background-color: $color-primary;
+    border: 3px solid $color-primary-highlight;
+  }
+}
