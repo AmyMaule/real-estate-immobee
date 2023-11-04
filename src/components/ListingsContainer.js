@@ -43,14 +43,23 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
     // On the saved listings page, the entire listing is currently saved instead of the ID
     // No need to re-fetch those listings
     if (isSavedListingsPage) {
-      setListings(listingIDs.slice(currentOffset, currentOffset + 12));
+      const newListingIDs = listingIDs.slice(currentOffset, currentOffset + 12).map(listing => listing.listingID);
+      const currentListingIDs = listings.map(listing => listing.listingID);
+      if (JSON.stringify(currentListingIDs) !== JSON.stringify(newListingIDs)) {
+        setListings(listingIDs.slice(currentOffset, currentOffset + 12));
+      }
       return;
     }
 
     const fullListingsToFetch = listingIDs
-      .slice(currentOffset, currentOffset + 12)
-      .map((listing) => listing.listingID)
-      .toString();
+    .slice(currentOffset, currentOffset + 12)
+    .map((listing) => listing.listingID)
+    .toString();
+
+    // Don't perform a new query if the new results will be the same as the current results
+    const currentFetchedListings = listings.map(listing => listing.listingID).toString();
+    if (currentFetchedListings === fullListingsToFetch) return;
+
     
     fetch(`${baseURL}/full_listings?id=${fullListingsToFetch}`)
       .then(res => res.json())
@@ -58,7 +67,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
         setListings(data);
       })
       .catch(err => console.log(err));
-  }, [currentOffset, isSavedListingsPage, listingIDs]);
+  }, [currentOffset, isSavedListingsPage, listingIDs, listings]);
 
   const renderListings = () => {
     const listingsToRender = listings;
