@@ -86,8 +86,20 @@ const SortingDropdown = ({ listingIDs, setListingIDs }) => {
   }
 
   useEffect(() => {
+    // If the user navigates to the saved listings page after sorting from the search results, sortingBy retains its value
+    if (sortingBy) {
+      let currentSort = sortingBy;
+      // const currentSort = sortingBy.indexOf("⇊") ? sortingBy.split(" ")
+      if (sortingBy.indexOf("⇊")) {
+        currentSort = sortingBy.replace("⇊", "down");
+      } else if (sortingBy.indexOf("⇈")) {
+        currentSort = sortingBy.replace("⇊", "up");
+      }
+      handleSort(currentSort);
+    }
     document.addEventListener("click", handleCloseDropdown);
     return () => document.removeEventListener("click", handleCloseDropdown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
