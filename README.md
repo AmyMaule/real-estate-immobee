@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+# ImmoBee
 
+<!-- TABLE OF CONTENTS -->
+  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <details open="open">
+  <ol>
+    <li>
+      <a href="#about-the-project">About the project</a>
+    </li>
+    <li>
+      <a href="#demo-and-screenshots">Demo and screenshots</a>
+    </li>
+    <li>
+      <a href="#installation-and-setup-instructions">Installation and setup instructions</a>
+    </li>
+    <li>
+      <a href="#technologies-used">Technologies used</a>
+    </li>
+    <li>
+      <a href="#next-steps">Next steps</a>
+    </li>
+    <li>
+      <a href="#current-issues">Current issues</a>
+    </li>
+    <li>
+      <a href="#contributing">Contributing</a>
+    </li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</details>
+<br>
+
+## About the project
+
+This repo contains the frontend code for [ImmoBee](https://immobee.netlify.app/), a real estate app that queries various APIs that scrape estate agent data so that listings for all agents in a particular region can be viewed together in one place. [coming soon]
+<br><br>
+
+## Demo and screenshots
+A demo video and some screenshots to demonstrate ImmoBee's functionality: <br><br>
+[coming soon]
+<br>
+<h1 style="border-bottom: none;">Live version <a href="https://immobee.netlify.app/">here</a>.</h1>
+<br>
+
+## Installation and setup instructions
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+After cloning the repository, in the project directory, you can run:
 
-In the project directory, you can run:
+### `npm install`
+
+To install the project dependencies.
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To run the app in the development mode.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Then open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-### `npm test`
+The page will reload when you make changes. You may also see any lint errors in the console.
+<br><br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies used
+### ImmoBee relies on the following dependencies:
+* [React Router v6](https://reactrouter.com/en/main)
+* [React Paginate](https://www.npmjs.com/package/react-paginate)
+* [React Widgets](https://jquense.github.io/react-widgets/docs/)
+* [React Hook Form](https://react-hook-form.com/)
+* [Sass](https://sass-lang.com/)
+<br><br>
 
-### `npm run build`
+## Next steps
+* Create a 'featured listings' widget that rotates featured listings every few weeks
+* When the listing detail page is opened in a new tab, a local storage item is set in order to retrieve the listing data. This doesn't delete - next step is to add an expiration date to each of these, and create a function that is called when the app initially loads to delete any items that have expired.
+* Possibly adding authentication so that users can retrieve their saved listings on any device
+* Add unit tests
+<br><br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Current issues
+[coming soon]
+<br><br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Contributing
+If you find a bug, or wish to request new features, please open an issue [here](https://github.com/AmyMaule/real-estate-immobee/issues/new), including as much information as you can.
+<br><br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+MIT © [Amy Maule](https://github.com/AmyMaule)
