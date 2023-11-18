@@ -97,29 +97,6 @@
   }
 }
 
-.btn-scroll {
-  font-family: "ChelseaMarket", "Raleway", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: $color-text;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  transition: all ease 200ms;
-  -webkit-transition: all ease 200ms;
-
-  &:hover {
-    color: $color-tertiary;
-    transition: all ease 200ms;
-    -webkit-transition: all ease 200ms;
-  }
-
-  &:active,
-  &:focus {
-    outline: none;
-  }
-}
-
 .listing-container-placeholder {
   position: relative;
   font-family: "ChelseaMarket", "Raleway", sans-serif;

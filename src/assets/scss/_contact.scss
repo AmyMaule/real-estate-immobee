@@ -111,37 +111,6 @@
   height: 9rem;
 }
 
-.btn-contact-submit {
-  font-family: "ChelseaMarket", "Raleway", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 500;
-  width: 23rem;
-  color: $color-text;
-  background-color: $color-primary;
-  border: 3px solid $color-primary;
-  border-radius: 0.3rem;
-  outline: none;
-  text-align: center;
-  padding: 0.5rem 0;
-  transition: 300ms ease all;
-  -webkit-transition: 300ms ease all;
-
-  &:visited {
-    color: $color-text;
-    background-color: $color-primary;
-    border: 3px solid $color-primary-highlight;
-  }
-
-  &:hover {
-    color: $color-text;
-    background-color: $color-primary-highlight;
-    border: 3px solid $color-primary;
-    text-decoration: none;
-    transition: 300ms ease all;
-    -webkit-transition: 300ms ease all;
-  }
-}
-
 // after user clicks 'send'
 .envelope {
   position: absolute;

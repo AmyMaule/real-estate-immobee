@@ -59,3 +59,123 @@
     border: 3px solid $color-primary-highlight;
   }
 }
+
+.btn-advanced-search {
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 0 0.25rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: $color-text;
+  height: 2.5rem;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  margin: auto 0 0 auto;
+  padding-bottom: 1.15rem;
+  // z-index: 50;
+
+  &:hover {
+    color: black;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+
+.btn-advanced-search-icon {
+  font-size: 0.9rem;
+}
+
+.btn-search {
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  position: absolute;
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: white;
+  width: 12rem;
+  height: 4rem;
+  color: $color-text;
+  background-color: $color-primary;
+  border: 3px solid $color-primary-highlight;
+  border-radius: 0.5rem;
+  outline: none;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, -50%);
+  padding: 0 0.5rem;
+  margin: 0 auto;
+  z-index: 45;
+  transition: 300ms ease all;
+  -webkit-transition: 300ms ease all;
+  
+  &:focus {
+    outline: none;
+  }
+
+  &:active,
+  &:hover {
+    color: $color-text;
+    background-color: $color-primary-highlight;
+    border: 3px solid $color-primary;
+    transition: 300ms ease all;
+    -webkit-transition: 300ms ease all;
+  }
+}
+
+.btn-contact-submit {
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  width: 23rem;
+  color: $color-text;
+  background-color: $color-primary;
+  border: 3px solid $color-primary;
+  border-radius: 0.3rem;
+  outline: none;
+  text-align: center;
+  padding: 0.5rem 0;
+  transition: 300ms ease all;
+  -webkit-transition: 300ms ease all;
+
+  &:visited {
+    color: $color-text;
+    background-color: $color-primary;
+    border: 3px solid $color-primary-highlight;
+  }
+
+  &:hover {
+    color: $color-text;
+    background-color: $color-primary-highlight;
+    border: 3px solid $color-primary;
+    text-decoration: none;
+    transition: 300ms ease all;
+    -webkit-transition: 300ms ease all;
+  }
+}
+
+.btn-scroll {
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: $color-text;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  transition: all ease 200ms;
+  -webkit-transition: all ease 200ms;
+
+  &:hover {
+    color: $color-tertiary;
+    transition: all ease 200ms;
+    -webkit-transition: all ease 200ms;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
