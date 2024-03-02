@@ -20,6 +20,22 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState([]);
   const { listingIDs, setListingIDs } = useContext(ListingsContext);
 
+  // Delete previous search results if more than 2 days old
+  useEffect(() => {
+    const currentTime = new Date();
+    var dateOffset = (24 * 60 * 60 *1000) * 2;
+    const date48HoursAgo = currentTime.getTime() - dateOffset;
+
+    const lastSearchTime = localStorage.getItem("lastSearchTime")
+    if (!lastSearchTime) return;
+
+    if (Number(lastSearchTime) < date48HoursAgo) {
+      console.log("Search results too old, removing listingIDs")
+      localStorage.removeItem("lastSearchTime")
+      localStorage.removeItem("listingIDs")
+    }
+  }, []);
+
   useEffect(() => {
     if (!noListingsFound && !listingIDs?.length) {
       setListingIDs(JSON.parse(localStorage.getItem("listingIDs")));
@@ -41,6 +57,9 @@ const App = () => {
           setListingIDs(sortedListings);
           // save array of shortened listings to local storage
           localStorage.setItem("listingIDs", JSON.stringify(sortedListings));
+          // Set lastSearchTime in order to ensure listings expire after 48 hours
+          const timeNow = new Date();
+          localStorage.setItem("lastSearchTime", JSON.stringify(timeNow.getTime()));
           setNoListingsFound(!sortedListings?.length);
           setQueryURL(null);
           setSearch(false);
