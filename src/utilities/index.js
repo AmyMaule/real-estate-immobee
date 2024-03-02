@@ -12,7 +12,7 @@ export const getSearchURL = (searchQuery, agentChoices) => {
   }
   
   // only search by department if area has no value
-  if (queryParams.includes("department") && queryParams.includes("area")) {
+  if (queryParams.includes("department") && !queryParams.includes("area")) {
     // only send the department number in the query string (i.e. "11" not "Aude (11)"")
     const departments = searchQuery.department.map(dept => {
       return dept.split("(")[1].split(")")[0];
