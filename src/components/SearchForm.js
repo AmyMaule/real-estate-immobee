@@ -4,7 +4,8 @@ import Multiselect from "react-widgets/Multiselect";
 import { useNavigate } from 'react-router-dom';
 
 import {
-  baseURL,
+  agentURL,
+  postcodeURL,
   propertyTypeMapping
 } from '../data';
 
@@ -14,9 +15,18 @@ import SearchSlider from './SearchSlider';
 import SearchTextarea from './SearchTextarea';
 import SearchUnknown from './SearchUnknown';
 
-const SearchForm = ({ search, setListingIDs, setLoadingListings, setLoadingTimer, setNoListingsFound, setSearch, setSearchQuery }) => {
+const SearchForm = ({ 
+  agentChoices, 
+  search, 
+  setAgentChoices, 
+  setListingIDs, 
+  setLoadingListings, 
+  setLoadingTimer, 
+  setNoListingsFound, 
+  setSearch, 
+  setSearchQuery 
+}) => {
   const { register, handleSubmit, setValue, watch } = useForm();
-  const [agentChoices, setAgentChoices] = useState({});
   const [locationChoices, setLocationChoices] = useState([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const departmentOptions = ["Aude (11)", "Ariège (09)", "Haute-Garonne (31)", "Hérault (34)", "Pyrenées-Orientales (66)"];
@@ -68,7 +78,7 @@ const SearchForm = ({ search, setListingIDs, setLoadingListings, setLoadingTimer
   }
 
   useEffect(() => {
-    fetch(`${baseURL}/postcode_dict/`)
+    fetch(postcodeURL)
     .then(res => res.json())
     .then(data => {
       const postcodes = Object.keys(data);
@@ -81,7 +91,7 @@ const SearchForm = ({ search, setListingIDs, setLoadingListings, setLoadingTimer
     })
     .catch(err => console.error(err));
 
-    fetch(`${baseURL}/agent_dict/`)
+    fetch(agentURL)
       .then(res => res.json())
       .then(data => setAgentChoices(data))
       .catch(err => console.error(err));

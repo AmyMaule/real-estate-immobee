@@ -8,3 +8,7 @@ export const propertyTypeMapping = {
 }
 
 export const baseURL = "https://suspiciousleaf.eu.pythonanywhere.com";
+
+export const agentURL = `${baseURL}/static/data/agent_mapping.json`;
+
+export const postcodeURL = `${baseURL}/static/data/postcode_mapping.json`;
