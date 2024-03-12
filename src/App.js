@@ -69,17 +69,7 @@ const App = () => {
   }, [queryURL, setListingIDs]);
 
   useEffect(() => {
-    if (search && !Object.keys(agentChoices).length) {
-      fetch(`${baseURL}/agent_dict/`)
-        .then(res => res.json())
-        .then(data => {
-          setAgentChoices(data);
-          const searchURL = getSearchURL(searchQuery, data);
-          setQueryURL(searchURL);
-          setSearch(false);
-        })
-        .catch(err => console.log(err))
-    } else if (search) {
+    if (search) {
       const searchURL = getSearchURL(searchQuery, agentChoices);
       setQueryURL(searchURL);
       setSearch(false);
@@ -97,7 +87,9 @@ const App = () => {
       {loadingListings && <LoadingAnimation />}
       <div className="main-content-container">
         <SearchForm
+          agentChoices={agentChoices}
           search={search}
+          setAgentChoices={setAgentChoices}
           setListingIDs={setListingIDs}
           setLoadingListings={setLoadingListings}
           setLoadingTimer={setLoadingTimer}
