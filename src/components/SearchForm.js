@@ -73,6 +73,12 @@ const SearchForm = ({
     if (showAdvanced) {
       // If user hits "minimise", reset the towns so they can select a department instead
       setValue("area", "");
+    } else {
+      // When the user hits "Advanced", if it is scrolled too far down, the form will jump to the bottom when expanded
+      const currentScrollPos = window.scrollY;
+      setTimeout(() => {
+        window.scrollTo(0, currentScrollPos);
+      }, 0);
     }
     setShowAdvanced(prev => !prev);
   }
