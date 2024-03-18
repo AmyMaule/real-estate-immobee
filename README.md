@@ -32,14 +32,16 @@
 
 ## About the project
 
-This repo contains the frontend code for [ImmoBee](https://immobee.netlify.app/), a real estate app that queries various APIs that scrape estate agent data so that listings for all agents in a particular region can be viewed together in one place. [coming soon]
+[ImmoBee](https://immobee.app/) is an open-source project designed to streamline the process of searching for properties for sale by gathering real estate agent data from various sources. This repo contains the frontend code that queries various APIs that scrape estate agent data so that listings for all agents in a particular region can be viewed together in one place.
+
+All of the backend code for this project including APIs and scrapers can be found [here](https://github.com/suspiciousleaf/immo_app).
 <br><br>
 
 ## Demo and screenshots
 A demo video and some screenshots to demonstrate ImmoBee's functionality: <br><br>
 [coming soon]
 <br>
-<h1 style="border-bottom: none;">Live version <a href="https://immobee.netlify.app/">here</a>.</h1>
+<h1 style="border-bottom: none;">Live version <a href="https://immobee.app/">here</a>.</h1>
 <br>
 
 ## Installation and setup instructions
