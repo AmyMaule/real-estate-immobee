@@ -12,6 +12,16 @@
     max-height: calc(100vh - 4rem); // minus navbar height
     height: fit-content;
   }
+
+  .listing-detail-no-images-container {
+    img {
+      width: 60%;
+    }
+  }
+
+  .listing-detail-no-images {
+    font-size: 1.75rem;
+  }
 }
 
 @media screen and (max-width: 1050px) {
@@ -73,7 +83,6 @@
     position: absolute;
     bottom: 0;
     right: 1rem;
-    // z-index: 100;
     margin: 0;
   }
 
@@ -358,6 +367,7 @@
     font-size: 1.2rem;
     bottom: 2.25rem;
     left: 50%;
+    right: unset;
     transform: translateX(-50%);
   }
 
@@ -447,6 +457,10 @@
   .listing-link-hover,
   .listing-link-default {
     font-size: 1.1rem;
+  }
+
+  .listing-detail-no-images {
+    font-size: 1.25rem;
   }
 
   // contact

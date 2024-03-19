@@ -39,13 +39,22 @@ const ListingDetail = () => {
     <div className="listing-detail-page-container">
       <div className="listing-detail-img-container">
         <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
-        <img src={listing.photos_hosted[currentImage]} className="listing-detail-page-img" alt="listing" />
-        <ImageControlBar
-          currentImage={currentImage}
-          listingPhotos={listing.photos_hosted}
-          setCurrentImage={setCurrentImage}
-          setPadding
-        />
+
+        {listing.photos_hosted?.length
+          ? <>
+              <img src={listing.photos_hosted[currentImage]} className="listing-detail-page-img" alt="listing" />
+              <ImageControlBar
+                currentImage={currentImage}
+                listingPhotos={listing.photos_hosted}
+                setCurrentImage={setCurrentImage}
+                setPadding
+              />
+            </>
+          : <div className="listing-detail-no-images-container">
+              <img src="/image-not-found.png" className="listing-detail-page-img" alt="listing" />
+              <div className="listing-detail-no-images">No images available</div>
+            </div>
+        }
       </div>
       <div className="listing-detail-info-container">
         <div className="listing-title-container">
