@@ -12,10 +12,17 @@ const ListingDetail = () => {
   const location = useLocation();
   const listingID = location.pathname.slice(10);
   // use location.state when opening the listing in the same tab
-  const [listing, setListing] = useState(location.state || JSON.parse(localStorage.getItem(listingID)) || null);
+  const [listing, setListing] = useState(location.state || JSON.parse(localStorage.getItem(listingID)) || undefined);
   const [isSaved, setIsSaved] = useState(
     JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.link_url === listing?.link_url) || null
   );
+
+  // Delete local storage item once accessed
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem(listingID)) && listing) {
+      localStorage.removeItem(listingID);
+    }
+  }, []);
 
   // If the listing page has been shared or copied to another browser, there will be nothing in state or local storage
   useEffect(() => {
@@ -31,9 +38,13 @@ const ListingDetail = () => {
     scrollTo(0, "auto");
   }, []);
 
+  // If there is no listing associated with the listingID, navigate to error page
   if (listing === null) {
     return <Navigate replace to="/error" />
   }
+
+  // If the fetch request is still completing, return null temporarily
+  if (!listing) return null;
 
   return (
     <div className="listing-detail-page-container">
