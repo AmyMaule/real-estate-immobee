@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ReactPaginate from 'react-paginate';
 import { 
   Link,
@@ -110,7 +110,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
   };
 
   // Callback ref to set refHasValue to the DOM node in the search results container as long as it has a value
-  const refCallback = React.useCallback((node) => {
+  const refCallback = useCallback((node) => {
     if (node !== null) {
       setRefrefHasValue(node);
     }
