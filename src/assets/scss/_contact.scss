@@ -1,6 +1,7 @@
 .contact-page-container {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: $color-secondary-highlight;
@@ -35,7 +36,7 @@
   border: 5px solid $color-primary;
   border-radius: 0.5rem;
   overflow: hidden;
-  margin: 0 auto;
+  margin: 0 auto 1rem auto;
 }
 
 .contact-title {
@@ -215,4 +216,9 @@
     opacity: 1;
     transform: translateY(-10rem);
   }
+}
+
+.contact-error {
+  font-family: "ChelseaMarket", "Raleway", sans-serif;
+  font-size: 1.1rem;
 }

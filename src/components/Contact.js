@@ -1,34 +1,36 @@
 import React, { useRef } from 'react';
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const Contact = () => {
   const { register, handleSubmit } = useForm();
   const contactFormRef = useRef();
-
-  const encode = data => {
-    return Object.keys(data)
-      .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-      .join("&");
-  }
+  const contactErrorRef = useRef();
 
   const onSubmit = data => {
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({ "form-name": "contact", ...data })
+    axios.post(`https://formspree.io/f/${process.env.REACT_APP_FORMSPREE_ID}`, {
+      "form-name": "contact",
+      ...data
     })
-      .then(() => {
+    .then(res => {
+      if (res.status === 200) {
         contactFormRef.current.classList.add("sent");
-        console.log("Posting:", data);
-      })
-      .catch(err => console.error(err));
+        contactErrorRef.current.classList.add("hide");
+      } else {
+        throw Error(`Error submitting form, status ${res.status}`)
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      contactErrorRef.current.classList.remove("hide");
+    });
   }
 
   return (
     <div className="contact-page-container">
       <div className="contact-container" id="contact" ref={contactFormRef}>
         <div className="letter-send">
-          <form className="letter" name="contact" onSubmit={handleSubmit(onSubmit)} data-netlify="true">
+          <form className="letter" name="contact" onSubmit={handleSubmit(onSubmit)}>
             <div className="side">
               <h1 className="contact-title">Contact us</h1>
               <textarea
@@ -45,6 +47,7 @@ const Contact = () => {
                 type="text"
                 name="name"
                 placeholder="Your name"
+                required
                 {...register("name")}
               />
               <input
@@ -54,8 +57,6 @@ const Contact = () => {
                 placeholder="Your email"
                 {...register("email")}
               />
-              {/* This input is hidden because it is required by netlify - name="form-name" also cannot be changed */}
-              <input type="hidden" name="form-name" value="contact" />
               <button className="btn-contact-submit">Send</button>
             </div>
           </form>
@@ -64,6 +65,9 @@ const Contact = () => {
         </div>
         <p className="result-message">Thank you for your message!{"\n"}We'll get back to you shortly.</p>
       </div>
+      <p className="contact-error hide" ref={contactErrorRef}>
+        Oops! Something went wrong. Please try again soon.
+      </p>
     </div>
   )
 }

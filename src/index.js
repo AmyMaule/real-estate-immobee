@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   BrowserRouter,
@@ -19,10 +19,10 @@ import SavedListings from './components/SavedListings';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-export const ListingsContext = React.createContext();
+export const ListingsContext = createContext();
 
 export const ListingsProvider = ({ children }) => {
-  const [listingIDs, setListingIDs] = React.useState([]);
+  const [listingIDs, setListingIDs] = useState([]);
 
   return (
     <ListingsContext.Provider value={{ listingIDs, setListingIDs }}>

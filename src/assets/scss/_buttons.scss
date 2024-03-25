@@ -140,6 +140,11 @@
   transition: 300ms ease all;
   -webkit-transition: 300ms ease all;
 
+  &:active,
+  &:focus {
+    outline: none;
+  }
+
   &:visited {
     color: $color-text;
     background-color: $color-primary;
