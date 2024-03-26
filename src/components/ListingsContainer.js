@@ -52,26 +52,37 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
     }
 
     const fullListingsToFetch = listingIDs
-    .slice(currentOffset, currentOffset + 12)
-    .map((listing) => listing.listingID)
-    .toString();
+      .slice(currentOffset, currentOffset + 12)
+      .map(listing => listing.listingID);
+
+    const listingsToFetchStr = fullListingsToFetch.toString();
 
     // Don't perform a new query if the new results will be the same as the current results
     const currentFetchedListings = listings.map(listing => listing.listingID).toString();
-    if (currentFetchedListings === fullListingsToFetch) return;
+    if (currentFetchedListings === listingsToFetchStr) return;
 
     
-    fetch(`${baseURL}/full_listings?id=${fullListingsToFetch}`)
+    fetch(`${baseURL}/full_listings?id=${listingsToFetchStr}`)
       .then(res => res.json())
       .then(data => {
         setListings(data);
+
+        // If a listing has been removed from the database since the last time a search was performed, update the total results
+        if (fullListingsToFetch.length !== data.length) {
+          const fetchedListingIDs = data.map(listing => listing.listingID)
+          // Find the listing(s) that have not been returned from the DB
+          const errorListingIDs = fullListingsToFetch.filter(listing => !fetchedListingIDs.includes(listing))
+          setListingIDs(prevListingIDs => {
+            return prevListingIDs.filter(prevListingID => !errorListingIDs.includes(prevListingID.listingID))
+          });
+        }
       })
       .catch(err => console.log(err));
-  }, [currentOffset, isSavedListingsPage, listingIDs, listings]);
+  }, [currentOffset, isSavedListingsPage, listingIDs]);
+
 
   const renderListings = () => {
-    const listingsToRender = listings;
-    return listingsToRender.map(listing => {
+    return listings.map(listing => {
       return <Listing listing={listing} key={listing.link_url} />
     });
   };
@@ -117,13 +128,15 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
   }, []);
 
   useEffect(() => {
-    if (searchResultsRef.current && refHasValue && listings.length) {
+    // If the user hits the back button on the listing detail page, return them to their previous scroll position
+    if (searchResultsRef.current && refHasValue) {
       if (window.history.state?.prevPage) {
         if (window.history.state.prevPage === "listing") {
           window.history.pushState({ prevPage: "" }, "");
           returnToScrollPosition();
         }
       } else {
+        // When the page changes, scroll smoothly to the top of the new page of listings
         if (!loadingListings) {
           setTimeout(() => {
             window.scrollTo({
@@ -134,7 +147,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
         }
       }
     }
-  }, [currentPage, isSavedListingsPage, listings, loadingListings, refHasValue]);
+  }, [currentPage, isSavedListingsPage, loadingListings, refHasValue]);
 
   if (noListingsFound) {
     return (
