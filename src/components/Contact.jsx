@@ -8,7 +8,7 @@ const Contact = () => {
   const contactErrorRef = useRef();
 
   const onSubmit = data => {
-    axios.post(`https://formspree.io/f/${process.env.REACT_APP_FORMSPREE_ID}`, {
+    axios.post(`https://formspree.io/f/${import.meta.env.VITE_FORMSPREE_ID}`, {
       "form-name": "contact",
       ...data
     })

@@ -6,7 +6,7 @@
   margin: 0 1.5rem 8rem 1.5rem;
   margin: 0 auto;
   padding: 2rem;
-  background: url("../../../public/small-hexagons.jpg");
+  background: url("../../../small-hexagons.jpg");
   background-size: cover;
   box-shadow: rgb(56, 55, 39) 0px 1px 3px inset;
 
@@ -106,7 +106,7 @@
   height: 27rem;
   color: #222427;
   background-color: rgb(253, 253, 252);
-  background: url("../../../public/watercolorbg.jpg");
+  background: url("../../../watercolorbg.jpg");
   background-size: cover;
   background-position: center 50%;
   border: 2px solid rgb(202, 180, 246);
@@ -127,7 +127,7 @@
   height: 27rem;
   color: #222427;
   background-color: rgb(253, 253, 252);
-  background: url("../../../public/watercolorbg.jpg");
+  background: url("../../../watercolorbg.jpg");
   background-size: cover;
   background-position: center 50%;
   border: 2px solid rgb(202, 180, 246);
@@ -537,7 +537,7 @@
   height: 100%;
   background-color: rgb(253, 253, 212);
   padding-bottom: 1.5rem;
-  background: url("../../../public/watercolorbg.jpg");
+  background: url("../../../watercolorbg.jpg");
   background-size: cover;
   
   &::after {
@@ -619,7 +619,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background: url("../../../public/1.jpg");
+  background: url("../../../1.jpg");
   background-size: cover;
   border-radius: 1rem;
   border: 5px solid $color-primary;
