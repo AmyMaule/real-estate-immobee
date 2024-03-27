@@ -32,7 +32,7 @@
 
 ## About the project
 
-[ImmoBee](https://immobee.app/) is an open-source project designed to streamline the process of searching for properties for sale by gathering real estate agent data from various sources. This repo contains the frontend code that queries various APIs that scrape estate agent data so that listings for all agents in a particular region can be viewed together in one place.
+[immobee.app](https://immobee.app/) is an open-source project designed to streamline the process of searching for properties for sale by gathering real estate agent data from various sources. This repo contains the frontend code that queries various APIs that scrape estate agent data so that listings for all agents in a particular region can be viewed together in one place.
 
 All of the backend code for this project including APIs and scrapers can be found [here](https://github.com/suspiciousleaf/immo_app).
 <br><br>
@@ -73,7 +73,6 @@ The page will reload when you make changes. You may also see any lint errors in 
 
 ## Next steps
 * Create a 'featured listings' widget that rotates featured listings every few weeks
-* When the listing detail page is opened in a new tab, a local storage item is set in order to retrieve the listing data. This doesn't delete - next step is to add an expiration date to each of these, and create a function that is called when the app initially loads to delete any items that have expired.
 * Possibly adding authentication so that users can retrieve their saved listings on any device
 * Add unit tests
 <br><br>
