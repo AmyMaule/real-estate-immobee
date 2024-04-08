@@ -19,9 +19,9 @@
     <li>
       <a href="#next-steps">Next steps</a>
     </li>
-    <li>
+    <!-- <li>
       <a href="#current-issues">Current issues</a>
-    </li>
+    </li> -->
     <li>
       <a href="#contributing">Contributing</a>
     </li>
@@ -32,42 +32,50 @@
 
 ## About the project
 
-[immobee.app](https://immobee.app/) is an open-source project designed to streamline the process of searching for properties for sale by gathering real estate agent data from various sources. This repo contains the frontend code that queries various APIs that scrape estate agent data so that listings for all agents in a particular region can be viewed together in one place.
+[immobee.app](https://immobee.app/) is an open-source project designed to streamline the process of searching for properties for sale in a particular region by aggregating real estate agent data from various sources into a single platform. 
+
+This repository contains the frontend code for ImmoBee, that queries various APIs that scrape estate agent data so that listings from all agents can be viewed together in one place.
 
 All of the backend code for this project including APIs and scrapers can be found [here](https://github.com/suspiciousleaf/immo_app).
 <br><br>
 
 ## Demo and screenshots
-A demo video and some screenshots to demonstrate ImmoBee's functionality: <br><br>
+A demo video and some screenshots to demonstrate ImmoBee's functionality:
+<br><br>
+
 [coming soon]
+
 <br>
-<h1 style="border-bottom: none;">Live version <a href="https://immobee.app/">here</a>.</h1>
-<br>
+<h1 style="border-bottom: none;">
+  Live version <a href="https://immobee.app/">here</a>.
+</h1>
 
 ## Installation and setup instructions
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Vite](https://vitejs.dev/).
 
 After cloning the repository, in the project directory, you can run:
 
-### `npm install`
+#### `npm install`
 
 To install the project dependencies.
 
-### `npm start`
+#### `vite`
 
 To run the app in the development mode.
 
-Then open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Then open [http://127.0.0.1:5173/](http://127.0.0.1:5173/) to view it in your browser.
 
 The page will reload when you make changes. You may also see any lint errors in the console.
 <br><br>
 
 ## Technologies used
 ### ImmoBee relies on the following dependencies:
+* [Vite](https://vitejs.dev/)
 * [React Router v6](https://reactrouter.com/en/main)
 * [React Paginate](https://www.npmjs.com/package/react-paginate)
 * [React Widgets](https://jquense.github.io/react-widgets/docs/)
 * [React Hook Form](https://react-hook-form.com/)
+* [Axios](https://axios-http.com/docs/intro)
 * [Sass](https://sass-lang.com/)
 <br><br>
 
@@ -77,9 +85,9 @@ The page will reload when you make changes. You may also see any lint errors in 
 * Add unit tests
 <br><br>
 
-## Current issues
+<!-- ## Current issues
 [coming soon]
-<br><br>
+<br><br> -->
 
 ## Contributing
 If you find a bug, or wish to request new features, please open an issue [here](https://github.com/AmyMaule/real-estate-immobee/issues/new), including as much information as you can.
