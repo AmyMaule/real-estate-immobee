@@ -9,7 +9,7 @@
   padding: 0.4rem 0;
   margin-left: auto;
   cursor: pointer;
-  z-index: 60;
+  z-index: 200;
   transition: 0.25s ease-in-out all;
 
   &:hover {
@@ -28,7 +28,7 @@
   transform: rotateX(-90deg);
   transition: transform 0.25s linear;
   padding: 0;
-  z-index: 60;
+  z-index: 200;
 }
 
 .sorting-dropdown-item {
@@ -38,7 +38,7 @@
   padding: 0.5rem 0.9rem;
   transition: 0.25s ease all;
   -webkit-transition: 0.25s ease all;
-  z-index: 60;
+  z-index: 200;
 
   &:hover {
     background-color: $color-primary;
