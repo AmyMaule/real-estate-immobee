@@ -89,11 +89,10 @@ const SortingDropdown = ({ listingIDs, setListingIDs }) => {
     // If the user navigates to the saved listings page after sorting from the search results, sortingBy retains its value
     if (sortingBy) {
       let currentSort = sortingBy;
-      // const currentSort = sortingBy.indexOf("⇊") ? sortingBy.split(" ")
-      if (sortingBy.indexOf("⇊")) {
+      if (sortingBy.includes("⇊")) {
         currentSort = sortingBy.replace("⇊", "down");
-      } else if (sortingBy.indexOf("⇈")) {
-        currentSort = sortingBy.replace("⇊", "up");
+      } else if (sortingBy.includes("⇈")) {
+        currentSort = sortingBy.replace("⇈", "up");
       }
       handleSort(currentSort);
     }
