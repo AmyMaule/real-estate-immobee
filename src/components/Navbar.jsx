@@ -4,7 +4,7 @@ import {
   useLocation
 } from 'react-router-dom';
 
-import { scrollTo } from '../utilities';
+import { handlePageChange, scrollTo } from '../utilities';
 
 import HamburgerMenu from './HamburgerMenu';
 
@@ -16,9 +16,7 @@ const Navbar = () => {
   const currentPage = location.pathname;
 
   const handleClick = scrollBehavior => {
-    setListingIDs([]);
-    localStorage.setItem("listingIDs", JSON.stringify([]));
-    scrollTo(0, scrollBehavior);
+    handlePageChange(setListingIDs, scrollBehavior);
   }
 
   return (
