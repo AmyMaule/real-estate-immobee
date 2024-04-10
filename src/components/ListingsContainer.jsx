@@ -186,10 +186,12 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
       <div className="listings-title-container">
       {listingIDs?.length && (
           <>
-            <h3 className="listings-title">
-              Page {currentPage || 1}{"\n"}
-              Showing results {currentOffset + 1} - {currentOffset + renderListings().length} of {listingIDs?.length}
-            </h3>
+            {renderListings().length > 0 &&
+              <h3 className="listings-title">
+                Page {currentPage || 1}{"\n"}
+                Showing results {currentOffset + 1} - {currentOffset + renderListings().length} of {listingIDs?.length}
+              </h3>
+            }
             <SortingDropdown
               listingIDs={listingIDs}
               setListingIDs={setListingIDs}
