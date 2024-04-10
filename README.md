@@ -32,7 +32,7 @@
 
 ## About the project
 
-[immobee.app](https://immobee.app/) is an open-source project designed to streamline the process of searching for properties for sale in a particular region by aggregating real estate agent data from various sources into a single platform. 
+<a href="https://immobee.app/" target="_blank">immobee.app</a> is an open-source project designed to streamline the process of searching for properties for sale in a particular region by aggregating real estate agent data from various sources into a single platform. 
 
 This repository contains the frontend code for ImmoBee, that queries various APIs that scrape estate agent data so that listings from all agents can be viewed together in one place.
 
@@ -40,14 +40,27 @@ All of the backend code for this project including APIs and scrapers can be foun
 <br><br>
 
 ## Demo and screenshots
-A demo video and some screenshots to demonstrate ImmoBee's functionality:
+A demo of ImmoBee's functionality:
 <br><br>
+<div align="center">
+  <img src="./public/README-images/app-overview.gif" width="90%" />
+</div>
+<br><br><br>
 
-[coming soon]
+ImmoBee is fully responsive for all screen sizes. Here's the homepage on different screen types (desktop, tablet, and mobile):
+<br>
+
+<div align="center">
+  <img src="./public/README-images/homepage-desktop.png" style="width: 90%" />
+  <br><br>
+  <img src="./public/README-images/homepage-tablet.png" width="53.25%" />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="./public/README-images/homepage-mobile.png" width="25%" />
+</div>
 
 <br>
 <h1 style="border-bottom: none;">
-  Live version <a href="https://immobee.app/">here</a>.
+  Live version <a href="https://immobee.app/" target="_blank">here</a>.
 </h1>
 
 ## Installation and setup instructions
