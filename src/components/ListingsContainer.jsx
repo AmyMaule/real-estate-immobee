@@ -129,7 +129,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
 
   useEffect(() => {
     // If the user hits the back button on the listing detail page, return them to their previous scroll position
-    if (searchResultsRef.current && refHasValue) {
+    if (searchResultsRef.current && refHasValue && listings.length) {
       if (window.history.state?.prevPage) {
         if (window.history.state.prevPage === "listing") {
           window.history.pushState({ prevPage: "" }, "");
@@ -147,7 +147,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
         }
       }
     }
-  }, [currentPage, isSavedListingsPage, loadingListings, refHasValue]);
+  }, [currentPage, isSavedListingsPage, listings, loadingListings, refHasValue]);
 
   if (noListingsFound) {
     return (
