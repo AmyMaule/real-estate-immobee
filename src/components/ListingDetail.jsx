@@ -49,8 +49,9 @@ const ListingDetail = () => {
   return (
     <div className="listing-detail-page-container">
       <div className="listing-detail-img-container">
-        <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
-
+        <div className="listing-detail-save-container">
+          <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
+        </div>
         {listing.photos_hosted?.length
           ? <>
               <img src={listing.photos_hosted[currentImage]} className="listing-detail-page-img" alt="listing" />
