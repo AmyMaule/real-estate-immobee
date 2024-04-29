@@ -4,11 +4,10 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { baseURL } from '../data';
 import { scrollTo } from '../utilities';
 
-import ImageControlBar from './ImageControlBar';
+import ImageControlSlider from './ImageControlSlider';
 import SaveListing from './SaveListing';
 
 const ListingDetail = () => {
-  const [currentImage, setCurrentImage] = useState(0);
   const location = useLocation();
   const listingID = location.pathname.slice(10);
   // use location.state when opening the listing in the same tab
@@ -48,26 +47,16 @@ const ListingDetail = () => {
 
   return (
     <div className="listing-detail-page-container">
-      <div className="listing-detail-img-container">
-        <div className="listing-detail-save-container">
-          <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
-        </div>
-        {listing.photos_hosted?.length
-          ? <>
-              <img src={listing.photos_hosted[currentImage]} className="listing-detail-page-img" alt="listing" />
-              <ImageControlBar
-                currentImage={currentImage}
-                listingPhotos={listing.photos_hosted}
-                setCurrentImage={setCurrentImage}
-                setPadding
-              />
-            </>
-          : <div className="listing-detail-no-images-container">
-              <img src="/image-not-found.png" className="listing-detail-page-img" alt="listing" />
-              <div className="listing-detail-no-images">No images available</div>
-            </div>
-        }
+      <div className="listing-detail-save-container">
+        <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
       </div>
+      {listing.photos_hosted?.length
+        ? <ImageControlSlider listingPhotos={listing.photos_hosted} />
+        : <div className="listing-detail-no-images-container">
+            <img src="/image-not-found.png" className="listing-detail-page-img" alt="listing" />
+            <div className="listing-detail-no-images">No images available</div>
+          </div>
+      }
       <div className="listing-detail-info-container">
         <div className="listing-title-container">
         <h5 className="listing-detail-title">

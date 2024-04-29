@@ -1,0 +1,43 @@
+.image-control-slider-container {
+  position: relative;
+  max-width: calc(100% - 1rem);
+  width: 100%;
+  height: calc(100vh - 4rem); // minus navbar height
+  padding: 1rem 1.5rem 0.5rem 1.5rem;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+// Ensure image is centered vertically
+.slick-track {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.listing-detail-img {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+  // For height, take into account nav bar, padding and image dots below
+  max-height: calc(100vh - 7.25rem);
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0.15rem;
+  margin-bottom: 0.25rem;
+}
+
+.image-control-arrow {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+}
+
+.image-control-arrow-prev {
+  // the rotateY flips the arrow 180deg but
+  // the translate must be maintained from the react-slick CSS
+  transform: rotateY(180deg) translate(0, -50%) !important;
+  z-index: 20 !important;
+}
+
+.slick-dots li {
+  margin: 0 1px !important;
+}

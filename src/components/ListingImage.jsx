@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 
-import ImageControlBar from './ImageControlBar';
-
 const ListingImage = ({ listing }) => {
-  const [currentImage, setCurrentImage] = useState(0);
-
   return (
     <>
       {listing.photos_hosted.length
@@ -12,12 +8,7 @@ const ListingImage = ({ listing }) => {
             <img
               alt="listing images"
               className="listing-image"
-              src={listing.photos_hosted[currentImage]}
-            />
-            <ImageControlBar
-              currentImage={currentImage}
-              listingPhotos={listing.photos_hosted}
-              setCurrentImage={setCurrentImage}
+              src={listing.photos_hosted[0]}
             />
           </div>
         : <div className="no-images-text">No images available</div>

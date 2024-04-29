@@ -8,11 +8,6 @@
     padding: 2.5rem 3.5rem;
   }
 
-  .listing-detail-img-container {
-    max-height: calc(100vh - 4rem); // minus navbar height
-    height: fit-content;
-  }
-
   .listing-detail-no-images-container {
     img {
       width: 60%;
@@ -70,12 +65,6 @@
     flex-direction: column;
     align-items: center;
   }
-
-  .listing-detail-img-container {
-    .img-arrow {
-      font-size: 1.5rem;
-    }
-  }
 }
 
 @media screen and (max-width: 910px) {
@@ -84,6 +73,43 @@
     bottom: 0;
     right: 1rem;
     margin: 0;
+  }
+
+  .image-control-slider-container {
+    height: max-content;
+    max-height: calc(100vh - 4rem);
+    max-width: 100%;
+    padding: 1rem 1rem 0.5rem 1rem;
+  }
+
+  // All of the react-slick styles must use !important to override the default styles
+  .image-control-arrow {
+    position: absolute !important;
+    transform: translateY(-50%);
+
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+  }
+
+  .slick-prev {
+    left: 0 !important;
+  }
+
+  .slick-next {
+    right: 0 !important;
+  }
+
+  .slick-track {
+    display: block !important;
+  }
+
+  .slick-dots {
+    position: relative !important;
+    bottom: 0 !important;
+  }
+  
+  .listing-detail-info-container {
+    margin: 1.5rem;
   }
 
   // contact
@@ -226,16 +252,6 @@
 }
 
 @media screen and (max-width: 770px) {
-  .listing-detail-img-container {  
-    padding: 1rem 1rem 0.5rem 1rem;
-
-    .img-arrow {
-      display: flex;
-      align-items: flex-end;
-      padding: 0 0.5rem 0.5rem 0.5rem;
-    }
-  }
-
   .listing-detail-save-container {
     .listing-interactive-icon-container {
       right: 1.5rem;
