@@ -22,7 +22,7 @@ const Listing = ({ listing }) => {
 
   // ensure listing is only selected if other buttons on the listing are not clicked
   const handleSelectListing = (e) => {
-    const otherTargets = ["img-arrow", "img-arrow-glyph", "listing-image-circle", "listing-image-current", "listing-interactive-icon-container", "heart-icon", "trash-icon"];
+    const otherTargets = ["slick-arrow", "listing-image-circle", "listing-image-current", "listing-interactive-icon-container", "heart-icon", "trash-icon"];
     const classNames = e.target.classList;
     
     for (let className of classNames) {
