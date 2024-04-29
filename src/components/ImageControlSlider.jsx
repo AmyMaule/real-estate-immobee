@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const ImageControlSlider = ({ listingPhotos }) => {
+const ImageControlSlider = ({ isDetailedListing, listingPhotos }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 910);
   const [arrowMargins, setArrowMargins] = useState(0);
@@ -36,20 +36,20 @@ const ImageControlSlider = ({ listingPhotos }) => {
         className={`${className} image-control-arrow ${prevArrow ? "image-control-arrow-prev" : ""}`}
         onClick={onClick}
         src="/arrow2.png"
-        style={{top: arrowMargins}}
+        style={{top: isDetailedListing ? arrowMargins + "px" : "102px"}}
       />
     );
   }
 
   const settings = {
     // on larger screens, the height takes up 100vh, on mobile, it adapts to fit 100% image width
-    adaptiveHeight: isMobile,
+    adaptiveHeight: isDetailedListing && isMobile,
     beforeChange: (current, next) => setActiveSlide(next),
     customPaging: (i) => {
       return i === activeSlide
         ? <img src="/bee-4.png" key={i} className="listing-image-current" alt="" />
         : <div className="listing-image-circle-container" key={i}>
-            <div className="listing-image-circle" onClick={() => setCurrentImage(i)} />
+            <div className="listing-image-circle" />
           </div>        
     },
     dots: true,
@@ -61,22 +61,20 @@ const ImageControlSlider = ({ listingPhotos }) => {
   };
 
   return (
-    <div className="image-control-slider-container">
-      <Slider {...settings}>
-        {listingPhotos.map((photo, i) => {
-          return (
-            <img 
-              alt="listing"
-              className="listing-detail-img"
-              data-slide={i}
-              key={i}
-              ref={listingImgRef}
-              src={photo}
-            />
-          )
-        })}
-      </Slider>
-    </div>
+    <Slider {...settings}>
+      {listingPhotos.map((photo, i) => {
+        return (
+          <img 
+            alt="listing image"
+            className={`${isDetailedListing ? "listing-detail-image" : "listing-image"}`}
+            data-slide={i}
+            key={i}
+            ref={listingImgRef}
+            src={photo}
+          />
+        )
+      })}
+    </Slider>
   );
 }
 

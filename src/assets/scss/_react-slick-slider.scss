@@ -1,4 +1,4 @@
-.image-control-slider-container {
+.listing-detail-image-slider-container {
   position: relative;
   max-width: calc(100% - 1rem);
   width: 100%;
@@ -6,15 +6,59 @@
   padding: 1rem 1.5rem 0.5rem 1.5rem;
   margin: 0 auto;
   z-index: 2;
+
+  // Ensure image is centered vertically
+  .slick-track {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .slick-dots {
+    bottom: unset !important;
+  }
 }
 
-// Ensure image is centered vertically
-.slick-track {
-  display: flex !important;
-  align-items: center !important;
+.listing-image-slider-container {
+  position: relative;
+  width: 100%;
+  padding: 0;
+
+  .slick-slider {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .slick-prev {
+    left: 0.25rem !important;
+  }
+
+  .slick-next {
+    right: 0.25rem !important;
+  }
+  
+  .slick-list {
+    height: 14rem;
+  }
+
+  .slick-dots {
+    position: relative !important;
+    line-height: 1.25 !important;
+    bottom: 0 !important;
+    top: -1.1rem !important;
+  }
 }
 
-.listing-detail-img {
+.listing-image {
+  width: 100%;
+  height: 12.75rem !important;
+  object-fit: cover;
+  margin: 0 auto;
+  background-color: white;
+}
+
+
+.listing-detail-image {
   position: relative;
   max-width: 100%;
   width: 100%;
@@ -27,17 +71,19 @@
 }
 
 .image-control-arrow {
-  width: 2.5rem !important;
-  height: 2.5rem !important;
+  width: 2.4rem !important;
+  height: 2.4rem !important;
+  z-index: 20 !important;
 }
 
 .image-control-arrow-prev {
   // the rotateY flips the arrow 180deg but
   // the translate must be maintained from the react-slick CSS
   transform: rotateY(180deg) translate(0, -50%) !important;
-  z-index: 20 !important;
 }
 
 .slick-dots li {
-  margin: 0 1px !important;
+  height: 1rem !important;
+  width: 1.2rem !important;
+  margin: 0 1px 0 0 !important;
 }

@@ -51,7 +51,12 @@ const ListingDetail = () => {
         <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
       </div>
       {listing.photos_hosted?.length
-        ? <ImageControlSlider listingPhotos={listing.photos_hosted} />
+        ? <div className="listing-detail-image-slider-container">
+            <ImageControlSlider 
+              isDetailedListing
+              listingPhotos={listing.photos_hosted} 
+            />
+          </div>
         : <div className="listing-detail-no-images-container">
             <img src="/image-not-found.png" className="listing-detail-page-img" alt="listing" />
             <div className="listing-detail-no-images">No images available</div>

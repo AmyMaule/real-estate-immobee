@@ -260,7 +260,7 @@
 }
 
 .listing-hide-container {
-  top: 4rem;
+  right: 3.8rem;
 }
 
 .heart-icon {
@@ -326,26 +326,12 @@
   padding: 0.75rem;
 }
 
-.listing-image {
-  width: 100%;
-  height: calc(100% - 2rem);
-  min-height: 10rem;
-  object-fit: cover;
-  margin: 0 auto;
-  background-color: white;
-  // border: 2px solid #ffffff;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-}
-
 .listing-image-circle-container {
   position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
   width: 1.2rem;
-  height: 1.25rem;
-  top: 0.15rem;
+  height: 1.2rem;
 }
 
 .listing-image-circle {
@@ -367,6 +353,14 @@
     transition: 200ms ease all;
     -webkit-transition: 200ms ease all;
   }
+}
+
+.listing-solo-image-bee-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.25rem;
 }
 
 .listing-image-current {
