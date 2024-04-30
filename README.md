@@ -66,19 +66,24 @@ ImmoBee is fully responsive for all screen sizes. Here's the homepage on differe
 ## Installation and setup instructions
 This project was bootstrapped with [Vite](https://vitejs.dev/).
 
-After cloning the repository, in the project directory, you can run:
+### Installation
+
+First clone the repository to your local machine and navigate to the project directory.
+
+Then install the project dependencies using:
 
 #### `npm install`
 
-To install the project dependencies.
+You can run the app in development mode using:
 
 #### `vite`
 
-To run the app in the development mode.
+Then open [http://127.0.0.1:5173/](http://127.0.0.1:5173/) to view it in your browser. The page will reload when you make changes.
 
-Then open [http://127.0.0.1:5173/](http://127.0.0.1:5173/) to view it in your browser.
+To run the app in production, you can compile and optimize the app for deployment using:
+#### `npm run build`
 
-The page will reload when you make changes. You may also see any lint errors in the console.
+This creates a production-ready build in the `dist` folder.
 <br><br>
 
 ## Technologies used
@@ -88,6 +93,7 @@ The page will reload when you make changes. You may also see any lint errors in 
 * [React Paginate](https://www.npmjs.com/package/react-paginate)
 * [React Widgets](https://jquense.github.io/react-widgets/docs/)
 * [React Hook Form](https://react-hook-form.com/)
+* [React Slick](https://react-slick.neostack.com/)
 * [Axios](https://axios-http.com/docs/intro)
 * [Sass](https://sass-lang.com/)
 <br><br>
