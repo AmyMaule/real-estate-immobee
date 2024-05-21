@@ -1,57 +1,35 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+// Abstracts
+@import "abstracts/variables";
 
-@font-face {
-  font-family: 'AYearWithoutRain';
-  src: url("../fonts/AYearWithoutRain.ttf") format('truetype');
-}
+// Base
+@import "base/reset";
+@import "base/animations";
 
-@font-face {
-  font-family: 'KGYouWontBringMeDown';
-  src: url("../fonts/KGYouWontBringMeDown.ttf") format('truetype');
-}
-
-@font-face {
-  font-family: "ChelseaMarket";
-  src: url("../fonts/ChelseaMarket.ttf") format('truetype');
-}
-
-@font-face {
-  font-family: 'FabfeltScript';
-  src: url("../fonts/FabfeltScript.otf") format('opentype');
-}
-
-@font-face {
-  font-family: 'mathilde';
-  src: url("../fonts/mathilde.otf") format('truetype');
-}
-
-@import "variables";
-
-@import "reset";
-
-// external libraries
+// Vendors / external libraries
 @import "react-widgets/scss/styles.scss";
-@import "react-widgets-dropdown.scss";
-@import "react-slick-slider.scss";
+@import "vendors/react-widgets-dropdown";
+@import "vendors/react-slick-slider";
 
-@import "animations";
-@import "buttons";
-@import "footer";
-@import "loading";
-@import "navbar";
-@import "sorting-dropdown";
-@import "tooltips";
+//  Layout
+@import "layout/footer";
+@import "layout/navbar";
 
-// pages
-@import "contact";
-@import "error";
-@import "homepage";
-@import "search-form";
-@import "listings";
+// Components
+@import "components/buttons";
+@import "components/sorting-dropdown";
+@import "components/tooltips";
 
-// media queries
-@import "media";
+// Pages
+@import "pages/contact";
+@import "pages/error";
+@import "pages/homepage";
+@import "pages/listings";
+@import "pages/loading";
+@import "pages/search-form";
+
+
+// Media queries
+@import "base/media";
 
 .hide {
   display: none;
