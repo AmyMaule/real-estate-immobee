@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'AYearWithoutRain';
+  src: url("../fonts/AYearWithoutRain.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: 'KGYouWontBringMeDown';
+  src: url("../fonts/KGYouWontBringMeDown.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: "ChelseaMarket";
+  src: url("../fonts/ChelseaMarket.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: 'FabfeltScript';
+  src: url("../fonts/FabfeltScript.otf") format('opentype');
+}
+
+@font-face {
+  font-family: 'mathilde';
+  src: url("../fonts/mathilde.otf") format('truetype');
+}
+
+// colors
+$color-primary: rgb(247, 221, 22);
+$color-primary-highlight: rgb(254, 254, 176);
+
+$color-secondary: rgb(200, 239, 255);
+$color-secondary-highlight: rgb(167, 203, 215);
+
+$color-tertiary: rgb(112, 65, 207);
+
+$color-text: rgb(52, 49, 49);
+
+$white: rgb(241, 240, 240);
+
+// box-shadow
+$focus-shadow: 0 0 3px 1px #8baeb3;
+$hover-shadow: 0 0 1px 0 #ced0e4;
