@@ -43,7 +43,7 @@ const ImageControlSlider = ({ isDetailedListing, listingPhotos }) => {
       <img 
         className={`${className} image-control-arrow ${prevArrow ? "image-control-arrow-prev" : ""}`}
         onClick={onClick}
-        src="/arrow2.png"
+        src="/arrow.png"
         // ensure the arrows for detailed listings don't display until they can be positioned correctly
         style={{display: arrowPosition || !isDetailedListing ? "" : "none", top: isDetailedListing ? arrowPosition + "px" : "102px"}}
       />
