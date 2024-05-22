@@ -7,15 +7,23 @@ import "slick-carousel/slick/slick-theme.css";
 const ImageControlSlider = ({ isDetailedListing, listingPhotos }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 910);
-  const [arrowMargins, setArrowMargins] = useState(0);
+  const [arrowPosition, setArrowPosition] = useState(0);
 
   // Set initial padding when the controlBarRef is attached to a DOM node
   const listingImgRef = useCallback(node => {
+    // Recursively check img height until the image has loaded
+    const checkImgHeight = () => {
+      if (node.clientHeight) {
+        setArrowPosition(node.clientHeight / 2);
+      } else {
+        setTimeout(checkImgHeight, 50);
+      }
+    };
+
     if (node !== null) {
       const slideNumber = Number(node.dataset.slide);
       if (slideNumber === activeSlide) {
-        const imgHeight = node.clientHeight;
-        setArrowMargins(imgHeight / 2);
+        checkImgHeight();
       }
     }
   }, [activeSlide]);
@@ -36,7 +44,8 @@ const ImageControlSlider = ({ isDetailedListing, listingPhotos }) => {
         className={`${className} image-control-arrow ${prevArrow ? "image-control-arrow-prev" : ""}`}
         onClick={onClick}
         src="/arrow2.png"
-        style={{top: isDetailedListing ? arrowMargins + "px" : "102px"}}
+        // ensure the arrows for detailed listings don't display until they can be positioned correctly
+        style={{display: arrowPosition || !isDetailedListing ? "" : "none", top: isDetailedListing ? arrowPosition + "px" : "102px"}}
       />
     );
   }
