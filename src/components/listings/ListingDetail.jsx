@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
-import { baseURL } from '../data';
-import { scrollTo } from '../utilities';
+import { baseURL } from '../../data';
+import { scrollTo } from '../../utilities';
 
 import ImageControlSlider from './ImageControlSlider';
 import SaveListing from './SaveListing';

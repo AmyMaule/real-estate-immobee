@@ -8,9 +8,9 @@ import {
   useParams
 } from 'react-router-dom';
 
-import { baseURL } from '../data';
+import { baseURL } from '../../data';
 
-import { scrollTo } from '../utilities';
+import { scrollTo } from '../../utilities';
 
 import Listing from './Listing';
 import SortingDropdown from './SortingDropdown';

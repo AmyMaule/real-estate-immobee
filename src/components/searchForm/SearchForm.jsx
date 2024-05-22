@@ -7,7 +7,7 @@ import {
   agentURL,
   postcodeURL,
   propertyTypeMapping
-} from '../data';
+} from '../../data';
 
 import Dropdown from './Dropdown';
 import Input from './Input';
@@ -196,7 +196,11 @@ const SearchForm = ({
           </div>
           <div className="search-label search-label-long">
             Keywords
-            <SearchTextarea register={register} />
+            <SearchTextarea
+              field="keywords"
+              placeholder="Enter search keywords"
+              register={register}
+            />
           </div>
           <div className="search-label search-label-long search-label-multiselect">
             Town

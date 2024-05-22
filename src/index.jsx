@@ -9,13 +9,13 @@ import {
 import './assets/scss/index.scss';
 
 import App from './App';
-import Contact from './components/Contact';
-import ErrorPage from './components/ErrorPage';
-import Footer from './components/Footer';
-import Home from './components/Home';
-import ListingDetail from './components/ListingDetail';
-import Navbar from './components/Navbar';
-import SavedListings from './components/SavedListings';
+import Contact from './components/pages/Contact';
+import ErrorPage from './components/pages/ErrorPage';
+import Footer from './components/layout/Footer';
+import Home from './components/pages/Home';
+import ListingDetail from './components/listings/ListingDetail';
+import Navbar from './components/layout/Navbar';
+import SavedListings from './components/listings/SavedListings';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
