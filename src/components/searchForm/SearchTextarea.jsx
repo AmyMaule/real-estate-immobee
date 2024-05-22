@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-const SearchTextarea = ({ register }) => {
+const SearchTextarea = ({ field, placeholder, register }) => {
   const textAreaRef = useRef();
 
   const handleResizeTextarea = () => {
@@ -16,8 +16,8 @@ const SearchTextarea = ({ register }) => {
       <textarea
         className="search-input search-textarea"
         onInput={handleResizeTextarea}
-        placeholder="Enter search keywords"
-        {...register("keywords")}
+        placeholder={placeholder}
+        {...register(field)}
         type="text"
       />
     </div>

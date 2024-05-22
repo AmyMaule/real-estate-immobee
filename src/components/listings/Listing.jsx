@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { propertyTypeMapping } from '../data';
+import { propertyTypeMapping } from '../../data';
 
 import ListingImage from './ListingImage';
 import SaveListing from './SaveListing';

@@ -4,11 +4,11 @@ import {
   useLocation
 } from 'react-router-dom';
 
-import { handlePageChange, scrollTo } from '../utilities';
+import { handlePageChange, scrollTo } from '../../utilities';
 
 import HamburgerMenu from './HamburgerMenu';
 
-import { ListingsContext } from '..';
+import { ListingsContext } from '../..';
 
 const Navbar = () => {
   const { setListingIDs } = useContext(ListingsContext);

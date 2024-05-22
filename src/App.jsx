@@ -6,9 +6,9 @@ import { getSearchURL } from "./utilities";
 
 import { ListingsContext } from ".";
 
-import ListingsContainer from "./components/ListingsContainer";
-import LoadingAnimation from "./components/LoadingAnimation";
-import SearchForm from "./components/SearchForm";
+import ListingsContainer from "./components/listings/ListingsContainer";
+import LoadingAnimation from "./components/pages/LoadingAnimation";
+import SearchForm from "./components/searchForm/SearchForm";
 
 const App = () => {
   const [agentChoices, setAgentChoices] = useState({});

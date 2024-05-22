@@ -1,9 +1,9 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { handlePageChange } from '../utilities';
+import { handlePageChange } from '../../utilities';
 
-import { ListingsContext } from '..';
+import { ListingsContext } from '../..';
 
 const Home = () => {
   const { setListingIDs } = useContext(ListingsContext);
