@@ -542,7 +542,9 @@
   }
 
   .hero-section-search-title {
-    max-width: 17rem;
+    white-space: unset;
+    padding: 0 2rem;
+    
   }
 
   .loading-screen-container {

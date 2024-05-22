@@ -16,7 +16,11 @@ const Home = () => {
   return (
     <div className="hero-section">
       <div className="hero-section-img-container">
-        <img src="/homepage-bg.png" className="hero-section-img" alt="" />
+        <img
+          alt=""
+          className="hero-section-img"
+          src={window.innerWidth > 535 ? "/homepage-bg.png" : "/homepage-bg-mobile.png"}
+        />
       </div>
       <div className="hero-text-container">
         <h1 className="hero-title">Find your dream home</h1>

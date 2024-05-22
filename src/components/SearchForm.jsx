@@ -107,7 +107,11 @@ const SearchForm = ({
     return (
       <div className="loading-bee-container">
         <div className="hero-section-search">
-          <img src="/search-bg.jpg" className="hero-section-search-img" alt="" />
+          <img
+            alt=""
+            className="hero-section-search-img"
+            src={window.innerWidth > 535 ? "/search-bg.jpg" : "/search-bg-mobile.jpg"}
+          />
           <div className="hero-section-search-overlay" />
           <div className="loading-bee-route-container">
             <div className="loading-bee-border" />
@@ -121,7 +125,11 @@ const SearchForm = ({
   
   return (
     <div className="hero-section-search">
-      <img src="/search-bg.jpg" className="hero-section-search-img" alt="" />
+      <img
+        alt=""
+        className="hero-section-search-img"
+        src={window.innerWidth > 535 ? "/search-bg.jpg" : "/search-bg-mobile.jpg"}
+      />
       <div className="hero-section-search-overlay" />
       <h1 className="hero-section-search-title">Let <span className="text-logo">ImmoBee</span> help you{"\n"}find your dream home</h1>
       <form className="search-form-container" onSubmit={handleSubmit(onSubmit)} ref={searchFormRef}>
