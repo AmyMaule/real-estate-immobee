@@ -274,6 +274,7 @@
   &.saved {
     font-weight: 900;
     animation: fill-heart 0.45s linear;
+    -webkit-animation: fill-heart 0.45s linear;
   }
 }
 
@@ -294,6 +295,7 @@
  
   &.saved {
     animation: move-dot 0.8s ease-out forwards 0.3s;
+    -webkit-animation: move-dot 0.8s ease-out forwards 0.3s;
   }
 }
 

@@ -229,6 +229,7 @@
   padding: 0.2rem 1.25rem 0.2rem 0.5rem;
   cursor: pointer;
   animation: 0.3s fade-in forwards;
+  -webkit-animation: 0.3s fade-in forwards;
   z-index: 60;
 
   &:hover {
@@ -246,6 +247,7 @@
   padding: 0.2rem 1.25rem 0.2rem 0.5rem;
   cursor: pointer;
   animation: 0.3s fade-in forwards;
+  -webkit-animation: 0.3s fade-in forwards;
 
   &::after {
     position: absolute;

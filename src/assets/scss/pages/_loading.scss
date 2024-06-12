@@ -11,6 +11,7 @@
   left: 0;
   z-index: 160;
   animation: disappear 0.2s linear forwards 3.4s;
+  -webkit-animation: disappear 0.2s linear forwards 3.4s;
 }
 
 .loading-circle-container {
@@ -22,6 +23,7 @@
   background: linear-gradient(#b3d8e8, #569ebb);
   box-shadow: 0 0 1rem 0.2rem rgb(88, 88, 88);
   animation: disappear 0.5s linear forwards 3s;
+  -webkit-animation: disappear 0.5s linear forwards 3s;
 }
 
 .loading-text {
@@ -32,6 +34,7 @@
   font-weight: bold;
   text-align: center;
   animation: fade-out 0.3s linear forwards 3s;
+  -webkit-animation: fade-out 0.3s linear forwards 3s;
 }
 
 .grass {
@@ -247,15 +250,13 @@
   width: 10.3rem;
   height: 6.9rem;
   background: #eadecf;
-  // background-image: url("../../wall-21534_1280.jpg");
-  // background-repeat: no-repeat;
-  // background-size: cover;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -2.65rem);
   box-shadow: #7f9bb3 -3px -3px 8px;
   z-index: 2;
   animation: grow-house 0.65s linear forwards;
+  -webkit-animation: grow-house 0.65s linear forwards;
 }
 
 .roof {
@@ -278,6 +279,7 @@
     bottom: -3px;
     opacity: 0;
     animation: roof 0.75s linear forwards 1.95s;
+    -webkit-animation: roof 0.75s linear forwards 1.95s;
   }
 }
 
@@ -292,6 +294,7 @@
   border-bottom: none;
   opacity: 0;
   animation: grow-house-features 0.5s linear forwards 0.45s;
+  -webkit-animation: grow-house-features 0.5s linear forwards 0.45s;
   z-index: 44;
 
   &::before {
@@ -379,6 +382,7 @@
   box-shadow: 2px 1px 4px 0 rgba(0, 0, 0, 0.05);
   opacity: 0;
   animation: grow-house-features 0.5s linear forwards 1.05s;
+  -webkit-animation: grow-house-features 0.5s linear forwards 1.05s;
 
   &::before {
     content: "";
@@ -402,6 +406,7 @@
 
   &:nth-of-type(1) {
     animation: grow-house-features 0.5s linear forwards 0.8s;
+    -webkit-animation: grow-house-features 0.5s linear forwards 0.8s;
   }
 }
 
@@ -415,6 +420,7 @@
   top: -7.8rem;
   left: 2rem;
   animation: chimney-slide-down 0.35s linear forwards 1.4s;
+  -webkit-animation: chimney-slide-down 0.35s linear forwards 1.4s;
  
   &::before {
     content: "";
@@ -497,6 +503,7 @@
   transform: translate(5.55rem, 0);
   opacity: 0;
   animation: for-sale-sign-slide-down 0.3s linear forwards 2.5s;
+  -webkit-animation: for-sale-sign-slide-down 0.3s linear forwards 2.5s;
   z-index: 2;
   
   &::before {
