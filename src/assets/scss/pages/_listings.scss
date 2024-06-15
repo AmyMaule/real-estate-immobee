@@ -499,13 +499,11 @@
     top: 0;
     left: 0;
   }
-
-  * {
-    z-index: 2;
-  }
 }
 
 .listing-detail-save-container {
+  position: relative;
+  
   .listing-interactive-icon-container {
     top: 1.5rem;
     right: 2rem;
