@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import debounce from 'lodash.debounce';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -8,6 +8,7 @@ const ImageControlSlider = ({ isDetailedListing, listingPhotos }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 910);
   const [arrowPosition, setArrowPosition] = useState(0);
+  const sliderRef = useRef();
 
   // Set initial padding when the controlBarRef is attached to a DOM node
   const listingImgRef = useCallback(node => {
@@ -28,12 +29,29 @@ const ImageControlSlider = ({ isDetailedListing, listingPhotos }) => {
     }
   }, [activeSlide]);
 
+  const handleArrowKeyDown = e => {
+    if (e.key === "ArrowLeft") {
+      sliderRef.current.slickPrev();
+    } else if (e.key === "ArrowRight") {
+      sliderRef.current.slickNext();
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 910);
     const debouncedHandleResize = debounce(handleResize, 200);
 
     window.addEventListener("resize", debouncedHandleResize);
-    return () => window.removeEventListener("resize", debouncedHandleResize);
+    if (isDetailedListing) {
+      window.addEventListener("keydown", handleArrowKeyDown);
+    }
+    
+    return () => {
+      window.removeEventListener("resize", debouncedHandleResize);
+      if (isDetailedListing) {
+        window.removeEventListener("keydown", handleArrowKeyDown);
+      }
+    }
   }, []);
 
   const ImageControlArrow = props => {
@@ -70,7 +88,7 @@ const ImageControlSlider = ({ isDetailedListing, listingPhotos }) => {
   };
 
   return (
-    <Slider {...settings}>
+    <Slider ref={sliderRef} {...settings}>
       {listingPhotos.map((photo, i) => {
         return (
           <img 
