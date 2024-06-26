@@ -18,6 +18,17 @@
   }
 }
 
+// allow the image to be zoomable
+.slick-slider {
+  touch-action: auto !important;
+
+  img {
+    touch-action: pinch-zoom !important;
+    pointer-events: auto;
+    user-select: auto;
+  }
+}
+
 .listing-image-slider-container {
   position: relative;
   width: 100%;
