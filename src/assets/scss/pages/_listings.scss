@@ -425,9 +425,17 @@
 }
 
 .listing-icon {
-  width: 1.2rem;
-  height: 1.2rem;
+  max-width: 1.2rem;
+  max-height: 1.2rem;
   object-fit: contain; 
+}
+
+.full-screen-icon {
+  font-size: 1.4rem;
+
+  &::before {
+    color: $white;
+  }
 }
 
 .listing-location {
@@ -504,10 +512,16 @@
 .listing-detail-save-container {
   position: relative;
   
-  .listing-interactive-icon-container {
+  .listing-save-container {
     top: 1.5rem;
     right: 2rem;
   }
+}
+
+.listing-full-screen-icon-container {
+  display: none;
+  top: 1.5rem;
+  right: 5rem;
 }
 
 .listing-detail-page-img {

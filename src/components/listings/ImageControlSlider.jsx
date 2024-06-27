@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const ImageControlSlider = ({ isDetailedListing, listingPhotos }) => {
+const ImageControlSlider = ({ isDetailedListing, isModal, listingPhotos }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 910);
   const [arrowPosition, setArrowPosition] = useState(0);
@@ -79,7 +79,7 @@ const ImageControlSlider = ({ isDetailedListing, listingPhotos }) => {
             <div className="listing-image-circle" />
           </div>        
     },
-    dots: true,
+    dots: !isModal,
     infinite: true,
     nextArrow: <ImageControlArrow />,
     prevArrow: <ImageControlArrow prevArrow />,
