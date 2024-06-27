@@ -18,7 +18,7 @@ const SaveListing = ({ isSaved, listing, setIsSaved }) => {
   }
 
   return (
-    <div className="listing-interactive-icon-container" onClick={handleToggleLike} >
+    <div className="listing-interactive-icon-container listing-save-container" onClick={handleToggleLike} >
       <i className={`fa-regular fa-heart heart-icon ${isSaved ? "saved" : ""}`} />
       <div className={`${isSaved ? "heart-dot saved" : "heart-dot"}`}></div>
     </div>
