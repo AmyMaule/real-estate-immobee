@@ -69,7 +69,7 @@ export const getSearchURL = (searchQuery, agentChoices) => {
   return "/search_results" + query;
 }
 
-export const scrollTo = (top = 0, behavior = "smooth") => window.scrollTo({top: top, behavior: behavior });
+export const scrollTo = (top = 0, behavior = "smooth") => window.scrollTo({ top: top, behavior: behavior });
 
 export const handlePageChange = (setListingIDs, scrollBehavior) => {
   setListingIDs([]);
