@@ -4,6 +4,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { baseURL } from '../../data';
 import { scrollTo } from '../../utilities';
 
+import FullScreenIcon from './FullScreenIcon';
 import ImageControlSlider from './ImageControlSlider';
 import SaveListing from './SaveListing';
 
@@ -49,6 +50,7 @@ const ListingDetail = () => {
     <div className="listing-detail-page-container">
       <div className="listing-detail-save-container">
         <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
+        <FullScreenIcon listingPhotos={listing.photos_hosted} />
       </div>
       {listing.photos_hosted?.length
         ? <div className="listing-detail-image-slider-container">

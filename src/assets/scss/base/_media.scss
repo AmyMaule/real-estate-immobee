@@ -102,6 +102,10 @@
       bottom: 0 !important;
     }
   }
+
+  .listing-full-screen-icon-container {
+    display: flex;
+  }
   
   .listing-detail-info-container {
     margin: 1.5rem;
@@ -253,9 +257,13 @@
 
 @media screen and (max-width: 770px) {
   .listing-detail-save-container {
-    .listing-interactive-icon-container {
+    .listing-save-container {
       right: 1.5rem;
     }
+  }
+  
+  .listing-full-screen-icon-container {
+    right: 4.5rem;
   }
   
   .listing-detail-title,
@@ -610,6 +618,24 @@
 
   .footer-bee {
     width: 5rem;
+  }
+
+  // listing
+  .listing-interactive-icon-container {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .listing-full-screen-icon-container {
+    right: 4rem;
+  }
+
+  .heart-icon {
+    font-size: 1.45rem;
+  }
+
+  .full-screen-icon {
+    font-size: 1.2rem;
   }
 }
 
