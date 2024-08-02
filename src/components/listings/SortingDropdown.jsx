@@ -49,9 +49,13 @@ const SortingDropdown = ({ listingIDs, setListingIDs }) => {
     const direction = sort.pop();
     sort = sort.join(" ");
     const directionArrow = direction === "up" ? "\u21c8" : direction === "down" ? "\u21ca" : direction;
-    setSortingBy(sort + " " + directionArrow);
-    localStorage.removeItem("sortingBy");
-    localStorage.setItem("sortingBy", JSON.stringify(sort + " " + directionArrow));
+    const newSort = sort + " " + directionArrow;
+    setSortingBy(newSort);
+    let changeInSorting = localStorage.getItem("sortingBy") !== JSON.stringify(newSort);
+    if (changeInSorting) {
+      localStorage.removeItem("sortingBy");
+      localStorage.setItem("sortingBy", JSON.stringify(newSort));
+    }
     
     localStorage.removeItem("listingIDs");
     let sortedListings;
@@ -70,7 +74,9 @@ const SortingDropdown = ({ listingIDs, setListingIDs }) => {
     localStorage.setItem("listingIDs", JSON.stringify(sortedListings));
 
     // reset page to 1 whenever sorting type changes
-    navigate(location.pathname.slice(0, location.pathname.lastIndexOf("/")) + "/1");
+    if (changeInSorting) {
+      navigate(location.pathname.slice(0, location.pathname.lastIndexOf("/")) + "/1");
+    }
   }
 
   const handleCloseDropdown = e => {
