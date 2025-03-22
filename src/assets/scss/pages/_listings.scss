@@ -15,7 +15,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 249, 221, 0.82);
+    background-color: rgba(255, 249, 221, 0.75);
     top: 0;
     left: 0;
   }
@@ -186,6 +186,7 @@
 .listing-container-hidden {
   cursor: default;
   pointer-events: none;
+  background-color: redyo;
 
   &:hover {
     box-shadow:
@@ -194,6 +195,21 @@
     rgba(112, 65, 207, 0.18) 8px 8px,
     rgba(112, 65, 207, 0.13) 12px 12px;
     border: 2px solid rgb(202, 180, 246);
+  }
+}
+
+.show-removed-listing-container {
+  transition: 300ms ease all;
+  -webkit-transition: 300ms ease all;
+  background-color: transparent;
+  pointer-events: unset;
+  box-shadow: none;
+
+  .listing-hidden-info-container {
+    display: none;
+    background-color: transparent;
+    transition: 300ms ease all;
+    -webkit-transition: 300ms ease all;
   }
 }
 
@@ -251,7 +267,7 @@
       -webkit-transition: all ease 200ms;
     }
 
-    .trash-icon {
+    .eye-icon {
       color: $white;
       transition: all ease 200ms;
       -webkit-transition: all ease 200ms;
@@ -261,6 +277,11 @@
 
 .listing-hide-container {
   right: 3.8rem;
+}
+
+.x-icon {
+  color: $white;
+  font-size: 1.8rem;
 }
 
 .heart-icon {
@@ -299,8 +320,8 @@
   }
 }
 
-.trash-icon {
-  font-size: 1.45rem;
+.eye-icon {
+  font-size: 1.4rem;
   color: rgb(205, 197, 197);
   z-index: 10;
   transition: all ease 200ms;

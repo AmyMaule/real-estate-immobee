@@ -15,7 +15,13 @@ const ImageControlSlider = ({ isDetailedListing, isModal, listingPhotos }) => {
     // Recursively check img height until the image has loaded
     const checkImgHeight = () => {
       if (node.clientHeight) {
-        setArrowPosition(node.clientHeight / 2);
+        // If image hasn't loaded, clientHeight will be 24px high
+        if (node.clientHeight === 24) {
+          // set the arrows to be halfway between navbar and bottom of screen
+          setArrowPosition((window.innerHeight - 64) / 2);
+        } else {
+          setArrowPosition(node.clientHeight / 2);
+        }
       } else {
         setTimeout(checkImgHeight, 50);
       }
@@ -92,7 +98,7 @@ const ImageControlSlider = ({ isDetailedListing, isModal, listingPhotos }) => {
       {listingPhotos.map((photo, i) => {
         return (
           <img 
-            alt="listing image"
+            alt="Listing image"
             className={`${isDetailedListing ? "listing-detail-image" : "listing-image"}`}
             data-slide={i}
             key={i}
