@@ -655,6 +655,20 @@
   .search-radius-slider {
     width: 18rem;
   }
+
+  .listing-hidden-info-container {
+    font-size: 1.2rem;
+  }
+
+  .btn-undo,
+  .btn-removed-listing {
+    font-size: 1.2rem;
+    gap: 0.6rem;
+
+    i {
+      font-size: 1.1rem;
+    }
+  }
 }
 
 @media screen and (max-width: 430px) {

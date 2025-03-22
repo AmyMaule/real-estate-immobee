@@ -45,7 +45,7 @@
   color: $color-text;
   background-color: $color-primary-highlight;
   border: 3px solid $color-primary;
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 1rem;
 
   &:visited {
     color: $color-text;
@@ -57,6 +57,15 @@
     color: $color-text;
     background-color: $color-primary;
     border: 3px solid $color-primary-highlight;
+  }
+}
+
+.btn-removed-listing {
+  font-size: 1.5rem;
+  gap: 1rem;
+
+  i {
+    font-size: 1.25rem;
   }
 }
 

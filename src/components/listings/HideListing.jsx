@@ -19,7 +19,7 @@ const HideListing = ({ isHidden, listing, setIsHidden }) => {
 
   return (
     <div className="listing-interactive-icon-container listing-hide-container" onClick={handleToggleHide}>
-      <i className="fa-regular fa-trash-can trash-icon" />
+      <i className="fa-regular fa-eye-slash eye-icon" />
       <span className="tooltip-text">Hide this listing so you won't see it in future searches</span>
     </div>
   )

@@ -14,6 +14,7 @@ const Listing = ({ listing }) => {
   const [isSaved, setIsSaved] = useState(
     JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.listingID === listing.listingID) || null
   );
+  const [viewRemovedListing, setViewRemovedListing] = useState(false);
   const navigate = useNavigate();
 
   const handleMiddleClick = e => {
@@ -22,7 +23,7 @@ const Listing = ({ listing }) => {
 
   // ensure listing is only selected if other buttons on the listing are not clicked
   const handleSelectListing = (e) => {
-    const otherTargets = ["slick-arrow", "listing-image-circle", "listing-image-current", "listing-interactive-icon-container", "heart-icon", "trash-icon"];
+    const otherTargets = ["slick-arrow", "listing-image-circle", "listing-image-current", "listing-interactive-icon-container", "heart-icon", "eye-icon"];
     const classNames = e.target.classList;
     
     for (let className of classNames) {
@@ -62,9 +63,20 @@ const Listing = ({ listing }) => {
       isHidden={isHidden}
       listing={listing}
       setIsHidden={setIsHidden}
+      setViewRemovedListing={setViewRemovedListing}
+      viewRemovedListing={viewRemovedListing}
     >
-      <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
-      <HideListing isHidden={isHidden} listing={listing} setIsHidden={setIsHidden} />
+      {viewRemovedListing
+        ? <div className="listing-interactive-icon-container listing-save-container" onClick={() => setViewRemovedListing(false)}>
+            <i className="fa-solid fa-xmark x-icon" />
+          </div>
+        : listing.removedFromDB 
+          ? null
+          : <>
+              <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
+              <HideListing isHidden={isHidden} listing={listing} setIsHidden={setIsHidden} />
+            </>
+      }
       
       <ListingImage listing={listing} />
       <div className="listing-details-container">

@@ -19,9 +19,9 @@
   pointer-events: none;
 }
 
-.trash-icon {
+.listing-hide-container {
   &:hover {
-    ~.tooltip-text {
+    .tooltip-text {
       opacity: 1;
       transition: all 300ms;
       -webkit-transition: all 300ms;
