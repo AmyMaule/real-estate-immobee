@@ -19,9 +19,7 @@ const ListingWrapper = ({ children, handleMiddleClick, handleSelectListing, isHi
     setDisplayListing(false);
   }
 
-  if (!displayListing) {
-    return null;
-  }
+  if (!displayListing) return null;
 
   if (isHidden) {
     return (
@@ -38,9 +36,18 @@ const ListingWrapper = ({ children, handleMiddleClick, handleSelectListing, isHi
     )
   }
 
-  if (listing.removedFromDB) {
-    return (
-      <div className={`listing-container listing-container-hidden ${viewRemovedListing ? "show-removed-listing-container" : ""}`}>
+  return (
+    <a
+      className={`listing-container
+        ${listing.removedFromDB ? "listing-container-hidden" : ""}
+        ${viewRemovedListing ? "show-removed-listing-container" : ""}
+      `}
+      href={`/listings/${listing.listingID}`}
+      onContextMenu={handleSelectListing}
+      onClick={handleSelectListing}
+      onMouseDown={handleMiddleClick}
+    >
+      {listing.removedFromDB && 
         <div className="listing-hidden-info-container">
           This listing has been removed by the agent. You can view the original listing, or remove it from your saved listings.
           <button className="btn btn-undo btn-removed-listing" onClick={() => setViewRemovedListing(true)}>
@@ -52,19 +59,7 @@ const ListingWrapper = ({ children, handleMiddleClick, handleSelectListing, isHi
             Remove listing
           </button>
         </div>
-        {children}
-      </div>
-    )
-  } 
-
-  return (
-    <a
-      className="listing-container"
-      href={`/listings/${listing.listingID}`}
-      onContextMenu={handleSelectListing}
-      onClick={handleSelectListing}
-      onMouseDown={handleMiddleClick}
-    >
+      }
       {children}
     </a>
   )

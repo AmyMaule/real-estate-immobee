@@ -23,9 +23,17 @@ const Listing = ({ listing }) => {
 
   // ensure listing is only selected if other buttons on the listing are not clicked
   const handleSelectListing = (e) => {
-    const otherTargets = ["slick-arrow", "listing-image-circle", "listing-image-current", "listing-interactive-icon-container", "heart-icon", "eye-icon"];
+    const otherTargets = ["slick-arrow", "listing-image-circle", "listing-image-current", "listing-interactive-icon-container", "heart-icon", "eye-icon", "btn-removed-listing", "x-icon"];
     const classNames = e.target.classList;
     
+    const listingContainer = e.target.closest(".listing-container");
+    // If a listing has been removed from the DB, only allow users to click on it if it has the "show-removed-listing-container" class
+    if (listingContainer.classList.contains("listing-container-hidden") && 
+       !listingContainer.classList.contains("show-removed-listing-container")) {
+        e.preventDefault();
+        return;
+    }
+
     for (let className of classNames) {
       if (otherTargets.indexOf(className) !== -1) {
         // e.button === 0 is a left click
