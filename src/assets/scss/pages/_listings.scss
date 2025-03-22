@@ -186,7 +186,6 @@
 .listing-container-hidden {
   cursor: default;
   pointer-events: none;
-  background-color: redyo;
 
   &:hover {
     box-shadow:
@@ -253,24 +252,33 @@
   z-index: 10;
   top: 1rem;
   right: 1rem;
-
   cursor: pointer;
   transition: all ease 200ms;
   -webkit-transition: all ease 200ms;
 
+  i {
+    transition: all ease 200ms;
+    -webkit-transition: all ease 200ms;
+  }
+
   &:hover {
     background-color: #292323e4;
 
-    .heart-icon {
-      color: #e80e32;
+    i {
       transition: all ease 200ms;
       -webkit-transition: all ease 200ms;
     }
 
+    .heart-icon {
+      color: #e80e32;
+    }
+
     .eye-icon {
       color: $white;
-      transition: all ease 200ms;
-      -webkit-transition: all ease 200ms;
+    }
+
+    .x-icon {
+      color: $color-secondary-highlight;
     }
   }
 }
@@ -289,8 +297,6 @@
   font-weight: 400;
   color: #fc5d78;
   z-index: 10;
-  transition: all ease 200ms;
-  -webkit-transition: all ease 200ms;
 
   &.saved {
     font-weight: 900;
@@ -324,8 +330,6 @@
   font-size: 1.4rem;
   color: rgb(205, 197, 197);
   z-index: 10;
-  transition: all ease 200ms;
-  -webkit-transition: all ease 200ms;
 }
 
 .no-images-text {
@@ -528,6 +532,16 @@
     top: 0;
     left: 0;
   }
+}
+
+.listing-detail-removed-note {
+  position: relative;
+  font-family: "ChelseaMarket";
+  color: $color-text;
+  text-align: center;
+  white-space: pre-wrap;
+  z-index: 2;
+  padding: 1rem 2rem;
 }
 
 .listing-detail-save-container {

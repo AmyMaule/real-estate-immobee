@@ -48,6 +48,12 @@ const ListingDetail = () => {
 
   return (
     <div className="listing-detail-page-container">
+      {listing.removedFromDB &&
+        <div className="listing-detail-removed-note">
+          NOTE: This listing has been removed and as a result, has been archived in your browser.
+          {"\n"}You can continue to view this page but cannot send a link to others or view it on another device.
+        </div>
+      }
       <div className="listing-detail-save-container">
         <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
         <FullScreenIcon listingPhotos={listing.photos_hosted} />
