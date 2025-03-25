@@ -192,3 +192,19 @@
     outline: none;
   }
 }
+
+.btn-x {
+  height: fit-content;
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem;
+  margin-top: -0.5rem;
+  transition: all ease 200ms;
+  -webkit-transition: all ease 200ms;
+
+  &:hover {
+    color: $color-tertiary;
+    transition: all ease 200ms;
+    -webkit-transition: all ease 200ms;
+  }
+}

@@ -16,6 +16,7 @@ const ListingDetail = () => {
   const [isSaved, setIsSaved] = useState(
     JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.link_url === listing?.link_url) || null
   );
+  const [showRemovedListingBanner, setShowRemovedListingBanner] = useState(listing?.removedFromDB || false);
 
   // Delete local storage item once accessed
   useEffect(() => {
@@ -48,10 +49,17 @@ const ListingDetail = () => {
 
   return (
     <div className="listing-detail-page-container">
-      {listing.removedFromDB &&
-        <div className="listing-detail-removed-note">
-          NOTE: This listing has been removed and as a result, has been archived in your browser.
-          {"\n"}You can continue to view this page but cannot send a link to others or view it on another device.
+      {showRemovedListingBanner && 
+      <div className="listing-detail-banner-container">
+          <div className="listing-detail-banner">
+            <div className="listing-detail-banner-content">
+              NOTE: This listing has been removed and as a result, has been archived in your browser.
+              {"\n"}You can continue to view this page but cannot send a link to others or view it on another device.
+            </div>
+            <button className="btn-x" onClick={() => setShowRemovedListingBanner(false)}>
+              <i className="fa-solid fa-xmark banner-x-icon" />
+            </button>
+          </div>
         </div>
       }
       <div className="listing-detail-save-container">

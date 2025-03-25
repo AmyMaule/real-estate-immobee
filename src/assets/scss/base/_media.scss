@@ -39,6 +39,12 @@
   }
 }
 
+@media screen and (max-width: 990px) {
+  .listing-detail-banner-content {
+    white-space: unset;
+  }
+}
+
 @media screen and (max-width: 960px) {
   .hero-subtitle {
     font-size: 2.3rem;
@@ -353,6 +359,10 @@
   .unknown-listings-subtitle {
     margin: 1.75rem 0 0.5rem 0;
   }
+
+  .listing-detail-banner-content {
+    padding: 0.75rem;
+  }
 }
 
 @media screen and (max-width: 670px) {
@@ -561,6 +571,12 @@
 
   .search-radius-slider {
     width: 20rem;
+  }
+
+  // listing detail  
+  .listing-detail-banner-content {
+    font-size: 0.9rem;
+    padding: 0.25rem;
   }
 
   // contact page
