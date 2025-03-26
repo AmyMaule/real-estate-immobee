@@ -60,13 +60,13 @@
   padding: 0.25rem;
   text-decoration: none;
   z-index: inherit;
-  transition: 300ms ease all;
+  transition: $main-transition;
   cursor: pointer;
   
   &:hover {
     color: black;
     text-decoration: none;
-    transition: 300ms ease all;
+    transition: $main-transition;
 
     &::before {
       -webkit-transition: 0.3s all ease;
@@ -156,15 +156,15 @@
   display: block;
   color: $color-text;
   padding: 0.5rem 0.9rem;
-  transition: 0.25s ease all;
-  -webkit-transition: 0.25s ease all;
+  transition: $med-transition;
+  -webkit-transition: $med-transition;
 
   &:hover {
     background-color: $color-primary;
     color: black;
     text-decoration: none;
-    transition: 0.25s ease all;
-    -webkit-transition: 0.25s ease all;
+    transition: $med-transition;
+    -webkit-transition: $med-transition;
   }
 }
 

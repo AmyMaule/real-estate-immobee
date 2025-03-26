@@ -425,8 +425,8 @@
     width: 1.2rem;
     margin-left: 0.5rem;
     accent-color: $color-secondary;
-    transition: 300ms ease all;
-    -webkit-transition: 300ms ease all;
+    transition: $main-transition;
+    -webkit-transition: $main-transition;
     cursor: pointer;
   }
 }

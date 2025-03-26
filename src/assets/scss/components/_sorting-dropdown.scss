@@ -36,14 +36,14 @@
   gap: 0.4rem;
   list-style: none;
   padding: 0.5rem 0.9rem;
-  transition: 0.25s ease all;
-  -webkit-transition: 0.25s ease all;
+  transition: $med-transition;
+  -webkit-transition: $med-transition;
   z-index: 200;
 
   &:hover {
     background-color: $color-primary;
-    transition: 0.25s ease all;
-    -webkit-transition: 0.25s ease all;
+    transition: $med-transition;
+    -webkit-transition: $med-transition;
   }
 }
 

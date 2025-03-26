@@ -92,19 +92,19 @@
   outline: none;
   padding: 0.75rem;
   cursor: pointer;
-  transition: 300ms ease all;
-  -webkit-transition: 300ms ease all;
+  transition: $main-transition;
+  -webkit-transition: $main-transition;
 
   &:hover {
     border-color: $color-secondary;
-    transition: 300ms ease all;
-    -webkit-transition: 300ms ease all;
+    transition: $main-transition;
+    -webkit-transition: $main-transition;
   }
 
   &:focus {
     border-color: $color-secondary-highlight;
-    transition: 300ms ease all;
-    -webkit-transition: 300ms ease all;
+    transition: $main-transition;
+    -webkit-transition: $main-transition;
   }
 }
 

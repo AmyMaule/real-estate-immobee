@@ -45,13 +45,13 @@
 .footer-link {
   color: $color-text;
   text-decoration: none;
-  transition: 0.25s ease all;
-  -webkit-transition: 0.25s ease all;
+  transition: $med-transition;
+  -webkit-transition: $med-transition;
 
   &:hover {
     color: black;
     text-decoration: none;
-    transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
+    transition: $short-transition;
+    -webkit-transition: $short-transition;
   }
 }
