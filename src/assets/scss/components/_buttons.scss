@@ -6,13 +6,13 @@
   border-radius: 0.5rem;
   outline: none;
   text-align: center;
-  transition: 300ms ease all;
-  -webkit-transition: 300ms ease all;
+  transition: $main-transition;
+  -webkit-transition: $main-transition;
 
   &:hover {
     text-decoration: none;
-    transition: 300ms ease all;
-    -webkit-transition: 300ms ease all;
+    transition: $main-transition;
+    -webkit-transition: $main-transition;
   }
 }
 
@@ -117,8 +117,8 @@
   padding: 0 0.5rem;
   margin: 0 auto;
   z-index: 45;
-  transition: 300ms ease all;
-  -webkit-transition: 300ms ease all;
+  transition: $main-transition;
+  -webkit-transition: $main-transition;
   
   &:focus {
     outline: none;
@@ -129,8 +129,8 @@
     color: $color-text;
     background-color: $color-primary-highlight;
     border: 3px solid $color-primary;
-    transition: 300ms ease all;
-    -webkit-transition: 300ms ease all;
+    transition: $main-transition;
+    -webkit-transition: $main-transition;
   }
 }
 
@@ -146,8 +146,8 @@
   outline: none;
   text-align: center;
   padding: 0.5rem 0;
-  transition: 300ms ease all;
-  -webkit-transition: 300ms ease all;
+  transition: $main-transition;
+  -webkit-transition: $main-transition;
 
   &:active,
   &:focus {
@@ -165,8 +165,8 @@
     background-color: $color-primary-highlight;
     border: 3px solid $color-primary;
     text-decoration: none;
-    transition: 300ms ease all;
-    -webkit-transition: 300ms ease all;
+    transition: $main-transition;
+    -webkit-transition: $main-transition;
   }
 }
 

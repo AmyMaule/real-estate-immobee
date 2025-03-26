@@ -73,8 +73,8 @@
   outline: none;
   text-align: center;
   padding: 0.75rem 1.5rem;
-  transition: 300ms ease all;
-  -webkit-transition: 300ms ease all;
+  transition: $main-transition;
+  -webkit-transition: $main-transition;
   margin-top: 2rem;
 
   &:focus {
@@ -92,8 +92,8 @@
     background-color: $color-primary-highlight;
     border: 3px solid $color-primary;
     text-decoration: none;
-    transition: 300ms ease all;
-    -webkit-transition: 300ms ease all;
+    transition: $main-transition;
+    -webkit-transition: $main-transition;
   }
 }
 
@@ -137,7 +137,7 @@
     rgba(112, 65, 207, 0.23) 4px 4px,
     rgba(112, 65, 207, 0.18) 8px 8px,
     rgba(112, 65, 207, 0.13) 12px 12px;
-  transition: 300ms ease all;
+  transition: $main-transition;
   overflow: hidden;
   cursor: pointer;
   z-index: 2;
@@ -150,7 +150,7 @@
     rgba(247, 221, 22, 0.27) 0 0 1px 1px,
     rgba(247, 221, 22, 0.23) 0 0 4px 4px,
     rgba(247, 221, 22, 0.18) 0 0 8px 8px;
-    transition: 300ms ease all;
+    transition: $main-transition;
   }
 
   &::after {
@@ -183,9 +183,9 @@
   }
 }
 
-.listing-container-hidden {
+.listing-container-hidden:not(.show-removed-listing-container) {
   cursor: default;
-  pointer-events: none;
+  pointer-events: auto;
 
   &:hover {
     box-shadow:
@@ -198,17 +198,11 @@
 }
 
 .show-removed-listing-container {
-  transition: 300ms ease all;
-  -webkit-transition: 300ms ease all;
-  background-color: transparent;
-  pointer-events: unset;
-  box-shadow: none;
-
   .listing-hidden-info-container {
     display: none;
     background-color: transparent;
-    transition: 300ms ease all;
-    -webkit-transition: 300ms ease all;
+    transition: $main-transition;
+    -webkit-transition: $main-transition;
   }
 }
 
@@ -225,7 +219,6 @@
   background-color: rgba(248, 248, 222, 0.91);
   z-index: 150;
   text-align: center;
-  pointer-events: none;
   cursor: default !important;
   padding: 1.75rem;
 
@@ -366,8 +359,8 @@
   background-color: $color-primary;
   width: 0.7rem;
   height: 0.7rem;
-  transition: 200ms ease all;
-  -webkit-transition: 200ms ease all;
+  transition: $short-transition;
+  -webkit-transition: $short-transition;
   border: 2px solid $color-tertiary;
   border-radius: 50%;
   cursor: pointer;
@@ -377,8 +370,8 @@
 
   &:hover {
     background-color: $color-tertiary;
-    transition: 200ms ease all;
-    -webkit-transition: 200ms ease all;
+    transition: $short-transition;
+    -webkit-transition: $short-transition;
   }
 }
 
