@@ -24,11 +24,13 @@ label {
   justify-content: space-between;
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   margin: 0 auto;
 }
 
 .main-content-container {
-  // account for height of navbar and footer
+  // account for height of navbar and footer - use dvh to override on mobile if available
   min-height: calc(100vh - 4rem - 3rem);
+  min-height: calc(100dvh - 4rem - 3rem);
   background-color: $color-secondary-highlight;
 }
