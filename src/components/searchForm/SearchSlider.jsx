@@ -2,7 +2,7 @@ import React from 'react';
 
 import SearchSliderOption from './SearchSliderOption';
 
-const SearchSlider = ({ minWidth, register }) => {
+const SearchSlider = ({ register }) => {
   const options = [
     { radius: "0", value: "1" },
     { radius: "5" },
