@@ -1,13 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useForm } from "react-hook-form";
 import Multiselect from "react-widgets/Multiselect";
 import { useNavigate } from 'react-router-dom';
-
-import {
-  agentURL,
-  postcodeURL,
-  propertyTypeMapping
-} from '../../data';
+import { propertyTypeMapping } from '../../data';
+import { useSearchFormData } from '../../hooks/useSearchFormData';
 
 import Dropdown from './Dropdown';
 import Input from './Input';
@@ -27,11 +23,11 @@ const SearchForm = ({
   setSearchQuery 
 }) => {
   const { register, handleSubmit, setValue, watch } = useForm();
-  const [locationChoices, setLocationChoices] = useState([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const departmentOptions = ["Aude (11)", "Ariège (09)", "Haute-Garonne (31)", "Hérault (34)", "Pyrenées-Orientales (66)"];
   const searchFormRef = useRef();
   const navigate = useNavigate();
+  const locationChoices = useSearchFormData(setAgentChoices);
 
   const onSubmit = submitData => {
     localStorage.removeItem("sortingBy"); // sortingDropdown seems to be accessing this before it is removed
@@ -82,26 +78,6 @@ const SearchForm = ({
     }
     setShowAdvanced(prev => !prev);
   }
-
-  useEffect(() => {
-    fetch(postcodeURL)
-    .then(res => res.json())
-    .then(data => {
-      const postcodes = Object.keys(data);
-      const locations = postcodes.map(postcode => (
-        data[postcode].map(town => (
-          `${town}, ${postcode}`
-        ))
-      )).flat().sort();
-      setLocationChoices(locations);
-    })
-    .catch(err => console.error(err));
-
-    fetch(agentURL)
-      .then(res => res.json())
-      .then(data => setAgentChoices(data))
-      .catch(err => console.error(err));
-  }, []);
 
   if (!locationChoices.length) {
     return (
