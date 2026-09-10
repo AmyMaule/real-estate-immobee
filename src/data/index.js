@@ -7,7 +7,7 @@ export const propertyTypeMapping = {
   "Commercial": "Commerce"
 }
 
-export const baseURL = "https://suspiciousleaf.eu.pythonanywhere.com";
+export const baseURL = VITE_BASE_URL;
 
 export const agentURL = `${baseURL}/static/data/agent_mapping.json`;
 
