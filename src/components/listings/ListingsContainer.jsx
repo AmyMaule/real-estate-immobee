@@ -8,7 +8,7 @@ import {
   useParams
 } from 'react-router-dom';
 
-import { baseURL } from '../../data';
+import { listingsURL } from '../../api';
 
 import { scrollTo } from '../../utilities';
 
@@ -56,13 +56,12 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
       .map(listing => listing.listingID);
 
     const listingsToFetchStr = fullListingsToFetch.toString();
-
     // Don't perform a new query if the new results will be the same as the current results
     const currentFetchedListings = listings.map(listing => listing.listingID).toString();
     if (currentFetchedListings === listingsToFetchStr) return;
 
-    
-    fetch(`${baseURL}/full_listings?id=${listingsToFetchStr}`)
+    //// Re-write to fetch one listing at a time
+    fetch(`${listingsURL}/${listingsToFetchStr}`)
       .then(res => res.json())
       .then(data => {
         setListings(data);

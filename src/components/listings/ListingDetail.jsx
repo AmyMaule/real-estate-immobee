@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
-import { baseURL } from '../../data';
+import { listingsURL } from '../../api';
 import { scrollTo } from '../../utilities';
 
 import FullScreenIcon from './FullScreenIcon';
@@ -28,7 +28,7 @@ const ListingDetail = () => {
   // If the listing page has been shared or copied to another browser, there will be nothing in state or local storage
   useEffect(() => {
     if (!listing) {
-      fetch(`${baseURL}/full_listings?id=${listingID}`)
+      fetch(`${listingsURL}/${listingID}`)
       .then(res => res.json())
       .then(data => setListing(data[0] || null))
       .catch(err => console.log(err));
