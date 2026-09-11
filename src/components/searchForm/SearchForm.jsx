@@ -24,6 +24,7 @@ const SearchForm = ({
 }) => {
   const { register, handleSubmit, setValue, watch } = useForm();
   const [showAdvanced, setShowAdvanced] = useState(false);
+  //// TODO: get dept options from the locations endpoint
   const departmentOptions = ["Aude (11)", "Ariège (09)", "Haute-Garonne (31)", "Hérault (34)", "Pyrenées-Orientales (66)"];
   const searchFormRef = useRef();
   const navigate = useNavigate();

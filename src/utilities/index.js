@@ -66,6 +66,7 @@ export const getSearchURL = (searchQuery, agentChoices) => {
   
   console.log(query);
 
+  // TODO: what is this new endpoint?
   return "/search_results" + query;
 }
 

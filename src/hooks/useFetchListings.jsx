@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { baseURL } from "../data";
+import { baseURL } from "../api";
 
 export const useFetchListings = (queryURL, setListingIDs, setNoListingsFound, setQueryURL, setSearch) => {
   useEffect(() => {

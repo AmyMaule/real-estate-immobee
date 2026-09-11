@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { baseURL } from '../../data';
+import { listingsURL } from '../../api';
 
 import ListingsContainer from './ListingsContainer';
 
@@ -12,23 +12,29 @@ const SavedListings = () => {
     const hiddenListings = JSON.parse(localStorage.getItem("hiddenListings")) || [];
     const allSavedListings = JSON.parse(localStorage.getItem("savedListings")) || [];
     const listingsToFetch = allSavedListings.filter(listing => !hiddenListings.includes(listing.listingID));
-    const listingIDsToFetchStr = listingsToFetch.map(listing => listing.listingID).toString();
 
     // Re-fetch saved listings to only view those still present in the database
-    fetch(`${baseURL}/full_listings?id=${listingIDsToFetchStr}`)
-      .then(res => res.json())
-      .then(data => {
-        const validListingIDs = data.map(listing => listing.listingID);
-        listingsToFetch.forEach(listing => {
-          // Add 'removed' flag to listings that no longer exist in the database
-          if (!validListingIDs.includes(listing.listingID)) {
-            listing.removedFromDB = true;
-          }
-        })
-        setListings(listingsToFetch);
-        setLoading(false);
+    for (let listing of listingsToFetch) {
+      const listingIDToFetch = listing.listingID;
+      fetch(`${listingsURL}/${listingIDToFetch}`)
+      .then(res => {
+        console.log(res)
+        return res.json()
       })
-      .catch(err => console.error(err));
+        // .then(res => res.json())
+        .then(data => {
+          const validListingIDs = data.map(listing => listing.listingID);
+          listingsToFetch.forEach(listing => {
+            // Add 'removed' flag to listings that no longer exist in the database
+            if (!validListingIDs.includes(listing.listingID)) {
+              listing.removedFromDB = true;
+            }
+          })
+          setListings(listingsToFetch);
+          setLoading(false);
+        })
+        .catch(err => console.error(err));
+    }
   }, []);
 
   if (loading) return null;

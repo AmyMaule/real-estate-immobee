@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { agentURL, postcodeURL } from "../data";
+import { agentURL, postcodeURL } from "../api";
 
 export const useSearchFormData = (setAgentChoices) => {
   const [locationChoices, setLocationChoices] = useState([]);
@@ -9,13 +9,9 @@ export const useSearchFormData = (setAgentChoices) => {
       fetch(postcodeURL).then(res => res.json()),
       fetch(agentURL).then(res => res.json())
     ])
-      .then(([postcodeData, agentData]) => {
-        const postcodes = Object.keys(postcodeData);
-        const locations = postcodes
-          .map(postcode => postcodeData[postcode].map(
-            town => `${town}, ${postcode}`
-          ))
-          .flat()
+      .then(([communeData, agentData]) => {
+        const locations = communeData
+          .map(commune => `${commune.commune} (${commune.postcode})`)
           .sort();
 
         setLocationChoices(locations);
