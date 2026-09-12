@@ -1,18 +1,17 @@
 import { useEffect } from "react";
-import { baseURL } from "../api";
 
 export const useFetchListings = (queryURL, setListingIDs, setNoListingsFound, setQueryURL, setSearch) => {
   useEffect(() => {
     if (!queryURL || typeof queryURL !== "string") return;
 
-    fetch(baseURL + queryURL)
+    fetch(queryURL)
       .then(res => res.json())
       .then(data => {
         const hiddenListings = JSON.parse(localStorage.getItem("hiddenListings")) || [];
-        // Sorting listings by most recently added means they are effectively sorted by agent, so use a combination of their listingID and house size to display them in a way that is somewhat randomized but will always return the same results in the same order
-        const sortedListings = data?.length
-          ? data.filter(listing => !hiddenListings.includes(listing.listingID))
-                .sort((a, b) => a.listingID * (a.size || 1) < b.listingID * (b.size || 1) ? 1 : -1)
+        // Sorting listings by most recently added means they are effectively sorted by agent, so use a combination of their id and house size to display them in a way that is somewhat randomized but will always return the same results in the same order
+        const sortedListings = data?.items?.length
+          ? data.items.filter(listing => !hiddenListings.includes(listing.id))
+                .sort((a, b) => a.id * (a.building_area_m2 || 1) < b.id * (b.building_area_m2 || 1) ? 1 : -1)
           : [];
 
         setListingIDs(sortedListings);
