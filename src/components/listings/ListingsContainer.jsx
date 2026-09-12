@@ -15,6 +15,7 @@ import { scrollTo } from '../../utilities';
 import Listing from './Listing';
 import SortingDropdown from './SortingDropdown';
 
+//// TODO: remove pagination - listingIDs now has the full listings needed
 const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListingsFound, setListingIDs, setLoadingListings }) => {
   const [listings, setListings] = useState([]);
   // refHasValue stores whether searchResultsRef.current has a value so the scroll position can be restored
@@ -43,8 +44,8 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
     // On the saved listings page, the entire listing is currently saved instead of the ID
     // No need to re-fetch those listings
     if (isSavedListingsPage) {
-      const newListingIDs = listingIDs.slice(currentOffset, currentOffset + 12).map(listing => listing.listingID);
-      const currentListingIDs = listings.map(listing => listing.listingID);
+      const newListingIDs = listingIDs.slice(currentOffset, currentOffset + 12).map(listing => listing.id);
+      const currentListingIDs = listings.map(listing => listing.id);
       if (JSON.stringify(currentListingIDs) !== JSON.stringify(newListingIDs)) {
         setListings(listingIDs.slice(currentOffset, currentOffset + 12));
       }
@@ -53,11 +54,11 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
 
     const fullListingsToFetch = listingIDs
       .slice(currentOffset, currentOffset + 12)
-      .map(listing => listing.listingID);
+      .map(listing => listing.id);
 
     const listingsToFetchStr = fullListingsToFetch.toString();
     // Don't perform a new query if the new results will be the same as the current results
-    const currentFetchedListings = listings.map(listing => listing.listingID).toString();
+    const currentFetchedListings = listings.map(listing => listing.id).toString();
     if (currentFetchedListings === listingsToFetchStr) return;
 
     //// Re-write to fetch one listing at a time
@@ -68,11 +69,11 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
 
         // If a listing has been removed from the database since the last time a search was performed, update the total results
         if (fullListingsToFetch.length !== data.length) {
-          const fetchedListingIDs = data.map(listing => listing.listingID)
+          const fetchedListingIDs = data.map(listing => listing.id)
           // Find the listing(s) that have not been returned from the DB
           const errorListingIDs = fullListingsToFetch.filter(listing => !fetchedListingIDs.includes(listing))
           setListingIDs(prevListingIDs => {
-            return prevListingIDs.filter(prevListingID => !errorListingIDs.includes(prevListingID.listingID))
+            return prevListingIDs.filter(prevListingID => !errorListingIDs.includes(prevListingID.id))
           });
         }
       })
@@ -81,7 +82,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
 
 
   const renderListings = () => {
-    return listings.map(listing => {
+    return listingIDs.map(listing => {
       return <Listing listing={listing} key={listing.link_url} />
     });
   };
@@ -148,6 +149,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
     }
   }, [currentPage, isSavedListingsPage, listings, loadingListings, refHasValue]);
 
+
   if (noListingsFound) {
     return (
       <div className="no-listings-container" ref={noListingsRef}>
@@ -203,7 +205,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
         {renderListings()}
       </div>
       <div className="pagination-container">
-        {listingIDs?.length >= 10 && 
+        {listingIDs?.length >= 100 && 
           <ReactPaginate
             activeClassName="active"
             breakClassName="page-item"

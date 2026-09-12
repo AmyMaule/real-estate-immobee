@@ -11,11 +11,11 @@ const SavedListings = () => {
   useEffect(() => {
     const hiddenListings = JSON.parse(localStorage.getItem("hiddenListings")) || [];
     const allSavedListings = JSON.parse(localStorage.getItem("savedListings")) || [];
-    const listingsToFetch = allSavedListings.filter(listing => !hiddenListings.includes(listing.listingID));
+    const listingsToFetch = allSavedListings.filter(listing => !hiddenListings.includes(listing.id));
 
     // Re-fetch saved listings to only view those still present in the database
     for (let listing of listingsToFetch) {
-      const listingIDToFetch = listing.listingID;
+      const listingIDToFetch = listing.id;
       fetch(`${listingsURL}/${listingIDToFetch}`)
       .then(res => {
         console.log(res)
@@ -23,10 +23,10 @@ const SavedListings = () => {
       })
         // .then(res => res.json())
         .then(data => {
-          const validListingIDs = data.map(listing => listing.listingID);
+          const validListingIDs = data.map(listing => listing.id);
           listingsToFetch.forEach(listing => {
             // Add 'removed' flag to listings that no longer exist in the database
-            if (!validListingIDs.includes(listing.listingID)) {
+            if (!validListingIDs.includes(listing.id)) {
               listing.removedFromDB = true;
             }
           })

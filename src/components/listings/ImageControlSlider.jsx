@@ -3,6 +3,7 @@ import debounce from 'lodash.debounce';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { mediaURL } from '../../api';
 
 const ImageControlSlider = ({ isDetailedListing, isModal, listingPhotos }) => {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -103,7 +104,7 @@ const ImageControlSlider = ({ isDetailedListing, isModal, listingPhotos }) => {
             data-slide={i}
             key={i}
             ref={listingImgRef}
-            src={photo}
+            src={`${mediaURL}${photo.url}`}            
           />
         )
       })}

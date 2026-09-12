@@ -1,6 +1,6 @@
-export const baseURL = `${import.meta.env.VITE_BASE_URL}/api/v1`;
+export const mediaURL = `${import.meta.env.VITE_BASE_URL}`;
 
-export const mediaURL = `${baseURL}/media`;
+export const baseURL = `${import.meta.env.VITE_BASE_URL}/api/v1`;
 
 export const propertyTypeURL = `${baseURL}/property-types`;
 
