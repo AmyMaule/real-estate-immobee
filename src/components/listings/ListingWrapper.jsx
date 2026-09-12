@@ -6,7 +6,7 @@ const ListingWrapper = ({ children, handleMiddleClick, handleSelectListing, isHi
 
   const handleUnhideListing = () => {
     const hiddenListings = JSON.parse(localStorage.getItem("hiddenListings"));
-    const filteredListings = hiddenListings.filter(hiddenListing => hiddenListing !== listing.listingID);
+    const filteredListings = hiddenListings.filter(hiddenListing => hiddenListing !== listing.id);
     localStorage.setItem("hiddenListings",  JSON.stringify([...filteredListings]));
     setIsHidden(false);
   }
@@ -14,7 +14,7 @@ const ListingWrapper = ({ children, handleMiddleClick, handleSelectListing, isHi
   const deleteRemovedFromDBListing = () => {
     const savedListings = JSON.parse(localStorage.getItem("savedListings"));
     localStorage.setItem("savedListings", JSON.stringify(
-      savedListings.filter(savedListing => savedListing.listingID !== listing.listingID)
+      savedListings.filter(savedListing => savedListing.id !== listing.id)
     ));
     setDisplayListing(false);
   }
@@ -42,7 +42,7 @@ const ListingWrapper = ({ children, handleMiddleClick, handleSelectListing, isHi
         ${listing.removedFromDB ? "listing-container-hidden" : ""}
         ${viewRemovedListing ? "show-removed-listing-container" : ""}
       `}
-      href={`/listings/${listing.listingID}`}
+      href={`/listings/${listing.id}`}
       onContextMenu={handleSelectListing}
       onClick={handleSelectListing}
       onMouseDown={handleMiddleClick}

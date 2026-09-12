@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { propertyTypeMapping } from '../../data';
@@ -10,9 +10,9 @@ import ListingWrapper from './ListingWrapper';
 
 const Listing = ({ listing }) => {
   const hiddenListings = JSON.parse(localStorage.getItem("hiddenListings")) || [];
-  const [isHidden, setIsHidden] = useState(hiddenListings.includes(listing.listingID));
+  const [isHidden, setIsHidden] = useState(hiddenListings.includes(listing.id));
   const [isSaved, setIsSaved] = useState(
-    JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.listingID === listing.listingID) || null
+    JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.id === listing.id) || null
   );
   const [viewRemovedListing, setViewRemovedListing] = useState(false);
   const navigate = useNavigate();
@@ -49,9 +49,9 @@ const Listing = ({ listing }) => {
     if (e.button === 0 && !e.ctrlKey) {
       e.preventDefault();
       window.history.pushState({ prevPage: "listing" }, '');
-      navigate(`/listings/${listing.listingID}`, { state: listing });
+      navigate(`/listings/${listing.id}`, { state: listing });
     } else {
-      localStorage.setItem(listing.listingID, JSON.stringify(listing));
+      localStorage.setItem(listing.id, JSON.stringify(listing));
     }
     localStorage.setItem("scrollPosition", window.scrollY);
   }

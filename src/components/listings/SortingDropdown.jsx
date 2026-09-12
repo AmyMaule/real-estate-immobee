@@ -61,13 +61,13 @@ const SortingDropdown = ({ listingIDs, setListingIDs }) => {
     let sortedListings;
 
     if (direction === "A-Z") {
-      sortedListings = [...listingIDs].sort((a, b) => a[sortMapping[sort]].toUpperCase() > b[sortMapping[sort]].toUpperCase() ? 1 : -1);
+      sortedListings = [...ids].sort((a, b) => a[sortMapping[sort]].toUpperCase() > b[sortMapping[sort]].toUpperCase() ? 1 : -1);
     } else if (direction === "Z-A") {
-      sortedListings = [...listingIDs].sort((a, b) => a[sortMapping[sort]].toUpperCase() < b[sortMapping[sort]].toUpperCase() ? 1 : -1);
+      sortedListings = [...ids].sort((a, b) => a[sortMapping[sort]].toUpperCase() < b[sortMapping[sort]].toUpperCase() ? 1 : -1);
     } else if (direction === "up") {
-      sortedListings = [...listingIDs].sort((a, b) => a[sortMapping[sort]] > b[sortMapping[sort]] ? 1 : -1);
+      sortedListings = [...ids].sort((a, b) => a[sortMapping[sort]] > b[sortMapping[sort]] ? 1 : -1);
     } else {
-      sortedListings = [...listingIDs].sort((a, b) => a[sortMapping[sort]] < b[sortMapping[sort]] ? 1 : -1);
+      sortedListings = [...ids].sort((a, b) => a[sortMapping[sort]] < b[sortMapping[sort]] ? 1 : -1);
     }
 
     setListingIDs(sortedListings);

@@ -7,13 +7,13 @@ const HideListing = ({ isHidden, listing, setIsHidden }) => {
     setIsHidden(prev => !prev);
     if (hiddenListings?.length) {
       if (isHidden) {
-        const filteredListings = hiddenListings.filter(hiddenListing => hiddenListing !== listing.listingID);
+        const filteredListings = hiddenListings.filter(hiddenListing => hiddenListing !== listing.id);
         localStorage.setItem("hiddenListings",  JSON.stringify([...filteredListings]));
       } else {
-        localStorage.setItem("hiddenListings", JSON.stringify([...hiddenListings, listing.listingID]));
+        localStorage.setItem("hiddenListings", JSON.stringify([...hiddenListings, listing.id]));
       }
     } else {
-      localStorage.setItem("hiddenListings", JSON.stringify([listing.listingID]));
+      localStorage.setItem("hiddenListings", JSON.stringify([listing.id]));
     }
   }
 
