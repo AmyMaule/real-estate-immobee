@@ -1,4 +1,5 @@
 import { propertyTypeMapping } from "../data";
+import { listingsURL } from "../api";
 
 export const getSearchURL = (searchQuery, agentChoices) => {
   const queryParams = Object.keys(searchQuery);
@@ -66,8 +67,7 @@ export const getSearchURL = (searchQuery, agentChoices) => {
   
   console.log(query);
 
-  // TODO: what is this new endpoint?
-  return "/search_results" + query;
+  return `${listingsURL}${query}`;
 }
 
 export const scrollTo = (top = 0, behavior = "smooth") => window.scrollTo({ top: top, behavior: behavior });
