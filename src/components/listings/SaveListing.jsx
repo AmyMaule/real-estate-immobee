@@ -7,7 +7,7 @@ const SaveListing = ({ isSaved, listing, setIsSaved }) => {
     
     if (savedListings?.length) {
       if (isSaved) {
-        const filteredListings = savedListings.filter(savedListing => savedListing.link_url !== listing.link_url);
+        const filteredListings = savedListings.filter(savedListing => savedListing.url !== listing.url);
         localStorage.setItem("savedListings",  JSON.stringify([...filteredListings]));
       } else {
         localStorage.setItem("savedListings", JSON.stringify([...savedListings, listing]));

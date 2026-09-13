@@ -1,12 +1,17 @@
 import { useEffect } from "react";
 
-export const useFetchListings = (queryURL, setListingIDs, setNoListingsFound, setQueryURL, setSearch) => {
+//// TODO: Temporarily query high page number to avoid experimental listings, remove later
+export const useFetchListings = (queryURL, setListingIDs, setlistingsData, setNoListingsFound, setQueryURL, setSearch, page = 50) => {
   useEffect(() => {
     if (!queryURL || typeof queryURL !== "string") return;
+    
+    const queryURLWithPage = queryURL.indexOf("?") === -1 ? `${queryURL}?page=${page ?? 1}` : `${queryURL}&page=${page ?? 1}`;
 
-    fetch(queryURL)
+    fetch(queryURLWithPage)
       .then(res => res.json())
       .then(data => {
+        // listingData also stores information about pagination
+        setlistingsData(data);
         const hiddenListings = JSON.parse(localStorage.getItem("hiddenListings")) || [];
         // Sorting listings by most recently added means they are effectively sorted by agent, so use a combination of their id and house size to display them in a way that is somewhat randomized but will always return the same results in the same order
         const sortedListings = data?.items?.length

@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { listingsURL } from '../../api';
-import { scrollTo } from '../../utilities';
+import { capitalize, scrollTo } from '../../utilities';
 
 import FullScreenIcon from './FullScreenIcon';
 import ImageControlSlider from './ImageControlSlider';
@@ -11,26 +11,18 @@ import SaveListing from './SaveListing';
 const ListingDetail = () => {
   const location = useLocation();
   const listingID = location.pathname.slice(10);
-  // use location.state when opening the listing in the same tab
-  const [listing, setListing] = useState(location.state || JSON.parse(localStorage.getItem(listingID)) || undefined);
+  const [listing, setListing] = useState();
+
   const [isSaved, setIsSaved] = useState(
-    JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.link_url === listing?.link_url) || null
+    JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.url === listing?.url) || null
   );
   const [showRemovedListingBanner, setShowRemovedListingBanner] = useState(listing?.removedFromDB || false);
 
-  // Delete local storage item once accessed
-  useEffect(() => {
-    if (JSON.parse(localStorage.getItem(listingID)) && listing) {
-      localStorage.removeItem(listingID);
-    }
-  }, []);
-
-  // If the listing page has been shared or copied to another browser, there will be nothing in state or local storage
   useEffect(() => {
     if (!listing) {
       fetch(`${listingsURL}/${listingID}`)
       .then(res => res.json())
-      .then(data => setListing(data[0] || null))
+      .then(data => setListing(data || null))
       .catch(err => console.log(err));
     }
   }, [listing, listingID]);
@@ -64,13 +56,13 @@ const ListingDetail = () => {
       }
       <div className="listing-detail-save-container">
         <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />
-        <FullScreenIcon listingPhotos={listing.photos_hosted} />
+        <FullScreenIcon listingPhotos={listing.hosted_images} />
       </div>
-      {listing.photos_hosted?.length
+      {listing.hosted_images?.length
         ? <div className="listing-detail-image-slider-container">
             <ImageControlSlider 
               isDetailedListing
-              listingPhotos={listing.photos_hosted} 
+              listingPhotos={listing.hosted_images} 
             />
           </div>
         : <div className="listing-detail-no-images-container">
@@ -81,8 +73,10 @@ const ListingDetail = () => {
       <div className="listing-detail-info-container">
         <div className="listing-title-container">
         <h5 className="listing-detail-title">
-          {listing.types} in {" "}
-          <span className="listing-detail-town">{listing.town?.toLowerCase()}</span>, {listing.postcode}
+          {listing.property_type ? capitalize(listing.property_type) : "Property"} in {" "}
+          <span className="listing-detail-town">
+            {listing.town?.toLowerCase() ?? listing.location?.commune_name?.toLowerCase()}
+          </span>, {listing.postcode}
         </h5>
         <h5 className="listing-detail-price">€{listing.price.toLocaleString()}</h5>
         </div>
@@ -93,26 +87,30 @@ const ListingDetail = () => {
             {listing.rooms && <>{listing.rooms} rooms</>}
           </h5>
         }
-        {(listing.size || listing.plot) && 
+        {(listing.building_area_m2 || listing.land_area_m2) && 
           <h5 className="listing-detail-rooms">
-            {listing.size && <>{listing.size.toLocaleString()} m{String.fromCharCode(178)} property</>}
-            {listing.size && listing.plot && " with "}
-            {listing.plot && <>{listing.plot.toLocaleString()} m{String.fromCharCode(178)} land</>}
+            {listing.building_area_m2 && <>{listing.building_area_m2.toLocaleString()} m{String.fromCharCode(178)} property</>}
+            {listing.building_area_m2 && listing.land_area_m2 && " with "}
+            {listing.land_area_m2 && <>{listing.land_area_m2.toLocaleString()} m{String.fromCharCode(178)} land</>}
           </h5>
         }
         {listing.description &&
           <div>
-            {listing.description?.map((paragraph, i) => (
+            {listing.description}
+            {/* {listing.description?.map((paragraph, i) => (
               <p key={i} className="listing-detail-description">{paragraph}</p>
-            ))}
+            ))} */}
           </div>
         }
-        <h5 className="listing-detail-agent">Listed with {listing.agent}, ref: {listing.ref}</h5>
+        {listing.source && 
+          <h5 className="listing-detail-agent">Listed with {listing.source.agency_name}
+          , ref: {listing.external_id ?? "unknown"}</h5>
+        }
         <div className="listing-link-container">
           <span className="listing-link">
-            <a className="listing-link-hover" href={listing.link_url} target="_blank" rel="noreferrer">See original listing</a>
+            <a className="listing-link-hover" href={listing.url} target="_blank" rel="noreferrer">See original listing</a>
           </span>
-          <a className="listing-link-default" href={listing.link_url} target="_blank" rel="noreferrer">See original listing</a>
+          <a className="listing-link-default" href={listing.url} target="_blank" rel="noreferrer">See original listing</a>
         </div>
 
       </div>
