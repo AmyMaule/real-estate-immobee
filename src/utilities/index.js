@@ -77,3 +77,5 @@ export const handlePageChange = (setListingIDs, scrollBehavior) => {
   localStorage.setItem("listingIDs", JSON.stringify([]));
   if (scrollBehavior) scrollTo(0, scrollBehavior);
 }
+
+export const capitalize = str => str ? str.charAt(0).toUpperCase() + str.slice(1) : "";

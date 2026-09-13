@@ -15,81 +15,73 @@ import { scrollTo } from '../../utilities';
 import Listing from './Listing';
 import SortingDropdown from './SortingDropdown';
 
-//// TODO: remove pagination - listingIDs now has the full listings needed
-const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListingsFound, setListingIDs, setLoadingListings }) => {
-  const [listings, setListings] = useState([]);
+const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noListingsFound, setLoadingListings }) => {
   // refHasValue stores whether searchResultsRef.current has a value so the scroll position can be restored
   const [refHasValue, setRefrefHasValue] = useState(false);
   const searchResultsRef = useRef();
   const noListingsRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const currentPage = +useParams().page;  // get currentPage as number
-  const listingsPerPage = 12;
   const isSavedListingsPage = location.pathname.startsWith("/saved-listings");
-  const currentOffset = (currentPage - 1) * listingsPerPage || 0;
+  const currentOffset = (listingsData?.page - 1) * listingsData?.page_size;
 
   const handlePageChange = (e) => {
-    setListings([]);
-    const pageURL = isSavedListingsPage ? "/saved-listings" : "/search";
-    
+    const pageURL = isSavedListingsPage ? "/saved-listings" : "/search";    
     // add 1 as pagination is zero-indexed
     navigate(`${pageURL}/${e.selected + 1}`);
   }
 
-  useEffect(() => {
-    if (!listingIDs?.length) return;
+  // useEffect(() => {
+  //   if (!listingsData?.items?.length) return;
+  //   // On the saved listings page, the entire listing is currently saved instead of the ID
+  //   // No need to re-fetch those listings
+  //   if (isSavedListingsPage) {
+  //     const newListingIDs = listingIDs.slice(currentOffset, currentOffset + 12).map(listing => listing.id);
+  //     const currentListingIDs = listings.map(listing => listing.id);
+  //     if (JSON.stringify(currentListingIDs) !== JSON.stringify(newListingIDs)) {
+  //       setListings(listingIDs.slice(currentOffset, currentOffset + 12));
+  //     }
+  //     return;
+  //   }
 
-    // On the saved listings page, the entire listing is currently saved instead of the ID
-    // No need to re-fetch those listings
-    if (isSavedListingsPage) {
-      const newListingIDs = listingIDs.slice(currentOffset, currentOffset + 12).map(listing => listing.id);
-      const currentListingIDs = listings.map(listing => listing.id);
-      if (JSON.stringify(currentListingIDs) !== JSON.stringify(newListingIDs)) {
-        setListings(listingIDs.slice(currentOffset, currentOffset + 12));
-      }
-      return;
-    }
+  //   const fullListingsToFetch = listingIDs
+  //     .slice(currentOffset, currentOffset + 12)
+  //     .map(listing => listing.id);
 
-    const fullListingsToFetch = listingIDs
-      .slice(currentOffset, currentOffset + 12)
-      .map(listing => listing.id);
+  //   const listingsToFetchStr = fullListingsToFetch.toString();
+  //   // Don't perform a new query if the new results will be the same as the current results
+  //   const currentFetchedListings = listings.map(listing => listing.id).toString();
+  //   if (currentFetchedListings === listingsToFetchStr) return;
 
-    const listingsToFetchStr = fullListingsToFetch.toString();
-    // Don't perform a new query if the new results will be the same as the current results
-    const currentFetchedListings = listings.map(listing => listing.id).toString();
-    if (currentFetchedListings === listingsToFetchStr) return;
+  //   //// Re-write to fetch one listing at a time
+  //   fetch(`${listingsURL}/${listingsToFetchStr}`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setListings(data);
 
-    //// Re-write to fetch one listing at a time
-    fetch(`${listingsURL}/${listingsToFetchStr}`)
-      .then(res => res.json())
-      .then(data => {
-        setListings(data);
-
-        // If a listing has been removed from the database since the last time a search was performed, update the total results
-        if (fullListingsToFetch.length !== data.length) {
-          const fetchedListingIDs = data.map(listing => listing.id)
-          // Find the listing(s) that have not been returned from the DB
-          const errorListingIDs = fullListingsToFetch.filter(listing => !fetchedListingIDs.includes(listing))
-          setListingIDs(prevListingIDs => {
-            return prevListingIDs.filter(prevListingID => !errorListingIDs.includes(prevListingID.id))
-          });
-        }
-      })
-      .catch(err => console.log(err));
-  }, [currentOffset, isSavedListingsPage, listingIDs]);
+  //       // If a listing has been removed from the database since the last time a search was performed, update the total results
+  //       if (fullListingsToFetch.length !== data.length) {
+  //         const fetchedListingIDs = data.map(listing => listing.id)
+  //         // Find the listing(s) that have not been returned from the DB
+  //         const errorListingIDs = fullListingsToFetch.filter(listing => !fetchedListingIDs.includes(listing))
+  //         setListingIDs(prevListingIDs => {
+  //           return prevListingIDs.filter(prevListingID => !errorListingIDs.includes(prevListingID.id))
+  //         });
+  //       }
+  //     })
+  //     .catch(err => console.log(err));
+  // }, [currentOffset, isSavedListingsPage, listingIDs]);
 
 
   const renderListings = () => {
-    return listingIDs.map(listing => {
-      return <Listing listing={listing} key={listing.link_url} />
+    return listingsData?.items?.map(listing => {
+      return <Listing listing={listing} key={listing.id} />
     });
   };
 
   useEffect(() => {
-    if (listingIDs?.length || noListingsFound) {
-      if (!currentPage) {
+    if (listingsData?.items?.length || noListingsFound) {
+      if (!listingsData?.page) {
         if (!isSavedListingsPage) {
           let timeElapsed = Date.now() - loadingTimer;
           setTimeout(() => {
@@ -111,7 +103,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
         }, 3600 - timeElapsed);
       }
     }
-  }, [currentPage, isSavedListingsPage, listingIDs, loadingListings, loadingTimer, navigate, noListingsFound, setLoadingListings]);
+  }, [isSavedListingsPage, listingsData, loadingListings, loadingTimer, navigate, noListingsFound, setLoadingListings]);
 
   // when the user clicks on a listing and returns to search results, return to their original scrolling position
   const returnToScrollPosition = () => {
@@ -129,7 +121,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
 
   useEffect(() => {
     // If the user hits the back button on the listing detail page, return them to their previous scroll position
-    if (searchResultsRef.current && refHasValue && listings.length) {
+    if (searchResultsRef.current && refHasValue && listingsData?.items?.length) {
       if (window.history.state?.prevPage) {
         if (window.history.state.prevPage === "listing") {
           window.history.pushState({ prevPage: "" }, "");
@@ -147,7 +139,7 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
         }
       }
     }
-  }, [currentPage, isSavedListingsPage, listings, loadingListings, refHasValue]);
+  }, [listingsData?.page, isSavedListingsPage, listingsData, loadingListings, refHasValue]);
 
 
   if (noListingsFound) {
@@ -173,11 +165,12 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
     )
   }
 
-  if (!isSavedListingsPage && !listingIDs?.length) {
+  if (!isSavedListingsPage && !listingsData?.items?.length) {
     return null;
   }
 
-  if (listingIDs?.length && (currentPage > Math.ceil(listingIDs?.length / listingsPerPage))) {
+  // If the current page is too high for the number of listings
+  if (listingsData?.items?.length && (listingsData?.page > Math.ceil(listingsData.total / listingsData.page_size))) {
     return <Navigate replace to="/error" />
   }
 
@@ -185,17 +178,18 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
     <div className="search-results-container" ref={searchResultsRef}>
       <div ref={refCallback} />
       <div className="listings-title-container">
-      {listingIDs?.length && (
+      {listingsData?.items?.length && (
           <>
             {renderListings().length > 0 &&
               <h3 className="listings-title">
-                Page {currentPage || 1}{"\n"}
-                Showing results {currentOffset + 1} - {currentOffset + renderListings().length} of {listingIDs?.length}
+                Page {listingsData?.page || 1}{"\n"}
+                Showing results {currentOffset + 1} - {currentOffset + renderListings().length} of {listingsData?.total}
               </h3>
             }
             <SortingDropdown
-              listingIDs={listingIDs}
-              setListingIDs={setListingIDs}
+              listingIDs={listingsData.items}
+              //// TODO: sort this
+              setListingIDs={() => {}}
             />
           </>
         )}
@@ -204,26 +198,26 @@ const ListingsContainer = ({ listingIDs, loadingListings, loadingTimer, noListin
       <div className="listings-container">
         {renderListings()}
       </div>
-      <div className="pagination-container">
-        {listingIDs?.length >= 100 && 
+      {/* <div className="pagination-container">
+        {listingsData?.items?.length >= 1000 && 
           <ReactPaginate
             activeClassName="active"
             breakClassName="page-item"
             breakLinkClassName="page-link"
             containerClassName="pagination"
-            forcePage={currentPage ? currentPage - 1 : null}
+            forcePage={listingsData?.page ? listingsData?.page - 1 : null}
             marginPagesDisplayed={window.innerWidth < 700 ? 2 : 3}
             nextClassName="hide"
             nextLinkClassName={window.innerWidth < 700 ? "hide" : "page-link"}
             onPageChange={handlePageChange}
             pageClassName="page-item"
-            pageCount={Math.ceil(listingIDs.length / listingsPerPage)}
+            pageCount={Math.ceil(listingsData.total / listingsData.page_size)}
             pageLinkClassName="page-link"
             previousClassName="hide"
             previousLinkClassName={window.innerWidth < 700 ? "hide" : "page-link"}
           />
         }
-      </div>
+      </div> */}
     </div>
   )
 }

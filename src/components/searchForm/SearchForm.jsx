@@ -15,7 +15,8 @@ const SearchForm = ({
   agentChoices, 
   search, 
   setAgentChoices, 
-  setListingIDs, 
+  setListingIDs,
+  setlistingsData,
   setLoadingListings, 
   setLoadingTimer, 
   setNoListingsFound, 
@@ -38,6 +39,7 @@ const SearchForm = ({
     setLoadingListings(true);
     setLoadingTimer(Date.now())
     setListingIDs([]);
+    setlistingsData(null);
     setNoListingsFound(false);
     setSearch(true);
     setShowAdvanced(false);

@@ -17,10 +17,10 @@ const App = () => {
   const [queryURL, setQueryURL] = useState();
   const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState([]);
-  const { listingIDs, setListingIDs } = useContext(ListingsContext);
+  const { listingIDs, setListingIDs, listingsData, setlistingsData } = useContext(ListingsContext);
   
   useExpireListingIDs();
-  useFetchListings(queryURL, setListingIDs, setNoListingsFound, setQueryURL, setSearch);
+  useFetchListings(queryURL, setListingIDs, setlistingsData, setNoListingsFound, setQueryURL, setSearch);
   useSearchHandler(search, searchQuery, agentChoices, setQueryURL, setSearch);
 
   useEffect(() => {
@@ -42,6 +42,7 @@ const App = () => {
           search={search}
           setAgentChoices={setAgentChoices}
           setListingIDs={setListingIDs}
+          setlistingsData={setlistingsData}
           setLoadingListings={setLoadingListings}
           setLoadingTimer={setLoadingTimer}
           setNoListingsFound={setNoListingsFound}
@@ -50,6 +51,7 @@ const App = () => {
         />
 
         <ListingsContainer
+          listingsData={listingsData}
           listingIDs={listingIDs}
           noListingsFound={noListingsFound}
           loadingListings={loadingListings}

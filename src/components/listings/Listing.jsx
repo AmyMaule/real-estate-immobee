@@ -7,6 +7,7 @@ import ListingImage from './ListingImage';
 import SaveListing from './SaveListing';
 import HideListing from './HideListing';
 import ListingWrapper from './ListingWrapper';
+import { capitalize } from '../../utilities';
 
 const Listing = ({ listing }) => {
   const hiddenListings = JSON.parse(localStorage.getItem("hiddenListings")) || [];
@@ -56,12 +57,6 @@ const Listing = ({ listing }) => {
     localStorage.setItem("scrollPosition", window.scrollY);
   }
 
-  const getPropertyType = type => {
-    for (let key in propertyTypeMapping) {
-      if (propertyTypeMapping[key] === type) return key;
-    }
-  }
-
   const checkUnlisted = field => field ? field.toLocaleString() : null;
 
   return (
@@ -90,7 +85,7 @@ const Listing = ({ listing }) => {
       <div className="listing-details-container">
         <div className="listing-row">
           <h5 className="listing-type">
-            {getPropertyType(listing.types)}
+            {capitalize(listing.property_type)}
           </h5>
           <h5 className="listing-price">€{listing.price.toLocaleString()}</h5>
         </div>
@@ -105,7 +100,7 @@ const Listing = ({ listing }) => {
                 }
                 {checkUnlisted(listing.rooms) && <span className="divider">|</span>}
               </h5>}
-            {checkUnlisted(listing.rooms) && listing.types !== "Terrain" &&
+            {checkUnlisted(listing.rooms) && listing.property_type !== "Terrain" &&
               <h5 className="listing-rooms">
                 {checkUnlisted(listing.rooms) === "1"
                   ? `${checkUnlisted(listing.rooms)} room`
@@ -114,34 +109,34 @@ const Listing = ({ listing }) => {
               </h5>}
           </div>}
 
-        {(checkUnlisted(listing.size) || checkUnlisted(listing.plot)) &&
+        {(checkUnlisted(listing.building_area_m2) || checkUnlisted(listing.land_area_m2)) &&
         <div className="listing-row listing-icons-container">
-          {checkUnlisted(listing.size) &&
+          {checkUnlisted(listing.building_area_m2) &&
             <div className="listing-icon-container">
               <img src="/house-size-icon.png" className="listing-icon" alt="house size icon" />
-              <h5 className="listing-house-size">{checkUnlisted(listing.size)} m&#178;</h5>
+              <h5 className="listing-house-size">{checkUnlisted(listing.building_area_m2)} m&#178;</h5>
             </div>}
           
-          {checkUnlisted(listing.plot) &&
+          {checkUnlisted(listing.land_area_m2) &&
             <div className="listing-icon-container">
               <img src="/forest-icon.png" className="listing-icon" alt="plot size icon" />
-              <h5 className="listing-plot-size">{checkUnlisted(listing.plot)} m&#178;</h5>
+              <h5 className="listing-plot-size">{checkUnlisted(listing.land_area_m2)} m&#178;</h5>
             </div>}
         </div>}
 
-        {(listing.town || listing.postcode) && 
+        {((listing.town ?? listing.location?.commune_name) || listing.postcode) && 
           <div className="listing-row">
           <img src="/location-icon.png" className="listing-icon" alt="location icon" />
           <h5 className="listing-location">
             {listing.postcode
-              ? `${listing?.town?.toLowerCase()}, ${listing.postcode}`
-              : listing?.town?.toLowerCase()
+              ? `${listing?.town?.toLowerCase() ?? listing.location?.commune_name.toLowerCase()}, ${listing.postcode}`
+              : listing?.town?.toLowerCase() ?? listing.location?.commune_name.toLowerCase()
             }
           </h5>
         </div>}
         <div className="listing-row listing-agent-container">
-          <h5 className="listing-agent">{listing.agent}</h5>
-          <h5 className="listing-ref">Ref: {listing.ref}</h5>
+          <h5 className="listing-agent">{listing.source?.agency_name}</h5>
+          <h5 className="listing-ref">Ref: {listing.agency_reference ?? "Unavailable"}</h5>
         </div>
       </div>
     </ListingWrapper>
