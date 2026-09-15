@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useExpireListingIDs } from "./hooks/useExpireListingIDs";
 import { useFetchListings } from "./hooks/useFetchListings";
 import { useSearchHandler } from "./hooks/useSearchHandler";
+import { useSearchFormData } from "./hooks/useSearchFormData";
 import { ListingsContext } from ".";
 
 import ListingsContainer from "./components/listings/ListingsContainer";
@@ -13,6 +14,7 @@ const App = () => {
   const [agentChoices, setAgentChoices] = useState({});
   const [loadingListings, setLoadingListings] = useState(false);
   const [loadingTimer, setLoadingTimer] = useState();
+  const [locationChoices, setLocationChoices] = useState([]);
   const [noListingsFound, setNoListingsFound] = useState(false);
   const [queryURL, setQueryURL] = useState();
   const [search, setSearch] = useState(false);
@@ -21,7 +23,8 @@ const App = () => {
   
   useExpireListingIDs();
   useFetchListings(queryURL, setListingIDs, setlistingsData, setNoListingsFound, setQueryURL, setSearch);
-  useSearchHandler(search, searchQuery, agentChoices, setQueryURL, setSearch);
+  useSearchHandler(search, searchQuery, agentChoices, setQueryURL, setSearch, locationChoices);
+  useSearchFormData(setAgentChoices, setLocationChoices);
 
   useEffect(() => {
     if (!noListingsFound && !listingIDs?.length) {
@@ -39,8 +42,8 @@ const App = () => {
       <div className="main-content-container">
         <SearchForm
           agentChoices={agentChoices}
+          locationChoices={locationChoices}
           search={search}
-          setAgentChoices={setAgentChoices}
           setListingIDs={setListingIDs}
           setlistingsData={setlistingsData}
           setLoadingListings={setLoadingListings}

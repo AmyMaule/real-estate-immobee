@@ -1,15 +1,14 @@
 import { propertyTypeMapping } from "../data";
 import { listingsURL } from "../api";
 
-export const getSearchURL = (searchQuery, agentChoices) => {
+export const getSearchURL = (searchQuery, locationChoices) => {
   const queryParams = Object.keys(searchQuery);
   let query = "";
 
   if (queryParams.includes("agents")) {
-    const agentQuery = searchQuery.agents.map(agent => {
-      return Object.keys(agentChoices).filter(key => agentChoices[key] === agent);
-    }).join(",");
-    query += `&agents=${agentQuery}`;
+    for (let agent of searchQuery.agents) {
+      query += `&agency=${agent}`;
+    }
   }
   
   // only search by department if area has no value
@@ -17,17 +16,20 @@ export const getSearchURL = (searchQuery, agentChoices) => {
     // only send the department number in the query string (i.e. "11" not "Aude (11)"")
     const departments = searchQuery.department.map(dept => {
       return dept.split("(")[1].split(")")[0];
-    }).join(",");
-    query += `&depts=${departments}`;
+    });
+
+    for (let department of departments) {
+      query += `&department=${department}`;
+    }
   }
 
+  //// TODO - check default radius
   if (queryParams.includes("area")) {
-    const areaQuery = searchQuery.area.map(area => {
-      const town = area.split(", ")[0].replaceAll(" ", "%20");
-      const postcode = area.split(", ")[1];
-      return `${postcode}-${town}`;
-    }).join(",");
-    query += `&town=${areaQuery}&search_radius=${searchQuery.search_radius || "1"}`;
+    searchQuery.area.forEach(area => {
+      const townCode = locationChoices.find(location => `${location.commune} (${location.postcode})` === area).code;
+      query += `&town_code=${townCode}`;
+    })
+    query += `&radius_km=${searchQuery.search_radius || "1"}`;
   }
 
   if (queryParams.includes("property_type")) {
@@ -35,34 +37,38 @@ export const getSearchURL = (searchQuery, agentChoices) => {
     query += `&types=${propertyTypeQuery}`;
   }
 
-  const numberInputs = ["minBeds", "maxBeds", "minPrice", "maxPrice", "minPlot", "maxPlot", "minSize", "maxSize"];
+  const numberInputs = ["min_bedrooms", "max_bedrooms", "min_price", "max_price", "min_land_area_m2", "max_land_area_m2", "min_building_area_m2", "max_building_area_m2"];
   numberInputs.forEach(input => {
     if (queryParams.includes(input)) {
-      const snakeCaseInput = input.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
-      query += `&${snakeCaseInput}=${searchQuery[input]}`;
+      query += `&${input}=${searchQuery[input]}`;
     }
   });
   
   // exclude listings with incomplete data if the user has unchecked the box
-  if (searchQuery.inc_none_beds === false) {
-    query += "&inc_none_beds=false";
+  if (searchQuery.include_unknown_bedrooms === false) {
+    query += "&include_unknown_bedrooms=false";
   }
-  if (searchQuery.inc_none_location === false) {
-    query += "&inc_none_location=false";
+  if (searchQuery.include_unknown_locations === false) {
+    query += "&include_unknown_locations=false";
   }
-  if (searchQuery.inc_none_size === false) {
-    query += "&inc_none_size=false";
+  if (searchQuery.include_unknown_building_area === false) {
+    query += "&include_unknown_building_area=false";
   }
-  if (searchQuery.inc_none_plot === false) {
-    query += "&inc_none_plot=false";
+  if (searchQuery.include_unknown_land_area === false) {
+    query += "&include_unknown_land_area=false";
   }
 
   if (queryParams.includes("keywords")) {
     // split on space or comma
-    const keywordList = searchQuery.keywords.split(/[ ,]+/).join(",");
-    query += `&keywords=${keywordList}`
+    const keywordList = searchQuery.keywords.split(/[ ,]+/);
+    for (let keyword of keywordList) {
+      query += `&keyword=${keyword}`;
+    }
   }
   
+  //// TODO: Add sort method to query:  
+  // Available values : newest, price_asc, price_desc
+
   if (query) query = "?" + query.slice(1);
   
   console.log(query);
