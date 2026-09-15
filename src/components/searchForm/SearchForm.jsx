@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { useForm } from "react-hook-form";
 import Multiselect from "react-widgets/Multiselect";
 import { useNavigate } from 'react-router-dom';
-import { propertyTypeMapping } from '../../data';
 import { useSearchFormData } from '../../hooks/useSearchFormData';
 
 import Dropdown from './Dropdown';
@@ -10,6 +9,8 @@ import Input from './Input';
 import SearchSlider from './SearchSlider';
 import SearchTextarea from './SearchTextarea';
 import SearchUnknown from './SearchUnknown';
+import { capitalize } from '../../utilities';
+import { propertyTypes } from '../../data';
 
 const SearchForm = ({ 
   agentChoices, 
@@ -118,7 +119,7 @@ const SearchForm = ({
           </div>
         </div>
         <Dropdown
-          options={Object.keys(propertyTypeMapping)}
+          options={propertyTypes.map(propertyType => capitalize(propertyType))}
           setValue={setValue}
           showSelectedNames
           title="Property type"
@@ -178,7 +179,7 @@ const SearchForm = ({
             />
           </div>
           <div className="search-label search-label-long">
-            Keywords
+            Keywords (in French)
             <SearchTextarea
               field="keywords"
               placeholder="Enter search keywords"

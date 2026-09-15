@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { propertyTypeMapping } from '../../data';
-
 import ListingImage from './ListingImage';
 import SaveListing from './SaveListing';
 import HideListing from './HideListing';
@@ -73,7 +71,7 @@ const Listing = ({ listing }) => {
         ? <div className="listing-interactive-icon-container listing-save-container" onClick={() => setViewRemovedListing(false)}>
             <i className="fa-solid fa-xmark x-icon" />
           </div>
-        : listing.removedFromDB 
+        : listing.availability !== "active" 
           ? null
           : <>
               <SaveListing isSaved={isSaved} listing={listing} setIsSaved={setIsSaved} />

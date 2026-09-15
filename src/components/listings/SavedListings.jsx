@@ -18,29 +18,19 @@ const SavedListings = () => {
       return;
     }
 
-    Promise.all(
-      listingsToFetch.map(listing =>
-        fetch(`${listingsURL}/${listing.id}`)
-          .then(res => res.json())
-          .then(data => {
-            if (!data?.id) {
-              return {
-                ...listing,
-                removedFromDB: true
-              };
-            }
-            return listing;
-          })
-      )
+  Promise.all(
+    listingsToFetch.map(listing =>
+      fetch(`${listingsURL}/${listing.id}`).then(() => listing)
     )
-      .then(results => {
-        setListings({ items: results });
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setLoading(false);
-      });
+  )
+    .then(results => {
+      setListings({ items: results });
+      setLoading(false);
+    })
+    .catch(err => {
+      console.error(err);
+      setLoading(false);
+    });
   }, []);
 
   if (loading) return null;

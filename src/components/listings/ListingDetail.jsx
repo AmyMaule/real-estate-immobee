@@ -16,7 +16,7 @@ const ListingDetail = () => {
   const [isSaved, setIsSaved] = useState(
     JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.url === listing?.url) || null
   );
-  const [showRemovedListingBanner, setShowRemovedListingBanner] = useState(listing?.removedFromDB || false);
+  const [showRemovedListingBanner, setShowRemovedListingBanner] = useState(listing?.availability !== "active" || false);
 
   useEffect(() => {
     if (!listing) {
