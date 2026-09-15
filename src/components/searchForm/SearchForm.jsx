@@ -13,15 +13,15 @@ import SearchUnknown from './SearchUnknown';
 
 const SearchForm = ({ 
   agentChoices, 
+  locationChoices,
   search, 
-  setAgentChoices, 
   setListingIDs,
   setlistingsData,
   setLoadingListings, 
   setLoadingTimer, 
   setNoListingsFound, 
   setSearch, 
-  setSearchQuery 
+  setSearchQuery,
 }) => {
   const { register, handleSubmit, setValue, watch } = useForm();
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -29,7 +29,6 @@ const SearchForm = ({
   const departmentOptions = ["Aude (11)", "Ariège (09)", "Haute-Garonne (31)", "Hérault (34)", "Pyrenées-Orientales (66)"];
   const searchFormRef = useRef();
   const navigate = useNavigate();
-  const locationChoices = useSearchFormData(setAgentChoices);
 
   const onSubmit = submitData => {
     localStorage.removeItem("sortingBy"); // sortingDropdown seems to be accessing this before it is removed
@@ -46,7 +45,7 @@ const SearchForm = ({
     const searchQuery = {};
 
     // only populate searchQuery with values the user has provided, ensure number values are converted to numbers
-    const numberValues = ["minBeds", "maxBeds", "minPlot", "maxPlot", "minPrice", "maxPrice", "minSize", "maxSize"];
+    const numberValues = ["min_bedrooms", "max_bedrooms", "min_land_area_m2", "max_land_area_m2", "min_price", "max_price", "min_building_area_m2", "max_building_area_m2"];
     for (let [key, value] of Object.entries(submitData)) {
       if (typeof value === "string" && value.trim()) {
         if (numberValues.indexOf(key) !== -1) {
@@ -58,9 +57,9 @@ const SearchForm = ({
       }
     }
 
-    // incNoneValues are the checkboxes to determine whether the search results include listings with incomplete data
-    const incNoneValues = ["inc_none_beds", "inc_none_size", "inc_none_plot", "inc_none_location"];
-    incNoneValues.forEach(value => {
+    // includeUnknown are the checkboxes to determine whether the search results include listings with incomplete data
+    const includeUnknown = ["include_unknown_bedrooms", "include_unknown_building_area", "include_unknown_land_area", "include_unknown_locations"];
+    includeUnknown.forEach(value => {
       if (submitData[value] === false) {
         searchQuery[value] = submitData[value];
       }
@@ -81,6 +80,8 @@ const SearchForm = ({
     }
     setShowAdvanced(prev => !prev);
   }
+
+  const getAgentLabels = () => agentChoices.map(agent => agent.name);
 
   if (!locationChoices.length) {
     return (
@@ -115,8 +116,8 @@ const SearchForm = ({
         <div className="search-label">
           Price range (€)
           <div className="search-input-container">
-            <Input name="minPrice" number placeholder="Min" register={register} setValue={setValue} maxLength={9} />
-            <Input name="maxPrice" number placeholder="Max" register={register} setValue={setValue} maxLength={9} />
+            <Input name="min_price" number placeholder="Min" register={register} setValue={setValue} maxLength={9} />
+            <Input name="max_price" number placeholder="Max" register={register} setValue={setValue} maxLength={9} />
           </div>
         </div>
         <Dropdown
@@ -142,33 +143,39 @@ const SearchForm = ({
           <div className="search-label">
             Property size (m{String.fromCharCode(178)})
             <div className="search-input-container">
-              <Input name="minSize" number placeholder="Min" register={register} setValue={setValue} maxLength={6} />
-              <Input name="maxSize" number placeholder="Max" register={register} setValue={setValue} maxLength={6} />
+              <Input name="min_building_area_m2" number placeholder="Min" register={register} setValue={setValue} maxLength={6} />
+              <Input name="max_building_area_m2" number placeholder="Max" register={register} setValue={setValue} maxLength={6} />
             </div>
           </div>
           <div className="search-label">
             Plot size (m{String.fromCharCode(178)})
             <div className="search-input-container">
-              <Input name="minPlot" number placeholder="Min" register={register} setValue={setValue} maxLength={6} />
-              <Input name="maxPlot" number placeholder="Max" register={register} setValue={setValue} maxLength={6} />
+              <Input name="min_land_area_m2" number placeholder="Min" register={register} setValue={setValue} maxLength={6} />
+              <Input name="max_land_area_m2" number placeholder="Max" register={register} setValue={setValue} maxLength={6} />
             </div>
           </div>
           <div className="search-label">
             No. bedrooms
             <div className="search-input-container">
-              <Input name="minBeds" number placeholder="Min" register={register} setValue={setValue} maxLength={3} />
-              <Input name="maxBeds" number placeholder="Max" register={register} setValue={setValue} maxLength={3} />
+              <Input name="min_bedrooms" number placeholder="Min" register={register} setValue={setValue} maxLength={3} />
+              <Input name="max_bedrooms" number placeholder="Max" register={register} setValue={setValue} maxLength={3} />
             </div>
           </div>
           <div className="search-label search-label-multiselect">
             Agents
             <Multiselect
-              data={Object.values(agentChoices)}
+              data={getAgentLabels()}
               filter='contains'
-              onChange={selected => setValue("agents", selected)}
+              onChange={selected => {
+                const selectedAgentSlugs = [];
+                selected.forEach(agent => {
+                  selectedAgentSlugs.push(agentChoices.find(choice => choice.name === agent).slug);
+                });
+                setValue("agents", selectedAgentSlugs);
+              }}
               textField={item =>
                 watch("agents")?.includes(item)
-                // show full name if item is not selected selected, don't show "Immobilier" if selected
+                // show full name if item is not selected, don't show "Immobilier" for selected agents to save space
                   ? item.replace(" Immobilier", "") : item
               }
             />
@@ -184,7 +191,7 @@ const SearchForm = ({
           <div className="search-label search-label-long search-label-multiselect">
             Town
             <Multiselect
-              data={locationChoices}
+              data={locationChoices.map(commune => `${commune.commune} (${commune.postcode})`)}
               filter='contains'
               onChange={selected => setValue("area", selected)}
               showSelectedItemsInList

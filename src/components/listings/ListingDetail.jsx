@@ -78,7 +78,7 @@ const ListingDetail = () => {
             {listing.town?.toLowerCase() ?? listing.location?.commune_name?.toLowerCase()}
           </span>, {listing.postcode}
         </h5>
-        <h5 className="listing-detail-price">€{listing.price.toLocaleString()}</h5>
+        {listing.price && <h5 className="listing-detail-price">€{listing.price.toLocaleString()}</h5>}
         </div>
         {(listing.bedrooms || listing.rooms) && 
           <h5 className="listing-detail-rooms">
@@ -104,7 +104,7 @@ const ListingDetail = () => {
         }
         {listing.source && 
           <h5 className="listing-detail-agent">Listed with {listing.source.agency_name}
-          , ref: {listing.external_id ?? "unknown"}</h5>
+          , ref: {listing.agency_reference ?? "unknown"}</h5>
         }
         <div className="listing-link-container">
           <span className="listing-link">

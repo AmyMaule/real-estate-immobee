@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
-//// TODO: Temporarily query high page number to avoid experimental listings, remove later
-export const useFetchListings = (queryURL, setListingIDs, setlistingsData, setNoListingsFound, setQueryURL, setSearch, page = 50) => {
+export const useFetchListings = (queryURL, setListingIDs, setlistingsData, setNoListingsFound, setQueryURL, setSearch, page = 1) => {
   useEffect(() => {
     if (!queryURL || typeof queryURL !== "string") return;
     

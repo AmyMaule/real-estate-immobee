@@ -4,10 +4,10 @@ import CheckboxOption from './CheckboxOption';
 
 const SearchUnknown = ({ register, setValue, watch }) => {
   const checkboxOptions = [
-    { label: "Number of bedrooms", name: "inc_none_beds", relatedFields: ["minBeds", "maxBeds"] },
-    { label: "Property size", name: "inc_none_size", relatedFields: ["minSize", "maxSize"] },
-    { label: "Land size", name: "inc_none_plot", relatedFields: ["minPlot", "maxPlot"] },
-    { label: "Location", name: "inc_none_location", relatedFields: ["department", "area"] }
+    { label: "Number of bedrooms", name: "include_unknown_bedrooms", relatedFields: ["min_bedrooms", "max_bedrooms"] },
+    { label: "Property size", name: "include_unknown_building_area", relatedFields: ["min_building_area_m2", "max_building_area_m2"] },
+    { label: "Land size", name: "include_unknown_land_area", relatedFields: ["min_land_area_m2", "max_land_area_m2"] },
+    { label: "Location", name: "include_unknown_locations", relatedFields: ["department", "area"] }
   ];
 
   return (

@@ -87,7 +87,7 @@ const Listing = ({ listing }) => {
           <h5 className="listing-type">
             {capitalize(listing.property_type)}
           </h5>
-          <h5 className="listing-price">€{listing.price.toLocaleString()}</h5>
+          {listing.price && <h5 className="listing-price">€{listing.price.toLocaleString()}</h5>}
         </div>
 
         {(checkUnlisted(listing.bedrooms) || checkUnlisted(listing.rooms)) &&
