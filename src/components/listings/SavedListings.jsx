@@ -50,7 +50,6 @@ const SavedListings = () => {
       <ListingsContainer
         listingsData={listings}
         noListingsFound={!listings.items.length}
-        // setListingIDs={setListings}
       />
     </div>
   );

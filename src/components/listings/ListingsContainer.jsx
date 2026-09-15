@@ -5,10 +5,7 @@ import {
   Navigate,
   useLocation,
   useNavigate,
-  useParams
 } from 'react-router-dom';
-
-import { listingsURL } from '../../api';
 
 import { scrollTo } from '../../utilities';
 
@@ -30,48 +27,6 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
     // add 1 as pagination is zero-indexed
     navigate(`${pageURL}/${e.selected + 1}`);
   }
-
-  // useEffect(() => {
-  //   if (!listingsData?.items?.length) return;
-  //   // On the saved listings page, the entire listing is currently saved instead of the ID
-  //   // No need to re-fetch those listings
-  //   if (isSavedListingsPage) {
-  //     const newListingIDs = listingIDs.slice(currentOffset, currentOffset + 12).map(listing => listing.id);
-  //     const currentListingIDs = listings.map(listing => listing.id);
-  //     if (JSON.stringify(currentListingIDs) !== JSON.stringify(newListingIDs)) {
-  //       setListings(listingIDs.slice(currentOffset, currentOffset + 12));
-  //     }
-  //     return;
-  //   }
-
-  //   const fullListingsToFetch = listingIDs
-  //     .slice(currentOffset, currentOffset + 12)
-  //     .map(listing => listing.id);
-
-  //   const listingsToFetchStr = fullListingsToFetch.toString();
-  //   // Don't perform a new query if the new results will be the same as the current results
-  //   const currentFetchedListings = listings.map(listing => listing.id).toString();
-  //   if (currentFetchedListings === listingsToFetchStr) return;
-
-  //   //// Re-write to fetch one listing at a time
-  //   fetch(`${listingsURL}/${listingsToFetchStr}`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setListings(data);
-
-  //       // If a listing has been removed from the database since the last time a search was performed, update the total results
-  //       if (fullListingsToFetch.length !== data.length) {
-  //         const fetchedListingIDs = data.map(listing => listing.id)
-  //         // Find the listing(s) that have not been returned from the DB
-  //         const errorListingIDs = fullListingsToFetch.filter(listing => !fetchedListingIDs.includes(listing))
-  //         setListingIDs(prevListingIDs => {
-  //           return prevListingIDs.filter(prevListingID => !errorListingIDs.includes(prevListingID.id))
-  //         });
-  //       }
-  //     })
-  //     .catch(err => console.log(err));
-  // }, [currentOffset, isSavedListingsPage, listingIDs]);
-
 
   const renderListings = () => {
     return listingsData?.items?.map(listing => {
@@ -186,11 +141,7 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
                 Showing results {currentOffset + 1} - {currentOffset + renderListings().length} of {listingsData?.total}
               </h3>
             }
-            <SortingDropdown
-              listingIDs={listingsData.items}
-              //// TODO: sort this
-              setListingIDs={() => {}}
-            />
+            <SortingDropdown />
           </>
         )}
       </div>

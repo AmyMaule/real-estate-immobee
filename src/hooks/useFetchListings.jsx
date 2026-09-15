@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 
-export const useFetchListings = (queryURL, setListingIDs, setlistingsData, setNoListingsFound, setQueryURL, setSearch, page = 1) => {
+export const useFetchListings = (queryURL, setlistingsData, setNoListingsFound, setQueryURL, setSearch, page = 1) => {
   useEffect(() => {
     if (!queryURL || typeof queryURL !== "string") return;
     
-    const queryURLWithPage = queryURL.indexOf("?") === -1 ? `${queryURL}?page=${page ?? 1}` : `${queryURL}&page=${page ?? 1}`;
-
+    const queryURLWithPage = `${queryURL}${queryURL.includes("?") ? "&" : "?"}page=${page ?? 1}`;
     fetch(queryURLWithPage)
       .then(res => res.json())
       .then(data => {
@@ -18,15 +17,12 @@ export const useFetchListings = (queryURL, setListingIDs, setlistingsData, setNo
                 .sort((a, b) => a.id * (a.building_area_m2 || 1) < b.id * (b.building_area_m2 || 1) ? 1 : -1)
           : [];
 
-        setListingIDs(sortedListings);
-        // save array of shortened listings to local storage
-        localStorage.setItem("listingIDs", JSON.stringify(sortedListings));
         // Set lastSearchTime to ensure listings expire after 48 hours
         localStorage.setItem("lastSearchTime", Date.now());
         setNoListingsFound(!sortedListings?.length);
-        setQueryURL(null);
+        // setQueryURL(null);
         setSearch(false);
       })
       .catch(console.error);
-  }, [queryURL, setListingIDs, setNoListingsFound, setQueryURL, setSearch]);
+  }, [queryURL, setNoListingsFound, setQueryURL, setSearch]);
 }

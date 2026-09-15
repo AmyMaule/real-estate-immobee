@@ -15,7 +15,6 @@ const SearchForm = ({
   agentChoices, 
   locationChoices,
   search, 
-  setListingIDs,
   setlistingsData,
   setLoadingListings, 
   setLoadingTimer, 
@@ -32,12 +31,10 @@ const SearchForm = ({
 
   const onSubmit = submitData => {
     localStorage.removeItem("sortingBy"); // sortingDropdown seems to be accessing this before it is removed
-    localStorage.removeItem("listingIDs");
     navigate("/search/1");
     if (search) return;
     setLoadingListings(true);
     setLoadingTimer(Date.now())
-    setListingIDs([]);
     setlistingsData(null);
     setNoListingsFound(false);
     setSearch(true);

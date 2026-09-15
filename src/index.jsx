@@ -22,11 +22,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 export const ListingsContext = createContext();
 
 export const ListingsProvider = ({ children }) => {
-  const [listingIDs, setListingIDs] = useState([]);
   const [listingsData, setlistingsData] = useState(null);
 
   return (
-    <ListingsContext.Provider value={{ listingIDs, setListingIDs, listingsData, setlistingsData }}>
+    <ListingsContext.Provider value={{ listingsData, setlistingsData }}>
       {children}
     </ListingsContext.Provider>
   );
