@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 
-const SortingDropdown = ({ listingIDs, setListingIDs }) => {
+const SortingDropdown = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dropdownRef = useRef();
@@ -57,7 +57,6 @@ const SortingDropdown = ({ listingIDs, setListingIDs }) => {
       localStorage.setItem("sortingBy", JSON.stringify(newSort));
     }
     
-    localStorage.removeItem("listingIDs");
     let sortedListings;
 
     if (direction === "A-Z") {
@@ -69,9 +68,6 @@ const SortingDropdown = ({ listingIDs, setListingIDs }) => {
     } else {
       sortedListings = [...ids].sort((a, b) => a[sortMapping[sort]] < b[sortMapping[sort]] ? 1 : -1);
     }
-
-    setListingIDs(sortedListings);
-    localStorage.setItem("listingIDs", JSON.stringify(sortedListings));
 
     // reset page to 1 whenever sorting type changes
     if (changeInSorting) {

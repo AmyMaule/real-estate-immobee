@@ -1,18 +1,7 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { handlePageChange } from '../../utilities';
-
-import { ListingsContext } from '../..';
-
 const Home = () => {
-  const { setListingIDs } = useContext(ListingsContext);
-
-  // Reset the listingIDs whenever the user visits the homepage
-  useEffect(() => {
-    handlePageChange(setListingIDs);
-  }, []);
-
   return (
     <div className="hero-section">
       <div className="hero-section-img-container">

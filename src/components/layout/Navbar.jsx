@@ -4,25 +4,18 @@ import {
   useLocation
 } from 'react-router-dom';
 
-import { handlePageChange, scrollTo } from '../../utilities';
+import { scrollTo } from '../../utilities';
 
 import HamburgerMenu from './HamburgerMenu';
 
-import { ListingsContext } from '../..';
-
 const Navbar = () => {
-  const { setListingIDs } = useContext(ListingsContext);
   const location = useLocation();
   const currentPage = location.pathname;
-
-  const handleClick = scrollBehavior => {
-    handlePageChange(setListingIDs, scrollBehavior);
-  }
 
   return (
     <>
       <nav className="navbar">
-        <Link to="/" className="navbar-logo" onClick={() => handleClick("auto")}>
+        <Link to="/" className="navbar-logo">
           <img src="/logo.png" className="navbar-logo-img" alt="logo" />
           <div className="navbar-logo-text">ImmoBee</div>
         </Link>
@@ -33,7 +26,6 @@ const Navbar = () => {
             </div>
           : <Link
               className={`navbar-link ${currentPage.startsWith("/search") ? "current-page" : ""}`}
-              onClick={() => handleClick("smooth")}
               to="/search/1"
             >
               Search
@@ -47,7 +39,6 @@ const Navbar = () => {
             </div>
           : <Link
               className={`navbar-link ${currentPage.startsWith("/saved-listings") ? "current-page" : ""}`}
-              onClick={() => handleClick("auto")}
               to="/saved-listings/1"
             >
               Saved Listings

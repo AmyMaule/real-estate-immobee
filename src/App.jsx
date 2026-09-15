@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 
-import { useExpireListingIDs } from "./hooks/useExpireListingIDs";
 import { useFetchListings } from "./hooks/useFetchListings";
 import { useSearchHandler } from "./hooks/useSearchHandler";
 import { useSearchFormData } from "./hooks/useSearchFormData";
@@ -9,6 +8,8 @@ import { ListingsContext } from ".";
 import ListingsContainer from "./components/listings/ListingsContainer";
 import LoadingAnimation from "./components/pages/LoadingAnimation";
 import SearchForm from "./components/searchForm/SearchForm";
+
+//// TODO: on page refresh, refetch current query
 
 const App = () => {
   const [agentChoices, setAgentChoices] = useState({});
@@ -19,18 +20,11 @@ const App = () => {
   const [queryURL, setQueryURL] = useState();
   const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState([]);
-  const { listingIDs, setListingIDs, listingsData, setlistingsData } = useContext(ListingsContext);
+  const { listingsData, setlistingsData } = useContext(ListingsContext);
   
-  useExpireListingIDs();
-  useFetchListings(queryURL, setListingIDs, setlistingsData, setNoListingsFound, setQueryURL, setSearch);
+  useFetchListings(queryURL, setlistingsData, setNoListingsFound, setQueryURL, setSearch);
   useSearchHandler(search, searchQuery, agentChoices, setQueryURL, setSearch, locationChoices);
   useSearchFormData(setAgentChoices, setLocationChoices);
-
-  useEffect(() => {
-    if (!noListingsFound && !listingIDs?.length) {
-      setListingIDs(JSON.parse(localStorage.getItem("listingIDs")));
-    }
-  }, [listingIDs?.length, noListingsFound, setListingIDs]);
 
   useEffect(() => {
     document.body.style.overflow = loadingListings ? "hidden" : "auto";
@@ -44,7 +38,6 @@ const App = () => {
           agentChoices={agentChoices}
           locationChoices={locationChoices}
           search={search}
-          setListingIDs={setListingIDs}
           setlistingsData={setlistingsData}
           setLoadingListings={setLoadingListings}
           setLoadingTimer={setLoadingTimer}
@@ -55,11 +48,9 @@ const App = () => {
 
         <ListingsContainer
           listingsData={listingsData}
-          listingIDs={listingIDs}
           noListingsFound={noListingsFound}
           loadingListings={loadingListings}
           loadingTimer={loadingTimer}
-          setListingIDs={setListingIDs}
           setLoadingListings={setLoadingListings}
         />
       </div>
