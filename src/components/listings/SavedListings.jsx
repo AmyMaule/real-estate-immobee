@@ -9,28 +9,27 @@ const SavedListings = () => {
   const [listings, setListings] = useState({ items: [] });
 
   useEffect(() => {
-    const hiddenListings = JSON.parse(localStorage.getItem("hiddenListings")) || [];
-    const allSavedListings = JSON.parse(localStorage.getItem("savedListings")) || [];
-    const listingsToFetch = allSavedListings.filter(listing => !hiddenListings.includes(listing.id));
+    const hiddenListingIds = JSON.parse(localStorage.getItem("hiddenListingIds")) || [];
+    const savedListingIds = JSON.parse(localStorage.getItem("savedListingIds")) || [];
+    const listingsToFetch = savedListingIds.filter(listingId => !hiddenListingIds.includes(listingId));
 
     if (!listingsToFetch.length) {
       setLoading(false);
       return;
     }
 
-  Promise.all(
-    listingsToFetch.map(listing =>
-      fetch(`${listingsURL}/${listing.id}`).then(() => listing)
-    )
-  )
-    .then(results => {
-      setListings({ items: results });
-      setLoading(false);
-    })
-    .catch(err => {
-      console.error(err);
-      setLoading(false);
-    });
+    Promise.all(listingsToFetch.map(listingId =>
+      fetch(`${listingsURL}/${listingId}`)
+    ))
+      .then(responses => Promise.all(responses.map(res => res.json())))
+      .then(data => {
+        setListings({ items: data });
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
   }, []);
 
   if (loading) return null;

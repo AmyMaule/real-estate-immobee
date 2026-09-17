@@ -39,8 +39,7 @@ root.render(
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/search" element={<App />} />
-        <Route path="/search/:page" element={<App />} />
-        <Route path="/saved-listings/:page" element={<SavedListings />} />
+        <Route path="/saved-listings" element={<SavedListings />} />
         <Route path="/listings/:id" element={<ListingDetail />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/error" element={<ErrorPage />} />

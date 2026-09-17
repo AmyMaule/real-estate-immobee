@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useSearchParams } from "react-router-dom";
 
+import { listingsURL } from "./api";
 import { useFetchListings } from "./hooks/useFetchListings";
 import { useSearchHandler } from "./hooks/useSearchHandler";
 import { useSearchFormData } from "./hooks/useSearchFormData";
@@ -9,21 +11,25 @@ import ListingsContainer from "./components/listings/ListingsContainer";
 import LoadingAnimation from "./components/pages/LoadingAnimation";
 import SearchForm from "./components/searchForm/SearchForm";
 
-//// TODO: on page refresh, refetch current query
-
 const App = () => {
   const [agentChoices, setAgentChoices] = useState({});
   const [loadingListings, setLoadingListings] = useState(false);
   const [loadingTimer, setLoadingTimer] = useState();
   const [locationChoices, setLocationChoices] = useState([]);
   const [noListingsFound, setNoListingsFound] = useState(false);
-  const [queryURL, setQueryURL] = useState();
   const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState([]);
   const { listingsData, setlistingsData } = useContext(ListingsContext);
   
-  useFetchListings(queryURL, setlistingsData, setNoListingsFound, setQueryURL, setSearch);
-  useSearchHandler(search, searchQuery, agentChoices, setQueryURL, setSearch, locationChoices);
+  const [searchParams] = useSearchParams();
+  
+  // Refetch the current search on page refresh or URL navigation,
+  // but ensure that navigating to /search does not perform a new search query
+  const queryString = searchParams.toString();
+  const queryURL = queryString ? `${listingsURL}?${queryString}` : null;
+
+  useFetchListings(queryURL, setlistingsData, setNoListingsFound);
+  useSearchHandler(search, searchQuery, setSearch, locationChoices);
   useSearchFormData(setAgentChoices, setLocationChoices);
 
   useEffect(() => {

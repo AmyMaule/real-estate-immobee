@@ -1,28 +1,20 @@
 import { useEffect } from "react";
 
-export const useFetchListings = (queryURL, setlistingsData, setNoListingsFound, setQueryURL, setSearch, page = 1) => {
+export const useFetchListings = (queryURL, setlistingsData, setNoListingsFound) => {
   useEffect(() => {
     if (!queryURL || typeof queryURL !== "string") return;
     
-    const queryURLWithPage = `${queryURL}${queryURL.includes("?") ? "&" : "?"}page=${page ?? 1}`;
-    fetch(queryURLWithPage)
+    fetch(queryURL)
       .then(res => res.json())
       .then(data => {
         // listingData also stores information about pagination
         setlistingsData(data);
-        const hiddenListings = JSON.parse(localStorage.getItem("hiddenListings")) || [];
-        // Sorting listings by most recently added means they are effectively sorted by agent, so use a combination of their id and house size to display them in a way that is somewhat randomized but will always return the same results in the same order
-        const sortedListings = data?.items?.length
-          ? data.items.filter(listing => !hiddenListings.includes(listing.id))
-                .sort((a, b) => a.id * (a.building_area_m2 || 1) < b.id * (b.building_area_m2 || 1) ? 1 : -1)
-          : [];
 
+        //// TODO: still expire results?
         // Set lastSearchTime to ensure listings expire after 48 hours
         localStorage.setItem("lastSearchTime", Date.now());
-        setNoListingsFound(!sortedListings?.length);
-        // setQueryURL(null);
-        setSearch(false);
+        setNoListingsFound(!data?.items?.length);
       })
       .catch(console.error);
-  }, [queryURL, setNoListingsFound, setQueryURL, setSearch]);
+  }, [queryURL, setlistingsData, setNoListingsFound]);
 }

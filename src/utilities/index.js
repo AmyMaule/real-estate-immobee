@@ -1,6 +1,4 @@
-import { propertyTypes } from "../data";
-
-export const getSearchQuery = (searchQuery, locationChoices) => {
+export const getSearchQuery = (searchQuery, locationChoices, page = 1) => {
   const params = new URLSearchParams();
 
   if (searchQuery.agents) {
@@ -75,13 +73,17 @@ export const getSearchQuery = (searchQuery, locationChoices) => {
     });
   }
 
+  params.set("page", page);
+
   const finalSearchParams = params.toString();
 
   console.log(finalSearchParams);
 
-  return finalSearchParams ? `?${finalSearchParams}&page_size=100` : "";
+  return finalSearchParams ? `?${finalSearchParams}&page_size=24` : "";
 };
 
 export const scrollTo = (top = 0, behavior = "smooth") => window.scrollTo({ top: top, behavior: behavior });
 
 export const capitalize = str => str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
+
+export const listingUnavailable = listing => !["active", "under_offer"].includes(listing?.availability);

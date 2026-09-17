@@ -1,19 +1,21 @@
 import React from 'react';
 
 const HideListing = ({ isHidden, listing, setIsHidden }) => {
-  const hiddenListings = JSON.parse(localStorage.getItem("hiddenListings")) || [];
+  const hiddenListingIds = JSON.parse(localStorage.getItem("hiddenListingIds")) || [];
 
-  const handleToggleHide = () => {
+  const handleToggleHide = e => {
+    e.preventDefault();
+    e.stopPropagation();
     setIsHidden(prev => !prev);
-    if (hiddenListings?.length) {
+    if (hiddenListingIds?.length) {
       if (isHidden) {
-        const filteredListings = hiddenListings.filter(hiddenListing => hiddenListing !== listing.id);
-        localStorage.setItem("hiddenListings",  JSON.stringify([...filteredListings]));
+        const filteredListings = hiddenListingIds.filter(hiddenListing => hiddenListing !== listing.id);
+        localStorage.setItem("hiddenListingIds",  JSON.stringify([...filteredListings]));
       } else {
-        localStorage.setItem("hiddenListings", JSON.stringify([...hiddenListings, listing.id]));
+        localStorage.setItem("hiddenListingIds", JSON.stringify([...hiddenListingIds, listing.id]));
       }
     } else {
-      localStorage.setItem("hiddenListings", JSON.stringify([listing.id]));
+      localStorage.setItem("hiddenListingIds", JSON.stringify([listing.id]));
     }
   }
 

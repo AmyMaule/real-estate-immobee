@@ -24,7 +24,7 @@ const Home = () => {
         <p className="hero-intro-text">
           ImmoBee is here to <span className="hero-text-highlight">simplify your property search</span> and guide you towards finding the perfect place to call home. With an extensive database comprising more than 20 local agents, ImmoBee is your one-stop destination for hassle-free house hunting in Occitanie.
         </p>
-        <Link className="btn btn-hero" to="/search/1">Search now</Link>
+        <Link className="btn btn-hero" to="/search">Search now</Link>
       </div>
     </div>
   )

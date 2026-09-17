@@ -28,10 +28,10 @@ const HamburgerMenu = () => {
       <i className="fa-solid fa-bars navbar-hamburger" />
       <div className="hamburger-menu-container" ref={hamburgerRef}>
         <div className="hamburger-menu">
-          <Link to="/search/1" className="hamburger-menu-item">
+          <Link to="/search" className="hamburger-menu-item">
             Search
           </Link>
-          <Link to="/saved-listings/1" className="hamburger-menu-item">
+          <Link to="/saved-listings" className="hamburger-menu-item">
             Saved Listings
           </Link>
           <Link to="/contact" className="hamburger-menu-item">

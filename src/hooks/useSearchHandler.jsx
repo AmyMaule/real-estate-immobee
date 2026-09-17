@@ -2,17 +2,17 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { getSearchQuery } from "../utilities";
-import { listingsURL } from "../api";
 
-// Builds the query URL when search changes
-export const useSearchHandler = (search, searchQuery, agentChoices, setQueryURL, setSearch, locationChoices) => {
+// Update the browser URL when search changes
+export const useSearchHandler = (search, searchQuery, setSearch, locationChoices) => {
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!search) return;
-    
-    const searchQueryParams = getSearchQuery(searchQuery, locationChoices);
-    setQueryURL(`${listingsURL}${searchQueryParams}`);
+    const searchQueryParams = getSearchQuery(searchQuery, locationChoices, 1);
+    navigate(`/search${searchQueryParams}`);
     setSearch(false);
-  }, [search, searchQuery, agentChoices, setQueryURL, setSearch]);
+  }, [
+    search, searchQuery, locationChoices, navigate, setSearch
+  ]);
 };

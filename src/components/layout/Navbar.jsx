@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { 
   Link,
   useLocation
@@ -26,7 +26,7 @@ const Navbar = () => {
             </div>
           : <Link
               className={`navbar-link ${currentPage.startsWith("/search") ? "current-page" : ""}`}
-              to="/search/1"
+              to="/search"
             >
               Search
               <i className="fa-solid fa-magnifying-glass" />
@@ -39,7 +39,7 @@ const Navbar = () => {
             </div>
           : <Link
               className={`navbar-link ${currentPage.startsWith("/saved-listings") ? "current-page" : ""}`}
-              to="/saved-listings/1"
+              to="/saved-listings"
             >
               Saved Listings
               <i className="fa-solid fa-house-circle-check" />
