@@ -1,8 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useForm } from "react-hook-form";
 import Multiselect from "react-widgets/Multiselect";
-import { useNavigate } from 'react-router-dom';
-import { useSearchFormData } from '../../hooks/useSearchFormData';
 
 import Dropdown from './Dropdown';
 import Input from './Input';
@@ -28,11 +26,9 @@ const SearchForm = ({
   //// TODO: get dept options from the locations endpoint
   const departmentOptions = ["Aude (11)", "Ariège (09)", "Haute-Garonne (31)", "Hérault (34)", "Pyrenées-Orientales (66)"];
   const searchFormRef = useRef();
-  const navigate = useNavigate();
 
   const onSubmit = submitData => {
     localStorage.removeItem("sortingBy"); // sortingDropdown seems to be accessing this before it is removed
-    navigate("/search/1");
     if (search) return;
     setLoadingListings(true);
     setLoadingTimer(Date.now())

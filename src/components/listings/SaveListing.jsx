@@ -1,21 +1,24 @@
 import React from "react";
 
 const SaveListing = ({ isSaved, listing, setIsSaved }) => {
-  const handleToggleLike = () => {
+  const handleToggleLike = e => {
+    e.preventDefault();
+    e.stopPropagation();
     setIsSaved(prevSaved => !prevSaved);
-    const savedListings = JSON.parse(localStorage.getItem("savedListings"));
-    
-    if (savedListings?.length) {
+    const savedListingIds = JSON.parse(localStorage.getItem("savedListingIds"));
+
+    if (savedListingIds?.length) {
       if (isSaved) {
-        const filteredListings = savedListings.filter(savedListing => savedListing.url !== listing.url);
-        localStorage.setItem("savedListings",  JSON.stringify([...filteredListings]));
+        const filteredListingIds = savedListingIds.filter(id => id !== listing.id);
+        localStorage.setItem("savedListingIds",  JSON.stringify([...filteredListingIds]));
       } else {
-        localStorage.setItem("savedListings", JSON.stringify([...savedListings, listing]));
+        localStorage.setItem("savedListingIds", JSON.stringify([...savedListingIds, listing.id]));
       }
     } else {
-      localStorage.setItem("savedListings", JSON.stringify([listing]));
+      localStorage.setItem("savedListingIds", JSON.stringify([listing.id]));
     }
   }
+
 
   return (
     <div className="listing-interactive-icon-container listing-save-container" onClick={handleToggleLike} >

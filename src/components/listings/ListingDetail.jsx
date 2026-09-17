@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { listingsURL } from '../../api';
-import { capitalize, scrollTo } from '../../utilities';
+import { capitalize, scrollTo, listingUnavailable } from '../../utilities';
 
 import FullScreenIcon from './FullScreenIcon';
 import ImageControlSlider from './ImageControlSlider';
@@ -12,17 +12,18 @@ const ListingDetail = () => {
   const location = useLocation();
   const listingID = location.pathname.slice(10);
   const [listing, setListing] = useState();
-
-  const [isSaved, setIsSaved] = useState(
-    JSON.parse(localStorage.getItem("savedListings"))?.some(savedListing => savedListing?.url === listing?.url) || null
-  );
-  const [showRemovedListingBanner, setShowRemovedListingBanner] = useState(listing?.availability !== "active" || false);
+  const [isSaved, setIsSaved] = useState();
+  const [showRemovedListingBanner, setShowRemovedListingBanner] = useState(false);
 
   useEffect(() => {
     if (!listing) {
       fetch(`${listingsURL}/${listingID}`)
       .then(res => res.json())
-      .then(data => setListing(data || null))
+      .then(data => {
+        setListing(data || null);
+        setIsSaved(JSON.parse(localStorage.getItem("savedListingIds"))?.some(id => id === data.id));
+        setShowRemovedListingBanner(listingUnavailable(data));
+      })
       .catch(err => console.log(err));
     }
   }, [listing, listingID]);
@@ -31,7 +32,7 @@ const ListingDetail = () => {
     scrollTo(0, "auto");
   }, []);
 
-  // If there is no listing associated with the listingID, navigate to error page
+  // If there is no listing associated with the id, navigate to error page
   if (listing === null) {
     return <Navigate replace to="/error" />
   }
@@ -45,8 +46,8 @@ const ListingDetail = () => {
       <div className="listing-detail-banner-container">
           <div className="listing-detail-banner">
             <div className="listing-detail-banner-content">
-              NOTE: This listing has been removed and as a result, has been archived in your browser.
-              {"\n"}You can continue to view this page but cannot send a link to others or view it on another device.
+              NOTE: This listing has been removed and as a result, has been archived.
+              {"\n"}You can continue to view this page for a short time until it is removed.
             </div>
             <button className="btn-x" onClick={() => setShowRemovedListingBanner(false)}>
               <i className="fa-solid fa-xmark banner-x-icon" />
