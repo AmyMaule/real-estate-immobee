@@ -26,6 +26,7 @@ const Navbar = () => {
             </div>
           : <Link
               className={`navbar-link ${currentPage.startsWith("/search") ? "current-page" : ""}`}
+              onClick={scrollTo}
               to="/search"
             >
               Search
@@ -39,6 +40,7 @@ const Navbar = () => {
             </div>
           : <Link
               className={`navbar-link ${currentPage.startsWith("/saved-listings") ? "current-page" : ""}`}
+              onClick={scrollTo}
               to="/saved-listings"
             >
               Saved Listings
