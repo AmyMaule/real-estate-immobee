@@ -1,24 +1,22 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactPaginate from 'react-paginate';
 import { 
   Link,
   Navigate,
   useLocation,
+  useNavigationType,
   useSearchParams,
 } from 'react-router-dom';
 
 import { scrollTo } from '../../utilities';
-
 import Listing from './Listing';
 import SortingDropdown from './SortingDropdown';
 
 const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noListingsFound, setLoadingListings }) => {
-  // refHasValue stores whether searchResultsRef.current has a value so the scroll position can be restored
-  const [refHasValue, setRefrefHasValue] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const searchResultsRef = useRef();
-  const noListingsRef = useRef();
   const location = useLocation();
+  const navigationType = useNavigationType();
   const isSavedListingsPage = location.pathname.startsWith("/saved-listings");
   const currentOffset = (listingsData?.page - 1) * listingsData?.page_size;
 
@@ -45,69 +43,33 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
         let timeElapsed = Date.now() - loadingTimer;
         setTimeout(() => {
           setLoadingListings(false);
-          if (searchResultsRef.current) {
-            scrollTo(searchResultsRef.current.offsetTop  - 63);
-          } else if (noListingsRef.current) {
-            scrollTo(noListingsRef.current.offsetTop  - 63);
-          }
         }, 3600 - timeElapsed);
       }
     }
   }, [isSavedListingsPage, listingsData, loadingListings, loadingTimer, noListingsFound, setLoadingListings]);
 
   useEffect(() => {
-    if (noListingsFound && noListingsRef.current) {
-      setTimeout(() => {
-        scrollTo(noListingsRef.current.offsetTop - 63);
-      }, 0);
+    // Restore scroll position if returning to search results after viewing listing detail
+    if (navigationType === "POP" && window.history.state?.scrollPosition !== undefined) {
+      scrollTo(window.history.state.scrollPosition, "auto");
+      return;
     }
-  }, [noListingsFound]);
-
-  // when the user clicks on a listing and returns to search results, return to their original scrolling position
-  const returnToScrollPosition = () => {
-    // retrieve scroll position when the user clicked on the listing from local storage
-    const prevScrollPosition = Number(localStorage.getItem("scrollPosition")) || 0;
-    scrollTo(prevScrollPosition, "auto");
-  };
-
-  // Callback ref to set refHasValue to the DOM node in the search results container as long as it has a value
-  const refCallback = useCallback((node) => {
-    if (node !== null) {
-      setRefrefHasValue(node);
+    
+    // Scroll to top of listings container after the initial search or when pagination has loaded the new page
+    if (!loadingListings && listingsData?.items?.length && location.search) {
+      scrollTo(searchResultsRef.current?.offsetTop - 63);
     }
-  }, []);
-
-  useEffect(() => {
-    // If the user hits the back button on the listing detail page, return them to their previous scroll position
-    if (searchResultsRef.current && refHasValue && listingsData?.items?.length) {
-      if (window.history.state?.prevPage) {
-        if (window.history.state.prevPage === "listing") {
-          window.history.pushState({ prevPage: "" }, "");
-          returnToScrollPosition();
-        }
-      } else {
-        // When the page changes, scroll smoothly to the top of the new page of listings
-        if (!loadingListings) {
-          setTimeout(() => {
-            window.scrollTo({
-              top: isSavedListingsPage ? 0 : searchResultsRef.current?.offsetTop - 63 || noListingsRef?.current?.offsetTop  - 63 || 0,
-              behavior: "smooth",
-            });
-          }, 0);
-        }
-      }
-    }
-  }, [listingsData?.page, isSavedListingsPage, listingsData, loadingListings, refHasValue]);
+  }, [loadingListings, listingsData?.page, location.search, navigationType]);
 
   if (noListingsFound) {
     return (
-      <div className="no-listings-container" ref={noListingsRef}>
+      <div className="no-listings-container">
         {location.pathname === "/search" ? (
             <>
               <div className="no-listings-found">
                 No properties found matching your search criteria.
               </div>
-              <button className="no-listings-link" onClick={() => scrollTo(0)}>Back to top</button>
+              <button className="no-listings-link" onClick={scrollTo}>Back to top</button>
             </>
           ) : (
             <>
@@ -122,18 +84,18 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
     )
   }
 
-  if (!isSavedListingsPage && !listingsData?.items?.length) {
-    return null;
-  }
-
   // If the current page is too high for the number of listings
   if (listingsData?.items?.length && (listingsData?.page > Math.ceil(listingsData.total / listingsData.page_size))) {
     return <Navigate replace to="/error" />
   }
 
+  // If search results haven't returned yet
+  if (!isSavedListingsPage && !listingsData?.items?.length) {
+    return null;
+  }
+
   return (   
     <div className="search-results-container" ref={searchResultsRef}>
-      <div ref={refCallback} />
       <div className="listings-title-container">
       {listingsData?.items?.length && (
           <>

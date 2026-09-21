@@ -93,6 +93,12 @@ const ListingWrapper = ({ children, isHidden, listing, setIsHidden, setViewRemov
         ${isRemoved ? "listing-container-hidden" : ""}
         ${viewRemovedListing ? "show-removed-listing-container" : ""}
       `}
+      onClick={() => {
+        window.history.replaceState(
+          { ...window.history.state, scrollPosition: window.scrollY },
+          ""
+        );
+      }}
       to={`/listings/${listing.id}`}
     >
       {viewRemovedListing && (

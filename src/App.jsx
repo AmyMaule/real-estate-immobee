@@ -11,6 +11,14 @@ import ListingsContainer from "./components/listings/ListingsContainer";
 import LoadingAnimation from "./components/pages/LoadingAnimation";
 import SearchForm from "./components/searchForm/SearchForm";
 
+//// TODO: persist search form with current search values after submission
+//// TODO: update the sort by dropdown
+//// TODO: sort out the pagination for saved listings
+//// TODO: Load first image of each listing first, and the rest after
+//// TODO: Update the search query to provide hidden listings
+//// TODO: Make hidden listings page
+//// TODO: figure out saved and hidden listings pagination
+
 const App = () => {
   const [agentChoices, setAgentChoices] = useState({});
   const [loadingListings, setLoadingListings] = useState(false);
@@ -22,7 +30,7 @@ const App = () => {
   const { listingsData, setlistingsData } = useContext(ListingsContext);
   
   const [searchParams] = useSearchParams();
-  
+
   // Refetch the current search on page refresh or URL navigation,
   // but ensure that navigating to /search does not perform a new search query
   const queryString = searchParams.toString();
