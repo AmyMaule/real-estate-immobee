@@ -56,14 +56,14 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
     }
     
     // Scroll to top of listings container after the initial search or when pagination has loaded the new page
-    if (!loadingListings && listingsData?.items?.length && location.search) {
+    if (!loadingListings && (listingsData?.items?.length || noListingsFound) && location.search) {
       scrollTo(searchResultsRef.current?.offsetTop - 63);
     }
-  }, [loadingListings, listingsData?.page, location.search, navigationType]);
+  }, [loadingListings, listingsData?.page, location.search, navigationType, noListingsFound]);
 
   if (noListingsFound) {
     return (
-      <div className="no-listings-container">
+      <div className="no-listings-container" ref={searchResultsRef}>
         {location.pathname === "/search" ? (
             <>
               <div className="no-listings-found">
