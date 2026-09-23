@@ -68,6 +68,12 @@ export const getSearchQuery = (searchQuery, locationChoices, page = 1) => {
     params.set("keyword", keywordList.join(","));
   }
 
+  // If a user has hidden listings, ensure these are not returned in the paginated search results
+  const hiddenListingIds = JSON.parse(localStorage.getItem("hiddenListingIds")) || [];
+  if (hiddenListingIds.length) {
+    params.set("exclude_listing_id", hiddenListingIds.join(","));
+  }
+  
   params.set("page", page);
 
   const finalSearchParams = params.toString();
