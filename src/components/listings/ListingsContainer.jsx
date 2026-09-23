@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import ReactPaginate from 'react-paginate';
 import { 
   Link,
@@ -11,6 +11,7 @@ import {
 import { scrollTo } from '../../utilities';
 import Listing from './Listing';
 import SortingDropdown from './SortingDropdown';
+import ListingSkeleton from './ListingSkeleton';
 
 const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noListingsFound, setLoadingListings }) => {
   const [, setSearchParams] = useSearchParams();
@@ -34,6 +35,12 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
     return listingsData?.items?.map(listing => {
       return <Listing listing={listing} key={listing.id} />
     });
+  };
+
+  const renderSkeletons = () => {
+    return Array.from({ length: listingsData?.page_size || 24 }).map((_, index) => (
+      <ListingSkeleton key={index} />
+    ));
   };
 
   // ensure animation plays fully before showing listings
@@ -89,30 +96,30 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
     return <Navigate replace to="/error" />
   }
 
-  // If search results haven't returned yet
-  if (!isSavedListingsPage && !listingsData?.items?.length) {
-    return null;
-  }
-
   return (   
     <div className="search-results-container" ref={searchResultsRef}>
       <div className="listings-title-container">
-      {listingsData?.items?.length && (
-          <>
-            {renderListings().length > 0 &&
-              <h3 className="listings-title">
+        <h3 className="listings-title">
+          {listingsData?.page 
+            ? (
+              <>
                 Page {listingsData?.page || 1}{"\n"}
-                Showing results {currentOffset + 1} - {currentOffset + renderListings().length} of {listingsData?.total}
-              </h3>
-            }
-            <SortingDropdown />
-          </>
-        )}
+                Showing results {currentOffset + 1} - {currentOffset + (listingsData?.page_size || 24)} of {listingsData?.total}
+              </>
+            )
+            : <>Loading results</>
+          }
+        </h3>
+        {listingsData?.items?.length > 0 && <SortingDropdown />}
       </div>
 
       <div className="listings-container">
-        {renderListings()}
+        {listingsData?.items?.length
+          ? renderListings()
+          : renderSkeletons()
+        }
       </div>
+
       <div className="pagination-container">
         {listingsData?.items?.length &&
           <ReactPaginate

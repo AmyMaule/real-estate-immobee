@@ -103,6 +103,7 @@ const ImageControlSlider = ({ isDetailedListing, isModal, listingPhotos }) => {
             className={`${isDetailedListing ? "listing-detail-image" : "listing-image"}`}
             data-slide={i}
             key={i}
+            loading={i === 0 ? "eager" : "lazy"}
             ref={listingImgRef}
             src={`${mediaURL}${photo.url}`}            
           />

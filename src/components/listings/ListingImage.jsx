@@ -16,6 +16,7 @@ const ListingImage = ({ listing }) => {
                       alt="listing images"
                       className="listing-image"
                       src={`${mediaURL}${listing.hosted_images[0].url}`}
+                      loading="eager"
                     />
                     <div className="listing-solo-image-bee-container">
                       <img src="/bee-4.png" className="listing-image-current" alt="" />

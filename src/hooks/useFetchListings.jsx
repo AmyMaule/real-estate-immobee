@@ -4,6 +4,10 @@ export const useFetchListings = (queryURL, setlistingsData, setNoListingsFound) 
   useEffect(() => {
     if (!queryURL || typeof queryURL !== "string") return;
     
+    // Clear the previous results when a new request starts
+    setlistingsData(null);
+    setNoListingsFound(false);
+    
     fetch(queryURL)
       .then(res => res.json())
       .then(data => {
