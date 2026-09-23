@@ -3506,3 +3506,14 @@
     -webkit-transform: rotate(360deg) translate(6.2rem) rotate(92deg);
   }
 }
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
