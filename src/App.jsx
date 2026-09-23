@@ -15,7 +15,6 @@ import SearchForm from "./components/searchForm/SearchForm";
 //// TODO: update the sort by dropdown
 //// TODO: sort out the pagination for saved listings
 //// TODO: Load first image of each listing first, and the rest after
-//// TODO: Update the search query to provide hidden listings
 //// TODO: Make hidden listings page
 //// TODO: figure out saved and hidden listings pagination
 
