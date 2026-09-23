@@ -2,37 +2,35 @@ export const getSearchQuery = (searchQuery, locationChoices, page = 1) => {
   const params = new URLSearchParams();
 
   if (searchQuery.agents) {
-    searchQuery.agents.forEach(agent => {
-      params.append("agency", agent);
-    });
+    params.set("agency", searchQuery.agents.join(","));
   }
 
   // Only search by department if area has no value
   if (searchQuery.department && !searchQuery.area) {
-    searchQuery.department.forEach(dept => {
-      const departmentCode = dept.split("(")[1].split(")")[0];
-      params.append("department", departmentCode);
-    });
+    const departmentCodes = searchQuery.department.map(dept => dept.split("(")[1].split(")")[0]);
+    params.set("department", departmentCodes.join(","));
   }
 
   if (searchQuery.area) {
-    searchQuery.area.forEach(area => {
-      const location = locationChoices.find(
+    const townCodes = searchQuery.area.map(area => {
+      return locationChoices.find(
         location => `${location.commune} (${location.postcode})` === area
-      );
-
-      if (location) {
-        params.append("town_code", location.code);
-      }
+      )?.code;
     });
+    const validTownCodes = townCodes.filter(Boolean);
+    params.set("town_code", validTownCodes.join(","));
 
+    if (townCodes.length) {
+      params.set("town_code", townCodes.join(","));
+    }
     params.set("radius_km", searchQuery.search_radius || "1");
   }
 
   if (searchQuery.property_type) {
-    for (let propertyType of searchQuery.property_type) {
-      params.append("property_type", propertyType.toLowerCase());
-    }
+    const propertyTypes = searchQuery.property_type.map(propertyType => {
+      return propertyType.toLowerCase();
+    });
+    params.set("property_type", propertyTypes.join(","));
   }
 
   const numberInputs = [
@@ -67,10 +65,7 @@ export const getSearchQuery = (searchQuery, locationChoices, page = 1) => {
 
   if (searchQuery.keywords) {
     const keywordList = searchQuery.keywords.split(/[ ,]+/);
-
-    keywordList.forEach(keyword => {
-      params.append("keyword", keyword);
-    });
+    params.set("keyword", keywordList.join(","));
   }
 
   params.set("page", page);
