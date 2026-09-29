@@ -110,7 +110,7 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
             : <>Loading results</>
           }
         </h3>
-        {listingsData?.items?.length > 0 && <SortingDropdown />}
+        <SortingDropdown />
       </div>
 
       <div className="listings-container">
