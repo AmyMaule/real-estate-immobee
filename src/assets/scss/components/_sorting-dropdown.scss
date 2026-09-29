@@ -4,9 +4,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 12rem;
+  min-width: 14rem;
   border-top: 3px solid $color-primary;
-  padding: 0.4rem 0;
+  padding: 0.4rem;
   margin-left: auto;
   cursor: pointer;
   z-index: 200;
@@ -14,6 +14,14 @@
 
   &:hover {
     border-color: $color-secondary;
+  }
+
+  &.open {
+    border-top: 3px solid $color-secondary;
+
+    .sorting-dropdown {
+      transform: rotateX(0deg);
+    }
   }
 }
 
@@ -44,14 +52,6 @@
     background-color: $color-primary;
     transition: $med-transition;
     -webkit-transition: $med-transition;
-  }
-}
-
-.sorting-dropdown-container.open {
-  border-top: 3px solid $color-secondary;
-
-  .sorting-dropdown {
-    transform: rotateX(0deg);
   }
 }
 
