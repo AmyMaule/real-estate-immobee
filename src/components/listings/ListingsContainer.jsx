@@ -68,6 +68,10 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
     }
   }, [loadingListings, listingsData?.page, location.search, navigationType, noListingsFound]);
 
+  if (!location.search) {
+    return null;
+  }
+
   if (noListingsFound) {
     return (
       <div className="no-listings-container" ref={searchResultsRef}>
