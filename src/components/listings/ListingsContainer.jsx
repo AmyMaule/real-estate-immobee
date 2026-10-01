@@ -18,7 +18,7 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
   const searchResultsRef = useRef();
   const location = useLocation();
   const navigationType = useNavigationType();
-  const isSavedListingsPage = location.pathname.startsWith("/saved-listings");
+  const isSearchedListingsPage = location.pathname.startsWith("/search");
   const currentOffset = (listingsData?.page - 1) * listingsData?.page_size;
 
   const handlePageChange = (e) => {
@@ -46,14 +46,14 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
   // ensure animation plays fully before showing listings
   useEffect(() => {
     if (listingsData?.items?.length || noListingsFound) {
-      if (loadingListings && !isSavedListingsPage) {
+      if (loadingListings && isSearchedListingsPage) {
         let timeElapsed = Date.now() - loadingTimer;
         setTimeout(() => {
           setLoadingListings(false);
         }, 3600 - timeElapsed);
       }
     }
-  }, [isSavedListingsPage, listingsData, loadingListings, loadingTimer, noListingsFound, setLoadingListings]);
+  }, [isSearchedListingsPage, listingsData, loadingListings, loadingTimer, noListingsFound, setLoadingListings]);
 
   useEffect(() => {
     // Restore scroll position if returning to search results after viewing listing detail
@@ -68,7 +68,7 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
     }
   }, [loadingListings, listingsData?.page, location.search, navigationType, noListingsFound]);
 
-  if (!location.search) {
+  if (isSearchedListingsPage && !location.search) {
     return null;
   }
 

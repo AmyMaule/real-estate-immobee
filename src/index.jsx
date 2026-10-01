@@ -15,7 +15,8 @@ import Footer from './components/layout/Footer';
 import Home from './components/pages/Home';
 import ListingDetail from './components/listings/ListingDetail';
 import Navbar from './components/layout/Navbar';
-import SavedListings from './components/listings/SavedListings';
+import SavedListings from './components/pages/SavedListings';
+import HiddenListings from './components/pages/HiddenListings';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -40,6 +41,7 @@ root.render(
         <Route path="/" element={<Home />}/>
         <Route path="/search" element={<App />} />
         <Route path="/saved-listings" element={<SavedListings />} />
+        <Route path="/hidden-listings" element={<HiddenListings />} />
         <Route path="/listings/:id" element={<ListingDetail />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/error" element={<ErrorPage />} />

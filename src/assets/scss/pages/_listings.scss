@@ -1,14 +1,14 @@
 .search-results-container {
   position: relative;
   background-color: rgb(248, 250, 225);
-  max-width: 120rem;
-  padding: 1.5rem;
-  margin: 0 1.5rem 8rem 1.5rem;
-  margin: 0 auto;
-  padding: 2rem;
   background: url("../../../small-hexagons.jpg");
   background-size: cover;
+  max-width: 120rem;
+  // 7rem is the height of navbar + footer
+  min-height: calc(100dvh - 7rem);
   box-shadow: rgb(56, 55, 39) 0px 1px 3px inset;
+  margin: 0 auto;
+  padding: 2rem;
 
   &::before {
     content: "";

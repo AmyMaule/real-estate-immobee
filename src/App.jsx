@@ -12,7 +12,6 @@ import LoadingAnimation from "./components/pages/LoadingAnimation";
 import SearchForm from "./components/searchForm/SearchForm";
 
 //// TODO: persist search form with current search values after submission
-//// TODO: Make hidden listings page
 //// TODO: figure out saved and hidden listings pagination
 
 const App = () => {

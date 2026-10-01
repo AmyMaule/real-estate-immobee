@@ -1,17 +1,10 @@
 import React from 'react';
-import { 
-  Link,
-  useLocation
-} from 'react-router-dom';
-
-import { scrollTo } from '../../utilities';
+import { Link } from 'react-router-dom';
 
 import HamburgerMenu from './HamburgerMenu';
+import NavbarLink from './NavbarLink';
 
 const Navbar = () => {
-  const location = useLocation();
-  const currentPage = location.pathname;
-
   return (
     <>
       <nav className="navbar">
@@ -19,34 +12,21 @@ const Navbar = () => {
           <img src="/logo.png" className="navbar-logo-img" alt="logo" />
           <div className="navbar-logo-text">ImmoBee</div>
         </Link>
-        {currentPage.startsWith("/search")
-          ? <div className={`navbar-link ${currentPage.startsWith("/search") ? "current-page" : ""}`} onClick={scrollTo}>
-              Search
-              <i className="fa-solid fa-magnifying-glass" />
-            </div>
-          : <Link
-              className={`navbar-link ${currentPage.startsWith("/search") ? "current-page" : ""}`}
-              onClick={scrollTo}
-              to="/search"
-            >
-              Search
-              <i className="fa-solid fa-magnifying-glass" />
-            </Link>
-        }
-        {currentPage.startsWith("/saved-listings")
-          ? <div className={`navbar-link ${currentPage.startsWith("/saved-listings") ? "current-page" : ""}`} onClick={scrollTo}>
-              Saved Listings
-              <i className="fa-solid fa-house-circle-check" />
-            </div>
-          : <Link
-              className={`navbar-link ${currentPage.startsWith("/saved-listings") ? "current-page" : ""}`}
-              onClick={scrollTo}
-              to="/saved-listings"
-            >
-              Saved Listings
-              <i className="fa-solid fa-house-circle-check" />
-            </Link>
-        }
+        <NavbarLink
+          path="/search"
+          label="Search"
+          icon="fa-magnifying-glass"
+        />
+        <NavbarLink
+          path="/saved-listings"
+          label="Saved Listings"
+          icon="fa-house-circle-check"
+        />
+        <NavbarLink
+          path="/hidden-listings"
+          label="Hidden Listings"
+          icon="fa-eye-slash"
+        />
         <HamburgerMenu />
       </nav>
       <div className="navbar-height" />
