@@ -1,12 +1,12 @@
 import React from 'react';
 
 const HideListing = ({ isHidden, listing, setIsHidden }) => {
-  const hiddenListingIds = JSON.parse(localStorage.getItem("hiddenListingIds")) || [];
-
   const handleToggleHide = e => {
     e.preventDefault();
     e.stopPropagation();
     setIsHidden(prev => !prev);
+
+    const hiddenListingIds = JSON.parse(localStorage.getItem("hiddenListingIds")) || [];
     if (hiddenListingIds?.length) {
       if (isHidden) {
         const filteredListings = hiddenListingIds.filter(hiddenListing => hiddenListing !== listing.id);
