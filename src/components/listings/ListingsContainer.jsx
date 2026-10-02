@@ -73,24 +73,26 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
   }
 
   if (noListingsFound) {
+    const isSearchPage = location.pathname === "/search";
+    const action = location.pathname.startsWith("/saved") ? "saved" : "hidden";
+
     return (
       <div className="no-listings-container" ref={searchResultsRef}>
-        {location.pathname === "/search" ? (
-            <>
-              <div className="no-listings-found">
-                No properties found matching your search criteria.
-              </div>
-              <button className="no-listings-link" onClick={scrollTo}>Back to top</button>
-            </>
-          ) : (
-            <>
-              <div className="no-listings-found">
-                You haven't saved any listings yet.
-              </div>
-              <Link to="/search" className="no-listings-link">Search properties</Link>
-            </>
-          )
-        }
+        <div className="no-listings-found">
+          {isSearchPage
+            ? "No properties found matching your search criteria."
+            : `You haven't ${action} any listings.`}
+        </div>
+
+        {isSearchPage ? (
+          <button className="no-listings-link" onClick={scrollTo}>
+            Back to top
+          </button>
+        ) : (
+          <Link to="/search" className="no-listings-link">
+            Search properties
+          </Link>
+        )}
       </div>
     )
   }
