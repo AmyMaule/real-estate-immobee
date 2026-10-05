@@ -4,7 +4,11 @@ import ListingImage from './ListingImage';
 import SaveListing from './SaveListing';
 import HideListing from './HideListing';
 import ListingWrapper from './ListingWrapper';
-import { capitalize, listingUnavailable } from '../../utilities';
+import { 
+  capitalize, 
+  listingUnavailable, 
+  pluralize 
+} from '../../utilities';
 
 const Listing = ({ listing }) => {
   const hiddenListingIds = JSON.parse(localStorage.getItem("hiddenListingIds")) || [];
@@ -46,26 +50,22 @@ const Listing = ({ listing }) => {
           {listing.price && <h5 className="listing-price">€{listing.price.toLocaleString()}</h5>}
         </div>
 
-        {(listing.bedrooms || listing.rooms) && (
-          <div className="listing-row">
-            {listing.bedrooms &&
-              listing.property_type !== "Terrain" && (
+        {(listing.bedrooms > 0 || listing.rooms > 0) &&
+          listing.property_type !== "Terrain" && (
+            <div className="listing-row">
+              {listing.bedrooms > 0 && (
                 <h5 className="listing-bedrooms">
-                  {listing.bedrooms === 1
-                    ? `${listing.bedrooms} bed`
-                    : `${listing.bedrooms} beds`}
-                  {listing.rooms && <span className="divider">|</span>}
+                  {pluralize(listing.bedrooms, "bed")}
+                  {listing.rooms > 0 && <span className="divider">|</span>}
                 </h5>
               )}
-            {listing.rooms && listing.property_type !== "Terrain" && (
+              {listing.rooms > 0 && (
                 <h5 className="listing-rooms">
-                  {listing.rooms === 1
-                    ? `${listing.rooms} room`
-                    : `${listing.rooms} rooms`}
+                  {pluralize(listing.rooms, "room")}
                 </h5>
               )}
-          </div>
-        )}
+            </div>
+          )}
 
         {(checkUnlisted(listing.building_area_m2) || checkUnlisted(listing.land_area_m2)) && (
           <div className="listing-row listing-icons-container">

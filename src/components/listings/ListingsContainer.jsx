@@ -110,7 +110,7 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
             ? (
               <>
                 Page {listingsData?.page || 1}{"\n"}
-                Showing results {currentOffset + 1} - {currentOffset + (listingsData?.page_size || 24)} of {listingsData?.total}
+                Showing results {currentOffset + 1} - {currentOffset + (listingsData?.items?.length || 24)} of {listingsData?.total}
               </>
             )
             : <>Loading results</>

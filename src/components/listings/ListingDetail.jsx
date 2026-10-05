@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { listingsURL } from '../../api';
-import { capitalize, scrollTo, listingUnavailable } from '../../utilities';
+import { 
+  capitalize, 
+  scrollTo, 
+  listingUnavailable, 
+  pluralize 
+} from '../../utilities';
 
 import FullScreenIcon from './FullScreenIcon';
 import ImageControlSlider from './ImageControlSlider';
@@ -81,13 +86,13 @@ const ListingDetail = () => {
         </h5>
         {listing.price && <h5 className="listing-detail-price">€{listing.price.toLocaleString()}</h5>}
         </div>
-        {(listing.bedrooms || listing.rooms) && 
+        {(listing.bedrooms > 0 || listing.rooms > 0) && (
           <h5 className="listing-detail-rooms">
-            {listing.bedrooms && <>{listing.bedrooms} bedrooms</>}
-            {listing.bedrooms && listing.rooms && ", "}
-            {listing.rooms && <>{listing.rooms} rooms</>}
+            {listing.bedrooms > 0 && pluralize(listing.bedrooms, "bedroom")}
+            {listing.bedrooms > 0 && listing.rooms > 0 && ", "}
+            {listing.rooms > 0 && pluralize(listing.rooms, "room")}
           </h5>
-        }
+        )}
         {(listing.building_area_m2 || listing.land_area_m2) && 
           <h5 className="listing-detail-rooms">
             {listing.building_area_m2 && <>{listing.building_area_m2.toLocaleString()} m{String.fromCharCode(178)} property</>}

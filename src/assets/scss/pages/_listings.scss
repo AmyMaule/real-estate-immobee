@@ -595,6 +595,7 @@
   align-items: center;
   justify-content: center;
   top: 10%;
+  max-height: calc(100vh - 4rem);
 
   img {
     width: 90%;

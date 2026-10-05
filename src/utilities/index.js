@@ -88,3 +88,6 @@ export const scrollTo = (top = 0, behavior = "smooth") => window.scrollTo({ top:
 export const capitalize = str => str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
 
 export const listingUnavailable = listing => !["active", "under_offer"].includes(listing?.availability);
+
+// Show the correct version of plural nouns (e.g. 1 bedroom, 2 bedrooms)
+export const pluralize = (count, singular) => `${count} ${singular}${count === 1 ? "" : "s"}`;
