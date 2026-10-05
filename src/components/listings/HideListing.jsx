@@ -1,6 +1,10 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 const HideListing = ({ isHidden, listing, setIsHidden }) => {
+  const location = useLocation();
+  const isHiddenListingsPage = location.pathname === "/hidden-listings";
+
   const handleToggleHide = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -21,8 +25,12 @@ const HideListing = ({ isHidden, listing, setIsHidden }) => {
 
   return (
     <div className="listing-interactive-icon-container listing-hide-container" onClick={handleToggleHide}>
-      <i className="fa-regular fa-eye-slash eye-icon" />
-      <span className="tooltip-text">Hide this listing so you won't see it in future searches</span>
+      <i className={`fa-regular fa-solid ${isHiddenListingsPage ? "fa-rotate-left" : "fa-eye-slash"} eye-icon`} />
+      <span className="tooltip-text">
+        {isHiddenListingsPage
+          ? "Unhide this listing"
+          : "Hide this listing so you won't see it in future searches"}
+      </span>
     </div>
   )
 }
