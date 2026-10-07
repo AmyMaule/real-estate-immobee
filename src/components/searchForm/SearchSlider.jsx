@@ -2,7 +2,7 @@ import React from 'react';
 
 import SearchSliderOption from './SearchSliderOption';
 
-const SearchSlider = ({ register }) => {
+const SearchSlider = ({ register, value }) => {
   const options = [
     { radius: "0", value: "1" },
     { radius: "5" },
@@ -19,7 +19,7 @@ const SearchSlider = ({ register }) => {
           {options.map((option, i) => (
             <SearchSliderOption
               key={option.radius}
-              defaultChecked={i === 0}
+              defaultChecked={value === (option.value ?? option.radius)}
               id={i}
               radius={option.radius}
               register={register}

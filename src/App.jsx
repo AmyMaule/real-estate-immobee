@@ -13,6 +13,8 @@ import SearchForm from "./components/searchForm/SearchForm";
 
 //// TODO: persist search form with current search values after submission
 //// TODO: Add price history to listing detail page
+//// TODO: get departmentOptions from the locations endpoint
+//// BUG when doing the same search twice
 
 const App = () => {
   const [agentChoices, setAgentChoices] = useState({});

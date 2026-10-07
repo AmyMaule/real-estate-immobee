@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-const Dropdown = ({ locked, options, setValue, showSelectedNames, title }) => {
+const Dropdown = ({ locked, options, setValue, value, showSelectedNames, title }) => {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState(value || []);
   const inputName = title.toLowerCase().replaceAll(" ", "_");
 
   const handleSelect = e => {
@@ -36,6 +36,10 @@ const Dropdown = ({ locked, options, setValue, showSelectedNames, title }) => {
     }
   }, [title]);
   
+  useEffect(() => {
+    setSelected(value || []);
+  }, [value]);
+
   useEffect(() => {
     window.addEventListener("click", handleCloseDropdown);
     return () => window.removeEventListener("click", handleCloseDropdown)
