@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Input = ({ className, maxLength, name, number, placeholder, register, setValue }) => {
+const Input = ({ className, maxLength, name, number, placeholder, register, setValue, value }) => {
   const [inputValue, setInputValue] = useState("");
 
   // ensure only numbers can be typed in number inputs
@@ -14,6 +14,10 @@ const Input = ({ className, maxLength, name, number, placeholder, register, setV
     setValue(name, newValue);
     setInputValue(newValue);
   }
+
+  useEffect(() => {
+    setInputValue(value || "");
+  }, [value]);
 
   return (
     <input

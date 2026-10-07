@@ -63,8 +63,8 @@ export const getSearchQuery = (searchQuery, locationChoices) => {
   ];
 
   booleanParams.forEach(param => {
-    if (searchQuery[param] === false) {
-      params.set(param, "false");
+    if (searchQuery[param] !== undefined) {
+      params.set(param, searchQuery[param].toString());
     }
   });
 

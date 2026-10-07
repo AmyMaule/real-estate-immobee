@@ -2,7 +2,7 @@ import React from 'react';
 
 import CheckboxOption from './CheckboxOption';
 
-const SearchUnknown = ({ register, setValue, watch }) => {
+const SearchUnknown = ({ register, searchParams, setValue, watch }) => {
   const checkboxOptions = [
     { label: "Number of bedrooms", name: "include_unknown_bedrooms", relatedFields: ["min_bedrooms", "max_bedrooms"] },
     { label: "Property size", name: "include_unknown_building_area", relatedFields: ["min_building_area_m2", "max_building_area_m2"] },
@@ -23,6 +23,7 @@ const SearchUnknown = ({ register, setValue, watch }) => {
             option={option}
             register={register}
             setValue={setValue}
+            urlValue={searchParams.get(option.name)}
             watch={watch}
           />
         ))}

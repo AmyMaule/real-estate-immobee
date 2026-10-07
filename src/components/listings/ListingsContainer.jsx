@@ -73,7 +73,7 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
   }
 
   // If the current page is too high for the number of listings
-  if (listingsData?.page > Math.ceil(listingsData.total / listingsData.page_size)) {
+  if (listingsData?.total > 0 && listingsData?.page > Math.ceil(listingsData?.total / listingsData?.page_size)) {
     return <Navigate replace to="/error" />
   }
 

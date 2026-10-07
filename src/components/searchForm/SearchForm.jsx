@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Multiselect from "react-widgets/Multiselect";
-
 import Dropdown from './Dropdown';
 import Input from './Input';
 import SearchSlider from './SearchSlider';
@@ -21,9 +21,9 @@ const SearchForm = ({
   setSearch, 
   setSearchQuery,
 }) => {
-  const { register, handleSubmit, setValue, watch } = useForm();
+  const { handleSubmit, register, reset, setValue, watch } = useForm();
   const [showAdvanced, setShowAdvanced] = useState(false);
-  //// TODO: get dept options from the locations endpoint
+  const [searchParams] = useSearchParams();
   const departmentOptions = ["Aude (11)", "Ariège (09)", "Haute-Garonne (31)", "Hérault (34)", "Pyrenées-Orientales (66)"];
   const searchFormRef = useRef();
 
@@ -61,11 +61,37 @@ const SearchForm = ({
     setSearchQuery(searchQuery);
   }
 
+  const getSearchValues = () => {
+    const townCodes = searchParams.get("town_code")?.split(",") || [];
+    const area = locationChoices
+      .filter(location => townCodes.includes(location.code))
+      .map(location => `${location.commune} (${location.postcode})`);
+    const departmentCodes = searchParams.get("department")?.split(",") || [];
+    const department = departmentOptions.filter(department =>
+      departmentCodes.includes(department.split("(")[1].split(")")[0])
+    );
+    
+    // The unknown values are reset separately in CheckboxOption
+    return {
+      min_price: searchParams.get("min_price") || "",
+      max_price: searchParams.get("max_price") || "",
+      min_bedrooms: searchParams.get("min_bedrooms") || "",
+      max_bedrooms: searchParams.get("max_bedrooms") || "",
+      min_land_area_m2: searchParams.get("min_land_area_m2") || "",
+      max_land_area_m2: searchParams.get("max_land_area_m2") || "",
+      min_building_area_m2: searchParams.get("min_building_area_m2") || "",
+      max_building_area_m2: searchParams.get("max_building_area_m2") || "",
+      agents: searchParams.get("agency")?.split(",") || [],
+      property_type: searchParams.get("property_type")?.split(",").map(propertyType => capitalize(propertyType)) || [],
+      department: department,
+      keywords: searchParams.get("keyword")?.replaceAll(",", " ") || "",
+      search_radius: searchParams.get("radius_km") || "1",
+      area: area
+    }
+  }
+
   const toggleAdvancedSearch = () => {
-    if (showAdvanced) {
-      // If user hits "minimise", reset the towns so they can select a department instead
-      setValue("area", "");
-    } else {
+    if (!showAdvanced) {
       // When the user hits "Advanced", if it is scrolled too far down, the form will jump to the bottom when expanded
       const currentScrollPos = window.scrollY;
       setTimeout(() => {
@@ -76,6 +102,10 @@ const SearchForm = ({
   }
 
   const getAgentLabels = () => agentChoices.map(agent => agent.name);
+
+  useEffect(() => {
+    reset(getSearchValues());
+  }, [locationChoices, searchParams, reset]);
 
   if (!locationChoices.length) {
     return (
@@ -109,20 +139,38 @@ const SearchForm = ({
       <form className="search-form-container" onSubmit={handleSubmit(onSubmit)} ref={searchFormRef}>
         <div className="search-label">
           Price range (€)
-          <div className="search-input-container">
-            <Input name="min_price" number placeholder="Min" register={register} setValue={setValue} maxLength={9} />
-            <Input name="max_price" number placeholder="Max" register={register} setValue={setValue} maxLength={9} />
-          </div>
+        <div className="search-input-container">
+          <Input
+            name="min_price"
+            number
+            placeholder="Min"
+            register={register}
+            setValue={setValue}
+            value={watch("min_price")}
+            maxLength={9}
+          />
+          <Input
+            name="max_price"
+            number
+            placeholder="Max"
+            register={register}
+            setValue={setValue}
+            value={watch("max_price")}
+            maxLength={9}
+          />
+        </div>
         </div>
         <Dropdown
           options={propertyTypes.map(propertyType => capitalize(propertyType))}
           setValue={setValue}
+          value={watch("property_type") || []}
           showSelectedNames
           title="Property type"
         />
         <Dropdown
           options={departmentOptions}
           locked={watch("area")?.length}
+          value={watch("department") || []}
           setValue={setValue}
           title="Department"
         />
@@ -137,22 +185,70 @@ const SearchForm = ({
           <div className="search-label">
             Property size (m{String.fromCharCode(178)})
             <div className="search-input-container">
-              <Input name="min_building_area_m2" number placeholder="Min" register={register} setValue={setValue} maxLength={6} />
-              <Input name="max_building_area_m2" number placeholder="Max" register={register} setValue={setValue} maxLength={6} />
+              <Input
+                name="min_building_area_m2"
+                number
+                placeholder="Min"
+                register={register}
+                setValue={setValue}
+                value={watch("min_building_area_m2")}
+                maxLength={6}
+              />
+              <Input
+                name="max_building_area_m2"
+                number
+                placeholder="Max"
+                register={register}
+                setValue={setValue}
+                value={watch("max_building_area_m2")}
+                maxLength={6}
+              />
             </div>
           </div>
           <div className="search-label">
             Plot size (m{String.fromCharCode(178)})
             <div className="search-input-container">
-              <Input name="min_land_area_m2" number placeholder="Min" register={register} setValue={setValue} maxLength={6} />
-              <Input name="max_land_area_m2" number placeholder="Max" register={register} setValue={setValue} maxLength={6} />
+              <Input
+                name="min_land_area_m2"
+                number
+                placeholder="Min"
+                register={register}
+                setValue={setValue}
+                value={watch("min_land_area_m2")}
+                maxLength={6}
+              />
+              <Input
+                name="max_land_area_m2"
+                number
+                placeholder="Max"
+                register={register}
+                setValue={setValue}
+                value={watch("max_land_area_m2")}
+                maxLength={6}
+              />
             </div>
           </div>
           <div className="search-label">
             No. bedrooms
             <div className="search-input-container">
-              <Input name="min_bedrooms" number placeholder="Min" register={register} setValue={setValue} maxLength={3} />
-              <Input name="max_bedrooms" number placeholder="Max" register={register} setValue={setValue} maxLength={3} />
+              <Input
+                name="min_bedrooms"
+                number
+                placeholder="Min"
+                register={register}
+                setValue={setValue}
+                value={watch("min_bedrooms")}
+                maxLength={3}
+              />
+              <Input
+                name="max_bedrooms"
+                number
+                placeholder="Max"
+                register={register}
+                setValue={setValue}
+                value={watch("max_bedrooms")}
+                maxLength={3}
+              />
             </div>
           </div>
           <div className="search-label search-label-multiselect">
@@ -172,6 +268,9 @@ const SearchForm = ({
                 // show full name if item is not selected, don't show "Immobilier" for selected agents to save space
                   ? item.replace(" Immobilier", "") : item
               }
+              value={agentChoices
+                .filter(agent => watch("agents")?.includes(agent.slug))
+                .map(agent => agent.name)}
             />
           </div>
           <div className="search-label search-label-long">
@@ -192,8 +291,15 @@ const SearchForm = ({
               value={watch("area") || []}
             />
           </div>
-          <SearchSlider register={register} />
-          {showAdvanced && <SearchUnknown register={register} setValue={setValue} watch={watch} />}
+          <SearchSlider register={register} value={watch("search_radius")} />
+          {showAdvanced && (
+            <SearchUnknown 
+              register={register} 
+              searchParams={searchParams}
+              setValue={setValue} 
+              watch={watch}
+            />
+          )}
         </div>
       </form>
     </div>
