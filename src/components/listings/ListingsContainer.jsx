@@ -72,6 +72,11 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
     return null;
   }
 
+  // If the current page is too high for the number of listings
+  if (listingsData?.page > Math.ceil(listingsData.total / listingsData.page_size)) {
+    return <Navigate replace to="/error" />
+  }
+
   if (noListingsFound) {
     const isSearchPage = location.pathname === "/search";
     const action = location.pathname.startsWith("/saved") ? "saved" : "hidden";
@@ -95,11 +100,6 @@ const ListingsContainer = ({ listingsData, loadingListings, loadingTimer, noList
         )}
       </div>
     )
-  }
-
-  // If the current page is too high for the number of listings
-  if (listingsData?.items?.length && (listingsData?.page > Math.ceil(listingsData.total / listingsData.page_size))) {
-    return <Navigate replace to="/error" />
   }
 
   return (   

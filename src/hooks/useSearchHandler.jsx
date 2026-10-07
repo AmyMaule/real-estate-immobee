@@ -9,7 +9,7 @@ export const useSearchHandler = (search, searchQuery, setSearch, locationChoices
 
   useEffect(() => {
     if (!search) return;
-    const searchQueryParams = getSearchQuery(searchQuery, locationChoices, 1);
+    const searchQueryParams = getSearchQuery(searchQuery, locationChoices);
     navigate(`/search${searchQueryParams}`);
     setSearch(false);
   }, [

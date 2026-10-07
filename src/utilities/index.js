@@ -1,4 +1,9 @@
-export const getSearchQuery = (searchQuery, locationChoices, page = 1) => {
+import { 
+  defaultPage,
+  defaultPageSize,
+} from "../data";
+
+export const getSearchQuery = (searchQuery, locationChoices) => {
   const params = new URLSearchParams();
 
   if (searchQuery.agents) {
@@ -74,13 +79,13 @@ export const getSearchQuery = (searchQuery, locationChoices, page = 1) => {
     params.set("exclude_listing_id", hiddenListingIds.join(","));
   }
   
-  params.set("page", page);
+  params.set("page", defaultPage);
 
   const finalSearchParams = params.toString();
 
   console.log(finalSearchParams);
 
-  return finalSearchParams ? `?${finalSearchParams}&page_size=24` : "";
+  return finalSearchParams ? `?${finalSearchParams}&page_size=${defaultPageSize}` : "";
 };
 
 export const scrollTo = (top = 0, behavior = "smooth") => window.scrollTo({ top: top, behavior: behavior });
