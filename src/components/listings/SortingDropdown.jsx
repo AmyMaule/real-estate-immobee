@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
+import { defaultPage, defaultSortBy } from "../../data";
 
 const SortingDropdown = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dropdownRef = useRef();
 
   const sortingOptions = [
-    { label: "Newest (default)", value: "newest" },
+    { label: "Newest", value: "newest" },
     { label: "Oldest", value: "oldest" },
     { label: "Price: low to high", value: "price_asc" },
     { label: "Price: high to low", value: "price_desc" },
@@ -29,7 +30,7 @@ const SortingDropdown = () => {
     setSearchParams(prev => {
       const params = new URLSearchParams(prev);
       params.set("sort", value);
-      params.set("page", "1");
+      params.set("page", defaultPage);
       return params;
     });
     dropdownRef.current?.classList.remove("open");
@@ -57,7 +58,7 @@ const SortingDropdown = () => {
       onClick={toggleDropdown}
     >
       <div className="sorting-dropdown-title">
-        {selectedOption?.label || "Sort by"}
+        {selectedOption?.label || sortingOptions.find(option => option.value === defaultSortBy)?.label}
       </div>
 
       <ol className="sorting-dropdown">

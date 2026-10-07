@@ -12,7 +12,7 @@ import LoadingAnimation from "./components/pages/LoadingAnimation";
 import SearchForm from "./components/searchForm/SearchForm";
 
 //// TODO: persist search form with current search values after submission
-//// TODO: figure out saved and hidden listings pagination
+//// TODO: Add price history to listing detail page
 
 const App = () => {
   const [agentChoices, setAgentChoices] = useState({});
