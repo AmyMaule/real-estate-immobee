@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Multiselect from "react-widgets/Multiselect";
 import Dropdown from './Dropdown';
@@ -7,34 +7,30 @@ import Input from './Input';
 import SearchSlider from './SearchSlider';
 import SearchTextarea from './SearchTextarea';
 import SearchUnknown from './SearchUnknown';
-import { capitalize } from '../../utilities';
+import { capitalize, getSearchQuery } from '../../utilities';
 import { propertyTypes } from '../../data';
 
 const SearchForm = ({ 
   agentChoices, 
   locationChoices,
-  search, 
   setlistingsData,
   setLoadingListings, 
   setLoadingTimer, 
   setNoListingsFound, 
-  setSearch, 
-  setSearchQuery,
 }) => {
   const { handleSubmit, register, reset, setValue, watch } = useForm();
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [searchParams] = useSearchParams();
   const departmentOptions = ["Aude (11)", "Ariège (09)", "Haute-Garonne (31)", "Hérault (34)", "Pyrenées-Orientales (66)"];
   const searchFormRef = useRef();
+  const navigate = useNavigate();
 
   const onSubmit = submitData => {
     localStorage.removeItem("sortingBy"); // sortingDropdown seems to be accessing this before it is removed
-    if (search) return;
     setLoadingListings(true);
     setLoadingTimer(Date.now())
     setlistingsData(null);
     setNoListingsFound(false);
-    setSearch(true);
     setShowAdvanced(false);
     const searchQuery = {};
 
@@ -58,7 +54,7 @@ const SearchForm = ({
         searchQuery[value] = submitData[value];
       }
     })
-    setSearchQuery(searchQuery);
+    navigate(`/search${getSearchQuery(searchQuery, locationChoices)}`);
   }
 
   const getSearchValues = () => {
