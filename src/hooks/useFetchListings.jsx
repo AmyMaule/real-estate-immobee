@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export const useFetchListings = (queryURL, setlistingsData, setNoListingsFound) => {
+export const useFetchListings = (queryURL, locationKey, setlistingsData, setNoListingsFound) => {
   useEffect(() => {
     if (!queryURL || typeof queryURL !== "string") return;
     
@@ -20,5 +20,5 @@ export const useFetchListings = (queryURL, setlistingsData, setNoListingsFound) 
         setNoListingsFound(!data?.items?.length);
       })
       .catch(console.error);
-  }, [queryURL, setlistingsData, setNoListingsFound]);
+  }, [locationKey, queryURL, setlistingsData, setNoListingsFound]);
 }

@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useSearchParams } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
 import { listingsURL } from "./api";
 import { useFetchListings } from "./hooks/useFetchListings";
-import { useSearchHandler } from "./hooks/useSearchHandler";
 import { useSearchFormData } from "./hooks/useSearchFormData";
 import { ListingsContext } from ".";
 
@@ -11,10 +9,8 @@ import ListingsContainer from "./components/listings/ListingsContainer";
 import LoadingAnimation from "./components/pages/LoadingAnimation";
 import SearchForm from "./components/searchForm/SearchForm";
 
-//// TODO: persist search form with current search values after submission
 //// TODO: Add price history to listing detail page
 //// TODO: get departmentOptions from the locations endpoint
-//// BUG when doing the same search twice
 
 const App = () => {
   const [agentChoices, setAgentChoices] = useState({});
@@ -22,19 +18,15 @@ const App = () => {
   const [loadingTimer, setLoadingTimer] = useState();
   const [locationChoices, setLocationChoices] = useState([]);
   const [noListingsFound, setNoListingsFound] = useState(false);
-  const [search, setSearch] = useState(false);
-  const [searchQuery, setSearchQuery] = useState([]);
   const { listingsData, setlistingsData } = useContext(ListingsContext);
   
-  const [searchParams] = useSearchParams();
-
   // Refetch the current search on page refresh or URL navigation,
   // but ensure that navigating to /search does not perform a new search query
-  const queryString = searchParams.toString();
+  const location = useLocation();
+  const queryString = new URLSearchParams(location.search).toString();
   const queryURL = queryString ? `${listingsURL}?${queryString}` : null;
 
-  useFetchListings(queryURL, setlistingsData, setNoListingsFound);
-  useSearchHandler(search, searchQuery, setSearch, locationChoices);
+  useFetchListings(queryURL, location.key, setlistingsData, setNoListingsFound);
   useSearchFormData(setAgentChoices, setLocationChoices);
 
   useEffect(() => {
@@ -48,13 +40,10 @@ const App = () => {
         <SearchForm
           agentChoices={agentChoices}
           locationChoices={locationChoices}
-          search={search}
           setlistingsData={setlistingsData}
           setLoadingListings={setLoadingListings}
           setLoadingTimer={setLoadingTimer}
           setNoListingsFound={setNoListingsFound}
-          setSearch={setSearch}
-          setSearchQuery={setSearchQuery}
         />
 
         <ListingsContainer
