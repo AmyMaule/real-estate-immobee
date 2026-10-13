@@ -101,12 +101,7 @@ const ListingDetail = () => {
           </h5>
         }
         {listing.description &&
-          <div>
-            {listing.description}
-            {/* {listing.description?.map((paragraph, i) => (
-              <p key={i} className="listing-detail-description">{paragraph}</p>
-            ))} */}
-          </div>
+          <div className="listing-detail-description">{listing.description}</div>
         }
         {listing.source && 
           <h5 className="listing-detail-agent">Listed with {listing.source.agency_name}

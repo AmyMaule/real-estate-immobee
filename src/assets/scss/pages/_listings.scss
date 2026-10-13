@@ -656,9 +656,13 @@
   text-transform: capitalize;
 }
 
+.listing-detail-description {
+  white-space: pre-line;
+}
+
 .listing-detail-agent {
   text-align: center;
-  margin: 0;
+  margin: 2rem 0 0 0;
 }
 
 .listing-link-container {
