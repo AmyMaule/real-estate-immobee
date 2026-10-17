@@ -26,7 +26,7 @@ const SearchForm = ({
   const navigate = useNavigate();
 
   const onSubmit = submitData => {
-    localStorage.removeItem("sortingBy"); // sortingDropdown seems to be accessing this before it is removed
+    localStorage.removeItem("sortingBy");
     setLoadingListings(true);
     setLoadingTimer(Date.now())
     setlistingsData(null);

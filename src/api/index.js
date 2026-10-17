@@ -9,3 +9,5 @@ export const agentURL = `${baseURL}/agencies`;
 export const postcodeURL = `${baseURL}/locations`;
 
 export const listingsURL = `${baseURL}/listings`;
+
+export const referralURL = `${baseURL}/referral-clicks`;
