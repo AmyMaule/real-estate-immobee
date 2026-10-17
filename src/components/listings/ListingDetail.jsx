@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
-import { listingsURL } from '../../api';
+import { listingsURL, referralURL } from '../../api';
 import { 
   capitalize, 
   scrollTo, 
@@ -19,6 +19,24 @@ const ListingDetail = () => {
   const [listing, setListing] = useState();
   const [isSaved, setIsSaved] = useState();
   const [showRemovedListingBanner, setShowRemovedListingBanner] = useState(false);
+  // Backend uses referral UUID as primary key, so send only one per page view, even if the user clicks multiple times
+  const referralID = crypto.randomUUID();
+
+  const handleReferralClick = () => {
+    fetch(referralURL, {
+      method: "POST",
+      headers: {
+        accept: "*/*",
+        'Content-Type': "application/json"
+      },
+      keepalive: true,
+      body: JSON.stringify({
+        event_id: referralID,
+        target_kind: "listing",
+        listing_id: listing.id,
+      })
+    }).catch(err => console.error(err));
+  };
 
   useEffect(() => {
     if (!listing) {
@@ -29,7 +47,7 @@ const ListingDetail = () => {
         setIsSaved(JSON.parse(localStorage.getItem("savedListingIds"))?.some(id => id === data.id));
         setShowRemovedListingBanner(listingUnavailable(data));
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
     }
   }, [listing, listingID]);
 
@@ -109,9 +127,25 @@ const ListingDetail = () => {
         }
         <div className="listing-link-container">
           <span className="listing-link">
-            <a className="listing-link-hover" href={listing.url} target="_blank" rel="noreferrer">See original listing</a>
+            <a
+              className="listing-link-hover"
+              href={listing.url}
+              target="_blank"
+              rel="noreferrer"
+              onClick={handleReferralClick}
+            >
+              See original listing
+            </a>
           </span>
-          <a className="listing-link-default" href={listing.url} target="_blank" rel="noreferrer">See original listing</a>
+          <a
+            className="listing-link-default"
+            href={listing.url}
+            target="_blank"
+            rel="noreferrer"
+            onClick={handleReferralClick}
+          >
+            See original listing
+          </a>
         </div>
 
       </div>
